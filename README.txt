@@ -6,7 +6,7 @@ Landing page for Urban Biome at urbanbiome.info
 
 This is a static website built with HTML and CSS. To develop locally:
 
-1. Clone the repository
+1. Clone the repository s
 2. Open index.html in your browser
 3. Make changes to the HTML/CSS as needed
 
