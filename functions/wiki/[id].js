@@ -46,6 +46,10 @@ export async function onRequest(context) {
              throw new Error(`Failed to fetch template: ${assetResponse.status} ${assetResponse.statusText}`);
         }
         htmlTemplate = await assetResponse.text();
+
+        // DEBUG: Log the beginning of the fetched template
+        console.log("Fetched template start:", htmlTemplate.substring(0, 200)); 
+
     } catch (error) {
         console.error("Error fetching HTML template /wiki/index.html:", error);
         return new Response("Failed to load page template.", { status: 500 });
