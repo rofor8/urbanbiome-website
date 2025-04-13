@@ -112,19 +112,23 @@
             renderArea.style.display = 'none';
 
             const pathSegments = window.location.pathname.split('/').filter(Boolean);
-            if (pathSegments.length < 2 || pathSegments[0] !== 'wiki') {
-                 displayError('Invalid URL structure for wiki page.');
-                 console.error('Path segments:', pathSegments);
+            console.log('Raw path segments:', pathSegments);
+
+            if (pathSegments.length < 2 || pathSegments[0].toLowerCase() !== 'wiki') {
+                 displayError('Invalid URL structure. Expected /wiki/intervention-id.');
+                 console.error('Problematic path segments:', pathSegments, 'Full path:', window.location.pathname);
                  return;
             }
-            const interventionId = pathSegments[pathSegments.length - 1];
+            
+            const interventionId = pathSegments[1];
 
             if (!interventionId) {
                 displayError('Could not determine intervention ID from URL.');
+                 console.error('Failed to extract interventionId from segments:', pathSegments);
                 return;
             }
 
-            console.log(`Fetching data for intervention ID: ${interventionId}`);
+            console.log(`Using intervention ID: ${interventionId}`);
 
             try {
                 const apiUrl = `/api/intervention-data/${interventionId}`;
