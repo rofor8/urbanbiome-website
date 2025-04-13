@@ -9,37 +9,269 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        /* General Styles */
+        main section {
+            max-width: 1200px;
+            margin: 8rem auto 2rem auto;
+            padding: 0 20px;
+        }
+
+        /* Layout: Products on left, Cart on right (sticky) */
+        .shop-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px; /* Increased gap */
+        }
+        @media (min-width: 992px) {
+            .shop-container {
+                flex-direction: row;
+                align-items: flex-start; /* Align items to top */
+            }
+        }
+
+        .products-area {
+            flex: 3; /* Takes up more space */
+        }
+
+        .cart-area {
+            flex: 1;
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+            height: fit-content;
+            position: sticky;
+            top: 120px; /* Adjust based on header height + padding */
+        }
+        .cart-area h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #333;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+            font-size: 1.4rem;
+        }
+
+        /* Search Box */
+        #search-box {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 25px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+        }
+        #search-box:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        }
+
+        /* Product Items */
+        #product-list {
+            min-height: 100px; /* Prevent collapse while loading */
+        }
         .shop-item {
             border: 1px solid #ddd;
-            padding: 15px;
-            margin-bottom: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
             border-radius: 8px;
             background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            transition: box-shadow 0.2s ease-in-out;
         }
-        .shop-item h3 {
+        .shop-item:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        .shop-item .item-info {
+            flex-basis: calc(75% - 20px); /* Allow space for button */
+            padding-right: 15px;
+        }
+        .shop-item h4 {
             margin-top: 0;
             margin-bottom: 10px;
-            font-size: 1.3rem;
-            color: #333;
+            font-size: 1.2rem;
+            color: #2a2f4a; /* Darker blue */
+            cursor: pointer; /* Indicate clickable for details */
         }
+         .shop-item h4:hover {
+            color: #0056b3;
+         }
         .shop-item p {
-            margin-bottom: 5px;
-            color: #666;
-            font-size: 0.9rem;
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.5;
         }
         .interventions-list {
             font-size: 0.85rem;
             color: #0056b3;
-            margin-top: 10px;
+            margin-top: 12px;
+            width: 100%;
+            line-height: 1.6;
+        }
+        .interventions-list strong {
+            color: #333;
         }
         .interventions-list a {
             text-decoration: none;
             color: #0056b3;
             margin-right: 5px;
+            white-space: nowrap;
         }
         .interventions-list a:hover {
             text-decoration: underline;
         }
+        .shop-item .item-actions {
+            flex-basis: 25%;
+            text-align: right;
+        }
+        .add-to-cart-btn {
+            padding: 9px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+            margin-top: 5px; /* Align better */
+        }
+        .add-to-cart-btn:hover {
+            background-color: #218838;
+        }
+
+        /* Cart Area */
+        #cart-items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 400px; /* Limit height and scroll */
+            overflow-y: auto;
+        }
+        #cart-items li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* Center vertically */
+            padding: 8px 0;
+            border-bottom: 1px dotted #ccc;
+            font-size: 0.9rem;
+            color: #444;
+        }
+         #cart-items li span {
+             flex-grow: 1;
+             margin-right: 10px;
+             word-break: break-word; /* Prevent long names overflowing */
+         }
+         #cart-items li button.remove-from-cart-btn {
+             background-color: #dc3545;
+             color: white;
+             border: none;
+             padding: 3px 7px;
+             font-size: 0.8rem;
+             cursor: pointer;
+             border-radius: 4px;
+             line-height: 1;
+             transition: background-color 0.2s ease;
+         }
+         #cart-items li button.remove-from-cart-btn:hover {
+            background-color: #c82333;
+         }
+
+        #cart-total {
+            font-weight: bold;
+            margin-top: 15px;
+            text-align: right;
+            font-size: 1.1rem;
+            color: #333;
+        }
+        #checkout-btn {
+             display: block;
+             width: 100%;
+             padding: 12px;
+             background-color: #007bff;
+             color: white;
+             border: none;
+             border-radius: 5px;
+             font-size: 1rem;
+             font-weight: 500;
+             cursor: pointer;
+             margin-top: 20px;
+             text-align: center;
+             transition: background-color 0.2s ease;
+        }
+         #checkout-btn:hover {
+             background-color: #0056b3;
+         }
+         #cart-empty-msg {
+            color: #6c757d;
+            text-align: center;
+            padding: 20px 0;
+            font-style: italic;
+         }
+
+         /* Loading/Error State */
+         #product-list.loading::before {
+             content: "Loading products...";
+             display: block;
+             text-align: center;
+             padding: 20px;
+             color: #6c757d;
+         }
+         #product-list.error::before {
+             content: "Error loading products. Please try refreshing.";
+             display: block;
+             text-align: center;
+             padding: 20px;
+             color: #dc3545;
+         }
+
+         /* Product Detail Modal (Basic) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto; /* 10% from the top and centered */
+            padding: 30px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            max-width: 600px;
+            border-radius: 8px;
+            position: relative;
+        }
+        .close-modal {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close-modal:hover,
+        .close-modal:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .modal h3 {
+            margin-top: 0;
+            color: #0056b3;
+        }
+
     </style>
 </head>
 <body>
@@ -59,764 +291,41 @@
     </header>
 
     <main>
-        <section style="padding-top: 8rem;">
-            <h2>Product Types</h2>
-            <p>Browse products needed for various urban greening interventions. Click on intervention names to learn more.</p>
+        <section>
+            <h2>Products</h2>
+            <p>Browse products needed for various urban greening interventions. Click product names for more details or intervention names to learn more.</p>
 
-            <!-- Product Items List -->
-            <div class="shop-item">
-                <h3>Topsoil / Tree Soil / Structural Soil (Specified)</h3>
-                <p>Quality soil meeting relevant standards (e.g., BS 3882) or engineered mixes for specific applications like tree pits under paving.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/street_trees.html">Street Trees</a>, <a href="/wiki/suds_street_trees.html">SuDS-Enabled Street Trees</a>, <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/suds_general.html">SuDS (General)</a>, <a href="/wiki/wildlife_features_new_dev.html">Wildlife Features</a>, <a href="/wiki/community_orchards.html">Community Orchards</a>, <a href="/wiki/new_allotments.html">New Allotments</a>, <a href="/wiki/community_farms.html">Community Farms</a>, <a href="/wiki/create_pocket_parks.html">Pocket Parks</a></p>
+            <div class="shop-container">
+                <div class="products-area">
+                    <input type="search" id="search-box" placeholder="Search products by name or description...">
+                    <div id="product-list" class="loading">
+                        <!-- Product items will be loaded here by JavaScript -->
+                    </div>
+                </div>
+                <div class="cart-area">
+                    <h3>Shopping Cart</h3>
+                    <ul id="cart-items">
+                        <!-- Cart items will be loaded here -->
+                    </ul>
+                    <p id="cart-empty-msg">Your cart is empty.</p>
+                    <!-- <div id="cart-total">Total: £0.00</div> --> <!-- Price logic TBC -->
+                    <button id="checkout-btn" style="display: none;">Checkout (Simulated)</button>
+                </div>
             </div>
-
-            <div class="shop-item">
-                <h3>Compost / Soil Improver</h3>
-                <p>Organic matter to improve soil structure, fertility, and water retention.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/street_trees.html">Street Trees</a>, <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/green_wall_facade.html">Green Façade</a>, <a href="/wiki/community_orchards.html">Community Orchards</a>, <a href="/wiki/new_allotments.html">New Allotments</a>, <a href="/wiki/community_farms.html">Community Farms</a></p>
-            </div>
-
-            <div class="shop-item">
-                <h3>Tree Stock (UK Native/Adapted Species, various sizes to BS 8545)</h3>
-                <p>Trees suitable for street planting, SuDS features, orchards, or general landscaping.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/street_trees.html">Street Trees</a>, <a href="/wiki/suds_street_trees.html">SuDS-Enabled Street Trees</a>, <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/wildlife_features_new_dev.html">Wildlife Features</a>, <a href="/wiki/community_orchards.html">Community Orchards</a>, <a href="/wiki/create_pocket_parks.html">Pocket Parks</a>, <a href="/wiki/natural_play_space.html">Natural Play</a></p>
-            </div>
-
-             <div class="shop-item">
-                <h3>Tree Stakes & Ties</h3>
-                <p>Support systems for newly planted trees, used only if necessary for stability.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/street_trees.html">Street Trees</a>, <a href="/wiki/suds_street_trees.html">SuDS-Enabled Street Trees</a>, <a href="/wiki/community_orchards.html">Community Orchards</a></p>
-            </div>
-
-             <div class="shop-item">
-                <h3>Tree Guard/Shelter</h3>
-                <p>Protection for young trees against vandalism, animals, or maintenance equipment.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/street_trees.html">Street Trees</a>, <a href="/wiki/community_orchards.html">Community Orchards</a></p>
-            </div>
-
-             <div class="shop-item">
-                <h3>Root Barrier</h3>
-                <p>Membrane installed vertically to guide tree roots away from infrastructure.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/street_trees.html">Street Trees</a>, <a href="/wiki/suds_street_trees.html">SuDS-Enabled Street Trees</a>, <a href="/wiki/green_roof_extensive.html">Extensive Green Roof</a>, <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a></p>
-            </div>
-
-             <div class="shop-item">
-                <h3>Mulch (e.g., Bark Chippings, Gravel/Pebbles, Inorganic)</h3>
-                <p>Surface covering to retain moisture, suppress weeds, and protect soil.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/street_trees.html">Street Trees</a>, <a href="/wiki/suds_street_trees.html">SuDS-Enabled Street Trees</a>, <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/rain_garden.html">Rain Garden</a></p>
-            </div>
-
-             <div class="shop-item">
-                <h3>Watering Tube/Bag</h3>
-                <p>Device to aid efficient watering of newly planted trees.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/street_trees.html">Street Trees</a>, <a href="/wiki/suds_street_trees.html">SuDS-Enabled Street Trees</a></p>
-            </div>
-
-             <div class="shop-item">
-                <h3>Geotextile Membrane (Permeable/Impermeable)</h3>
-                <p>Fabric used for separation, filtration, protection, or lining in SuDS and landscape features.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/suds_street_trees.html">SuDS-Enabled Street Trees</a>, <a href="/wiki/green_roof_extensive.html">Extensive Green Roof</a>, <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a>, <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/suds_general.html">SuDS (General)</a>, <a href="/wiki/permeable_surfaces.html">Permeable Surfaces</a>, <a href="/wiki/rain_garden.html">Rain Garden</a></p>
-            </div>
-
-             <div class="shop-item">
-                <h3>Modular Soakaway/Attenuation Crates</h3>
-                <p>Plastic crates creating underground void space for water storage/infiltration.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/suds_street_trees.html">SuDS-Enabled Street Trees</a>, <a href="/wiki/blue_roof.html">Blue Roof</a></p>
-            </div>
-
-             <div class="shop-item">
-                <h3>Inlet Pipes / Surface Water Channels</h3>
-                <p>Components to convey water into SuDS features like tree pits.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/suds_street_trees.html">SuDS-Enabled Street Trees</a>, <a href="/wiki/rain_garden.html">Rain Garden</a></p>
-            </div>
-
-             <div class="shop-item">
-                <h3>Overflow / Underdrain Pipework & Fittings</h3>
-                <p>Pipes and associated fittings for controlled discharge or overflow from SuDS.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/suds_street_trees.html">SuDS-Enabled Street Trees</a>, <a href="/wiki/rain_garden.html">Rain Garden</a>, <a href="/wiki/wildlife_pond.html">Wildlife Pond</a></p>
-            </div>
-
-             <div class="shop-item">
-                <h3>Heavy Duty Tree Grille (SuDS Compatible)</h3>
-                <p>Protective cover for tree pits in paved areas, allowing water ingress.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/suds_street_trees.html">SuDS-Enabled Street Trees</a></p>
-            </div>
-
-            <!-- Extensive Green Roof Specific -->
-            <div class="shop-item">
-                <h3>Waterproofing Membrane (Roof specific)</h3>
-                <p>Essential layer to prevent water ingress into the building.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_roof_extensive.html">Extensive Green Roof</a>, <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a>, <a href="/wiki/blue_roof.html">Blue Roof</a>, <a href="/wiki/biosolar_roof.html">Biosolar Roof</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Protection Fleece</h3>
-                <p>Protects waterproofing/root barrier layers from mechanical damage.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_roof_extensive.html">Extensive Green Roof</a>, <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a>, <a href="/wiki/blue_roof.html">Blue Roof</a>, <a href="/wiki/biosolar_roof.html">Biosolar Roof</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Drainage Layer (Green Roof - e.g., Cuspated Sheet)</h3>
-                <p>Allows excess water to drain from the green roof build-up.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_roof_extensive.html">Extensive Green Roof</a>, <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a>, <a href="/wiki/biosolar_roof.html">Biosolar Roof</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Filter Fleece / Geotextile</h3>
-                <p>Prevents substrate fines from washing into and clogging the drainage layer.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_roof_extensive.html">Extensive Green Roof</a>, <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a>, <a href="/wiki/blue_roof.html">Blue Roof</a>, <a href="/wiki/biosolar_roof.html">Biosolar Roof</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Extensive Green Roof Substrate (Lightweight)</h3>
-                <p>Engineered growing medium meeting standards for extensive green roofs.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_roof_extensive.html">Extensive Green Roof</a>, <a href="/wiki/biosolar_roof.html">Biosolar Roof</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Vegetation (e.g., Sedum Mat/Blanket, Plug Plants, Seeds)</h3>
-                <p>Drought-tolerant plants suitable for extensive green roofs.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_roof_extensive.html">Extensive Green Roof</a>, <a href="/wiki/biosolar_roof.html">Biosolar Roof</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Edge Retainment Profile/System</h3>
-                <p>Provides a neat edge and retains substrate/gravel margins.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_roof_extensive.html">Extensive Green Roof</a>, <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a>, <a href="/wiki/biosolar_roof.html">Biosolar Roof</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Gravel/Pebbles (for vegetation-free margins)</h3>
-                <p>Used for fire breaks and drainage pathways around roof perimeters and penetrations.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_roof_extensive.html">Extensive Green Roof</a>, <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a>, <a href="/wiki/biosolar_roof.html">Biosolar Roof</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Drainage Outlets / Inspection Chambers</h3>
-                <p>Allow water egress from the roof and access for maintenance.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_roof_extensive.html">Extensive Green Roof</a>, <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a></p>
-            </div>
-
-            <!-- Intensive Green Roof Specific -->
-            <div class="shop-item">
-                <h3>High-Performance Waterproofing Membrane</h3>
-                <p>Robust membrane essential for intensive systems due to higher loads and deeper substrate.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a>, <a href="/wiki/blue_roof.html">Blue Roof</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Root Barrier Membrane (Heavy Duty)</h3>
-                <p>Stronger root barrier often needed for intensive systems.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Drainage/Reservoir Board (High Capacity)</h3>
-                <p>Drainage layer with enhanced water storage capacity, often used in intensive roofs.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Intensive Green Roof Substrate</h3>
-                <p>Deeper, engineered substrate supporting wider range of plants including shrubs/trees.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Vegetation (Plants, Shrubs, Turf, Small Trees)</h3>
-                <p>Wider variety of plants suitable for deeper substrates on intensive roofs.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Irrigation System (Drip lines, controllers, etc.)</h3>
-                <p>Usually essential for maintaining planting on intensive green roofs.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a>, <a href="/wiki/green_wall_living.html">Living Wall</a>, <a href="/wiki/community_farms.html">Community Farms</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Paving / Decking Systems (for accessible areas)</h3>
-                <p>Suitable surfacing for pathways and amenity areas on intensive roofs.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Roof Furniture, Planters (Optional)</h3>
-                <p>Benches, tables, large planters for additional amenity on intensive roofs.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a></p>
-            </div>
-
-            <!-- Living Wall Specific -->
-            <div class="shop-item">
-                <h3>Living Wall System (Modules/Panels/Pockets & Frame)</h3>
-                <p>Proprietary systems providing structure and growing medium for vertical planting.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_wall_living.html">Living Wall</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Wall Waterproofing Membrane (If required)</h3>
-                <p>May be needed behind some living wall systems to protect building fabric.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_wall_living.html">Living Wall</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Fertigation Unit (Optional)</h3>
-                <p>System to automatically add nutrients to the living wall irrigation water.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_wall_living.html">Living Wall</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Vertical Growing Medium</h3>
-                <p>Specialist lightweight substrate for use in vertical living wall systems.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_wall_living.html">Living Wall</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Plants (Suitable species, often supplied as plugs)</h3>
-                <p>Plants adapted for vertical growth in the specific living wall system.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_wall_living.html">Living Wall</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Base Drainage Channel / Guttering</h3>
-                <p>Collects runoff from the base of the living wall.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_wall_living.html">Living Wall</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Structural Fixings (Wall specific)</h3>
-                <p>Securely attach living wall framework to the building structure.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_wall_living.html">Living Wall</a></p>
-            </div>
-
-             <!-- Green Façade Specific -->
-            <div class="shop-item">
-                <h3>Climbing Plants (Self-clinging or Twining/Scrambling)</h3>
-                <p>Plants used for green façades, either clinging directly or needing support.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_wall_facade.html">Green Façade</a>, <a href="/wiki/create_pocket_parks.html">Pocket Parks</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Trellis Panels (Wood/Metal - Optional)</h3>
-                <p>Support structure for climbing plants.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_wall_facade.html">Green Façade</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Wire Support System (Wires, vine eyes, tensioners - Optional)</h3>
-                <p>Alternative support structure using tensioned wires.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_wall_facade.html">Green Façade</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Mesh Support Panels (Optional)</h3>
-                <p>Rigid mesh panels fixed to walls to support climbers.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_wall_facade.html">Green Façade</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Stand-off Wall Brackets (Optional)</h3>
-                <p>Creates gap between support structure and wall for air circulation.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_wall_facade.html">Green Façade</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Wall Fixings (Appropriate for wall type)</h3>
-                <p>Screws, plugs etc. for securing support structures or wildlife boxes.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_wall_facade.html">Green Façade</a>, <a href="/wiki/swift_boxes.html">Swift Boxes</a>, <a href="/wiki/wildlife_boxes_bricks.html">Wildlife Boxes/Bricks</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Plant Ties / Support Clips</h3>
-                <p>Used to train climbers onto support structures.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_wall_facade.html">Green Façade</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Large Containers (If not planting in ground)</h3>
-                <p>For planting climbers or other large plants where direct ground planting isn't possible.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_wall_facade.html">Green Façade</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>General Purpose Fertiliser</h3>
-                <p>Nutrient supply for plants, especially containerised or those in low-fertility media.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/green_wall_facade.html">Green Façade</a></p>
-            </div>
-
-             <!-- Park / Landscape / Habitat Specific -->
-             <div class="shop-item">
-                <h3>Native Trees, Hedging & Shrubs</h3>
-                <p>Plant stock suitable for parks, hedges, and wildlife planting schemes.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/wildlife_features_new_dev.html">Wildlife Features</a>, <a href="/wiki/new_allotments.html">New Allotments</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Wildflower Seed Mix / Turf (UK Native)</h3>
-                <p>Seed or turf for creating species-rich meadows in parks or verges.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/wildlife_features_new_dev.html">Wildlife Features</a>, <a href="/wiki/community_orchards.html">Community Orchards</a>, <a href="/wiki/wildlife_verge_management.html">Verge Management</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Amenity Grass Seed / Turf</h3>
-                <p>For creating standard lawns or playing fields.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Native Aquatic & Marginal Plants</h3>
-                <p>Plants suitable for wildlife ponds and wetlands.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/wildlife_features_new_dev.html">Wildlife Features</a>, <a href="/wiki/wildlife_pond.html">Wildlife Pond</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Permeable Paving Materials (for paths)</h3>
-                <p>Permeable surfacing options suitable for park pathways.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/create_pocket_parks.html">Pocket Parks</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Other Path Surfacing Materials</h3>
-                <p>Gravel, tarmac, resin-bound aggregate etc. for park paths.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/new_allotments.html">New Allotments</a>, <a href="/wiki/community_farms.html">Community Farms</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Park Furniture (Benches, bins, signage)</h3>
-                <p>Standard items for public parks and green spaces.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/create_pocket_parks.html">Pocket Parks</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Play Equipment</h3>
-                <p>Manufactured play equipment for parks.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Fencing / Gates</h3>
-                <p>For park boundaries, safety around features, or specific zones.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/new_allotments.html">New Allotments</a>, <a href="/wiki/community_farms.html">Community Farms</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Drainage Pipes & Components</h3>
-                <p>Pipes, connections, overflows, underdrains used in various SuDS features.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/suds_general.html">SuDS (General)</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Inlet/Outlet Structures</h3>
-                <p>Headwalls, gabions, control devices etc. for managing water flow in SuDS.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/suds_general.html">SuDS (General)</a>, <a href="/wiki/wildlife_pond.html">Wildlife Pond</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Pond Liner/Clay Liner (If required)</h3>
-                <p>Impermeable layer for creating ponds or wetlands in permeable ground.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/wildlife_features_new_dev.html">Wildlife Features</a>, <a href="/wiki/wildlife_pond.html">Wildlife Pond</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Logs/Rocks for Habitat Piles</h3>
-                <p>Materials used to create shelter for invertebrates, amphibians etc.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/wildlife_features_new_dev.html">Wildlife Features</a>, <a href="/wiki/hedgehog_highways.html">Hedgehog Highways</a>, <a href="/wiki/wildlife_pond.html">Wildlife Pond</a></p>
-            </div>
-
-            <!-- SuDS Specific -->
-            <div class="shop-item">
-                <h3>Grass Seed Mix (Amenity/Wetland Tolerant)</h3>
-                <p>Seed mixes suitable for SuDS features like swales or detention basins.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/suds_general.html">SuDS (General)</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Filter Media / Engineered Soil (for SuDS)</h3>
-                <p>Specialist soils designed for filtration and drainage in bioretention or enhanced swales.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/suds_general.html">SuDS (General)</a>, <a href="/wiki/rain_garden.html">Rain Garden</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Perforated Pipe (for underdrained swales)</h3>
-                <p>Pipe used in the base of dry/enhanced swales to aid drainage.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/suds_general.html">SuDS (General)</a>, <a href="/wiki/rain_garden.html">Rain Garden</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Gravel/Pipe Bedding Material (for underdrains)</h3>
-                <p>Clean aggregate used around underdrain pipes.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/suds_general.html">SuDS (General)</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Check Dams (Timber, stone - Optional for swales)</h3>
-                <p>Small barriers across swales to slow flow and increase infiltration/storage.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/suds_general.html">SuDS (General)</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Level Spreader (for filter strip inlets)</h3>
-                <p>Device to ensure sheet flow onto a filter strip.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/suds_general.html">SuDS (General)</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Erosion Control Matting (Temporary/Permanent)</h3>
-                <p>Matting to stabilise soil on slopes, especially during vegetation establishment.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/suds_general.html">SuDS (General)</a></p>
-            </div>
-
-             <!-- Permeable Surfaces Specific -->
-            <div class="shop-item">
-                <h3>Permeable Paving Units (CBPP, Clay, Stone)</h3>
-                <p>Paving blocks designed with voids or joints for water infiltration.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/permeable_surfaces.html">Permeable Surfaces</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Porous Asphalt / Concrete Mix</h3>
-                <p>Surfacing material with interconnected voids allowing water passage.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/permeable_surfaces.html">Permeable Surfaces</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Resin Bound Aggregate System</h3>
-                <p>Aggregate bound with permeable resin for surfacing.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/permeable_surfaces.html">Permeable Surfaces</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Grass Reinforcement Grids (Plastic/Concrete)</h3>
-                <p>Grids filled with soil/gravel to support grass growth while allowing traffic.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/permeable_surfaces.html">Permeable Surfaces</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Jointing / Bedding Aggregate (e.g., 2-6.3mm clean angular grit)</h3>
-                <p>Specifically graded grit for permeable paving joints and bedding layer.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/permeable_surfaces.html">Permeable Surfaces</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Permeable Sub-base Aggregate (e.g., Type 3, 4/20, 4/40)</h3>
-                <p>Open-graded aggregate providing structural support and water storage.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/permeable_surfaces.html">Permeable Surfaces</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Impermeable Geomembrane Liner (for Type C systems)</h3>
-                <p>Liner to prevent infiltration from permeable pavements where required.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/permeable_surfaces.html">Permeable Surfaces</a>, <a href="/wiki/rain_garden.html">Rain Garden</a>, <a href="/wiki/wildlife_pond.html">Wildlife Pond</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Perforated Pipes / Fin Drains (for outlets if needed)</h3>
-                <p>Used to collect and convey water from the base of permeable pavements.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/permeable_surfaces.html">Permeable Surfaces</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Flow Control Devices / Chambers (if needed)</h3>
-                <p>Structures to control the discharge rate from permeable pavements.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/permeable_surfaces.html">Permeable Surfaces</a></p>
-            </div>
-
-            <!-- Rain Garden Specific -->
-             <div class="shop-item">
-                <h3>Transition Layer Sand/Grit</h3>
-                <p>Layer between filter media and drainage layer to prevent migration of fines.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/rain_garden.html">Rain Garden</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Drainage Layer Gravel/Aggregate</h3>
-                <p>Layer containing underdrain pipe in bioretention/rain garden systems.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/rain_garden.html">Rain Garden</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Filter Geotextile (if used instead of transition layer)</h3>
-                <p>Geotextile alternative to sand/grit transition layer.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/rain_garden.html">Rain Garden</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Plants (Water-tolerant perennials, grasses, shrubs)</h3>
-                <p>Species selected for their ability to withstand periodic wetting and drying in rain gardens.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/rain_garden.html">Rain Garden</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Inlet Components (Splash stones, channel sections)</h3>
-                <p>Manage water entry into rain gardens, preventing erosion.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/rain_garden.html">Rain Garden</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Outlet/Overflow Pipework & Headwall/Structure</h3>
-                <p>Manages excess water leaving a rain garden or pond.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/rain_garden.html">Rain Garden</a>, <a href="/wiki/wildlife_pond.html">Wildlife Pond</a></p>
-            </div>
-
-            <!-- Blue/Biosolar Roof Specific -->
-             <div class="shop-item">
-                <h3>Blue Roof Flow Control Outlet Drain</h3>
-                <p>Specialised roof outlet with integrated flow restrictor for blue roofs.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/blue_roof.html">Blue Roof</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Overflow Drain Components</h3>
-                <p>Safety outlet for blue roofs in case of blockage or extreme rainfall.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/blue_roof.html">Blue Roof</a>, <a href="/wiki/wildlife_pond.html">Wildlife Pond</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Storage Layer/Modules (Optional - e.g., aggregate, crates)</h3>
-                <p>Used in blue roofs or under podiums to create water storage volume.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/blue_roof.html">Blue Roof</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Photovoltaic (PV) Panels</h3>
-                <p>Solar panels for generating electricity on biosolar roofs.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/biosolar_roof.html">Biosolar Roof</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>PV Mounting System (Biosolar compatible - ballasted/fixed)</h3>
-                <p>Framework to support PV panels above a green roof.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/biosolar_roof.html">Biosolar Roof</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>PV Inverter, Cabling & Electrical Components</h3>
-                <p>Required electrical components for a functioning PV system.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/biosolar_roof.html">Biosolar Roof</a></p>
-            </div>
-
-            <!-- Wildlife/Habitat Specific -->
-             <div class="shop-item">
-                <h3>Wildlife Friendly Lighting Fixtures</h3>
-                <p>Lighting designed to minimise disturbance to nocturnal wildlife.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/wildlife_features_new_dev.html">Wildlife Features</a>, <a href="/wiki/wildlife_friendly_lighting.html">Wildlife Lighting</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Warm Spectrum LED Luminaires (&lt;3000K)</h3>
-                <p>Lower blue light content LEDs, less disruptive to wildlife.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/wildlife_friendly_lighting.html">Wildlife Lighting</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Full Cut-off Luminaires / Shields / Hoods</h3>
-                <p>Fixtures that direct light downwards, reducing sky glow and light spill.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/wildlife_friendly_lighting.html">Wildlife Lighting</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Motion Sensors (PIRs)</h3>
-                <p>Activate lights only when movement is detected.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/wildlife_friendly_lighting.html">Wildlife Lighting</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Timers / Dimming Controls</h3>
-                <p>Control when lights are on and potentially their brightness.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/wildlife_friendly_lighting.html">Wildlife Lighting</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Light Filters (for existing fixtures - specialist)</h3>
-                <p>Can modify the colour spectrum of existing light sources.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/wildlife_friendly_lighting.html">Wildlife Lighting</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>External Swift Box (Wood, Woodcrete, Plastic)</h3>
-                <p>Artificial nest box designed specifically for swifts.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/swift_boxes.html">Swift Boxes</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Internal Swift Brick</h3>
-                <p>Nest box designed to be integrated into the building fabric.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/swift_boxes.html">Swift Boxes</a>, <a href="/wiki/wildlife_boxes_bricks.html">Wildlife Boxes/Bricks</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Bird Boxes (External - various species)</h3>
-                <p>Nest boxes suitable for common garden birds like tits, sparrows, robins.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/wildlife_features_new_dev.html">Wildlife Features</a>, <a href="/wiki/wildlife_boxes_bricks.html">Wildlife Boxes/Bricks</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Bird Bricks / Sparrow Terrace (Integrated)</h3>
-                <p>Integrated nest units for house sparrows or other small birds.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/wildlife_boxes_bricks.html">Wildlife Boxes/Bricks</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Bat Box (External - various designs)</h3>
-                <p>Artificial roosting boxes for different bat species.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/wildlife_features_new_dev.html">Wildlife Features</a>, <a href="/wiki/wildlife_boxes_bricks.html">Wildlife Boxes/Bricks</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Bat Brick / Tube (Integrated)</h3>
-                <p>Roosting units designed to be built into walls or soffits.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/wildlife_features_new_dev.html">Wildlife Features</a>, <a href="/wiki/wildlife_boxes_bricks.html">Wildlife Boxes/Bricks</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Hedgehog Friendly Gravel Boards (with holes)</h3>
-                <p>Concrete or composite gravel boards with pre-cut holes for hedgehog access.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/wildlife_features_new_dev.html">Wildlife Features</a>, <a href="/wiki/hedgehog_highways.html">Hedgehog Highways</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Hedgehog Highway Sign/Marker (Optional)</h3>
-                <p>Small sign to indicate the presence of a hedgehog gap.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/hedgehog_highways.html">Hedgehog Highways</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Hedgehog House/Hibernaculum (Optional habitat feature)</h3>
-                <p>Provides a safe place for hedgehogs to shelter or hibernate.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/hedgehog_highways.html">Hedgehog Highways</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Insect Hotel / Bee Bricks</h3>
-                <p>Structures providing nesting/hibernating spaces for beneficial insects.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/wildlife_features_new_dev.html">Wildlife Features</a>, <a href="/wiki/wildlife_boxes_bricks.html">Wildlife Boxes/Bricks</a></p>
-            </div>
-
-            <!-- Community Growing Specific -->
-            <div class="shop-item">
-                <h3>Fruit Trees (UK Native/Heritage varieties, appropriate rootstock)</h3>
-                <p>Fruit trees suitable for community orchards.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/community_orchards.html">Community Orchards</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Tree Guards (Spiral/Mesh - rabbit/deer protection)</h3>
-                <p>Protect young fruit trees from animal damage.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/community_orchards.html">Community Orchards</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Mulch Mats (for young trees)</h3>
-                <p>Suppress weeds around the base of newly planted orchard trees.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/community_orchards.html">Community Orchards</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Wildflower Seed Mix (Orchard/Meadow appropriate)</h3>
-                <p>Seed mix suitable for sowing under orchard trees or in adjacent areas.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/community_orchards.html">Community Orchards</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Pruning Tools (Secateurs, Loppers, Saws)</h3>
-                <p>Essential tools for orchard maintenance.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/community_orchards.html">Community Orchards</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Watering Equipment (Cans, Hoses, Water Butt)</h3>
-                <p>Needed for establishing young trees in orchards.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/community_orchards.html">Community Orchards</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Signage / Interpretation Boards (Optional)</h3>
-                <p>Informational signs for community orchards or parks.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/community_orchards.html">Community Orchards</a>, <a href="/wiki/new_allotments.html">New Allotments</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Seating / Litter Bins (Optional)</h3>
-                <p>Amenity furniture for community orchards or parks.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/community_orchards.html">Community Orchards</a>, <a href="/wiki/create_pocket_parks.html">Pocket Parks</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Water Standpipes / Troughs</h3>
-                <p>Provide access to water on allotment sites.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/new_allotments.html">New Allotments</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Water Butts (Large capacity)</h3>
-                <p>Collect rainwater from sheds/structures on allotments/farms.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/new_allotments.html">New Allotments</a>, <a href="/wiki/community_farms.html">Community Farms</a>, <a href="/wiki/wildlife_pond.html">Wildlife Pond</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Security Fencing & Gates</h3>
-                <p>Secure the boundary of allotment sites or community farms.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/new_allotments.html">New Allotments</a>, <a href="/wiki/community_farms.html">Community Farms</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Communal Tool Shed</h3>
-                <p>Storage for shared tools on allotment or community farm sites.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/new_allotments.html">New Allotments</a>, <a href="/wiki/community_farms.html">Community Farms</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Communal Composting Bins / Bays (Large scale)</h3>
-                <p>Facilities for managing green waste on allotments/farms.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/new_allotments.html">New Allotments</a>, <a href="/wiki/community_farms.html">Community Farms</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Native Hedging Plants (for boundaries)</h3>
-                <p>Provide stock-proof and wildlife-friendly boundaries.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/new_allotments.html">New Allotments</a>, <a href="/wiki/community_farms.html">Community Farms</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Seeds / Plants (Vegetables, Fruits, Herbs)</h3>
-                <p>Planting material for food growing.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/community_farms.html">Community Farms</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Raised Bed Kits / Timber</h3>
-                <p>For creating accessible or defined growing areas.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/community_farms.html">Community Farms</a>, <a href="/wiki/create_pocket_parks.html">Pocket Parks</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Polytunnel / Greenhouse</h3>
-                <p>Protected cropping structures for community farms.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/community_farms.html">Community Farms</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Water Storage Tanks / Pumps</h3>
-                <p>Large scale water storage and distribution for community farms.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/community_farms.html">Community Farms</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Horticultural Tools (Spades, forks, hoes, wheelbarrows etc.)</h3>
-                <p>Basic tools needed for cultivation.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/community_farms.html">Community Farms</a></p>
-            </div>
-
-            <!-- Natural Play Specific -->
-            <div class="shop-item">
-                <h3>Play Grade Logs / Boulders</h3>
-                <p>Natural elements for climbing and balancing in play areas.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/natural_play_space.html">Natural Play</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Play Sand / Bark / Woodchip</h3>
-                <p>Loose fill materials for play areas and safety surfacing.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/natural_play_space.html">Natural Play</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Timber for Play Structures / Dens / Decking</h3>
-                <p>Wood for building bespoke natural play features.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/natural_play_space.html">Natural Play</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Plants (Robust Shrubs, Grasses, Sensory Plants)</h3>
-                <p>Hardy plants suitable for integration into play spaces.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/natural_play_space.html">Natural Play</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Water Pump / Play Channel Components (Optional)</h3>
-                <p>Equipment for incorporating water play features.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/natural_play_space.html">Natural Play</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Impact Absorbing Safety Surfacing</h3>
-                <p>Required under play equipment to meet safety standards (can include loose fill like sand/bark).</p>
-                <p class="interventions-list">Used in: <a href="/wiki/natural_play_space.html">Natural Play</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Landscape Fabric / Fixings</h3>
-                <p>Used for weed suppression or separation under loose fill surfaces.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/natural_play_space.html">Natural Play</a></p>
-            </div>
-
-            <!-- RWH Specific -->
-            <div class="shop-item">
-                <h3>Storage Tank (Below/Above Ground - GRP, PE, Concrete)</h3>
-                <p>Container for storing harvested rainwater.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/rainwater_harvesting_new_dev.html">Rainwater Harvesting</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Pre-Tank Filter / Leaf Guard / First Flush Diverter</h3>
-                <p>Removes debris before water enters the RWH storage tank.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/rainwater_harvesting_new_dev.html">Rainwater Harvesting</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Calmed Inlet</h3>
-                <p>Reduces turbulence as water enters the RWH tank, preventing sediment disturbance.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/rainwater_harvesting_new_dev.html">Rainwater Harvesting</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Pump & Controller (Submersible/External, potentially with mains backup control)</h3>
-                <p>Distributes stored rainwater for use, often with automated controls.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/rainwater_harvesting_new_dev.html">Rainwater Harvesting</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Post-Tank Filtration Unit (Cartridge, UV etc. as needed)</h3>
-                <p>Further treatment of stored water depending on intended use.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/rainwater_harvesting_new_dev.html">Rainwater Harvesting</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Non-Potable Water Pipework & Fittings (Correctly labelled)</h3>
-                <p>Pipe system to distribute harvested water, distinct from mains supply.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/rainwater_harvesting_new_dev.html">Rainwater Harvesting</a></p>
-            </div>
-            <div class="shop-item">
-                <h3>Mains Water Top-up System (with compliant air gap)</h3>
-                <p>Ensures supply continuity when RWH tank is empty, preventing backflow.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/rainwater_harvesting_new_dev.html">Rainwater Harvesting</a></p>
-            </div>
-             <div class="shop-item">
-                <h3>Overflow Outlet Components</h3>
-                <p>Allows excess water to safely leave the RWH tank.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/rainwater_harvesting_new_dev.html">Rainwater Harvesting</a></p>
-            </div>
-
-             <!-- Pocket Park Specific -->
-             <div class="shop-item">
-                <h3>Trees (Small/Medium varieties suitable for urban spaces)</h3>
-                <p>Trees appropriate for smaller pocket park settings.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/create_pocket_parks.html">Pocket Parks</a></p>
-            </div>
-              <div class="shop-item">
-                <h3>Shrubs, Perennials, Grasses (Robust varieties)</h3>
-                <p>Planting suitable for pocket park environments.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/create_pocket_parks.html">Pocket Parks</a></p>
-            </div>
-              <div class="shop-item">
-                <h3>Path Edging Materials</h3>
-                <p>Define pathways within pocket parks.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/create_pocket_parks.html">Pocket Parks</a></p>
-            </div>
-               <div class="shop-item">
-                <h3>Benches / Litter Bins</h3>
-                <p>Amenity furniture for pocket parks.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/create_pocket_parks.html">Pocket Parks</a></p>
-            </div>
-              <div class="shop-item">
-                <h3>Planters / Raised Beds (Optional)</h3>
-                <p>Container planting options for pocket parks.</p>
-                <p class="interventions-list">Used in: <a href="/wiki/create_pocket_parks.html">Pocket Parks</a></p>
-            </div>
-
         </section>
     </main>
+
+    <!-- Product Detail Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 id="modal-product-name"></h3>
+            <p id="modal-product-description"></p>
+            <p id="modal-product-interventions"></p>
+            <!-- Add link to datasheet here if data available -->
+            <!-- <p><a id="modal-datasheet-link" href="#" target="_blank">View Datasheet</a></p> -->
+        </div>
+    </div>
 
     <footer>
         <div class="footer-content">
@@ -842,5 +351,185 @@
             <p>&copy; 2024 Urban Biome. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        let allProducts = []; // To store the fetched product data
+        let cart = JSON.parse(localStorage.getItem('urbanBiomeCart')) || {};
+
+        const productListElement = document.getElementById('product-list');
+        const cartItemsElement = document.getElementById('cart-items');
+        const cartEmptyMsgElement = document.getElementById('cart-empty-msg');
+        const searchBox = document.getElementById('search-box');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const modal = document.getElementById("productModal");
+        const modalProductName = document.getElementById("modal-product-name");
+        const modalProductDescription = document.getElementById("modal-product-description");
+        const modalProductInterventions = document.getElementById("modal-product-interventions");
+        const closeModalBtn = document.querySelector(".close-modal");
+
+        // --- Rendering Functions ---
+        function renderProducts(productsToRender) {
+            productListElement.innerHTML = ''; // Clear existing list
+            if (productsToRender.length === 0 && !productListElement.classList.contains('loading')) {
+                productListElement.innerHTML = '<p>No products found matching your search.</p>';
+                return;
+            }
+            productsToRender.forEach(product => {
+                const interventionsHtml = product.interventions.map(intervention =>
+                    `<a href="/wiki/${intervention.url}">${intervention.name}</a>`
+                ).join(', ');
+
+                const itemElement = document.createElement('div');
+                itemElement.classList.add('shop-item');
+                itemElement.dataset.productId = product.id;
+                itemElement.innerHTML = `
+                    <div class="item-info">
+                        <h4 class="product-name">${product.name}</h4>
+                        <p>${product.description}</p>
+                        <p class="interventions-list"><strong>Used in:</strong> ${interventionsHtml}</p>
+                    </div>
+                    <div class="item-actions">
+                        <button class="add-to-cart-btn" data-product-id="${product.id}" data-product-name="${product.name}">Add to Cart</button>
+                    </div>
+                `;
+                productListElement.appendChild(itemElement);
+            });
+        }
+
+        function updateCartDisplay() {
+            cartItemsElement.innerHTML = ''; // Clear cart
+            let itemCount = 0;
+
+            if (Object.keys(cart).length === 0) {
+                cartEmptyMsgElement.style.display = 'block';
+                checkoutBtn.style.display = 'none';
+            } else {
+                cartEmptyMsgElement.style.display = 'none';
+                checkoutBtn.style.display = 'block';
+
+                for (const productId in cart) {
+                    const item = cart[productId];
+                    itemCount += item.quantity;
+                    const cartItemElement = document.createElement('li');
+                    cartItemElement.innerHTML = `
+                        <span>${item.name} (x${item.quantity})</span>
+                        <button class="remove-from-cart-btn" data-product-id="${productId}">&times;</button> <!-- Use times symbol for remove -->
+                    `;
+                    cartItemsElement.appendChild(cartItemElement);
+                }
+            }
+        }
+
+        // --- Cart Logic ---
+        function addToCart(productId, productName) {
+            if (cart[productId]) {
+                cart[productId].quantity += 1;
+            } else {
+                cart[productId] = { name: productName, quantity: 1 };
+            }
+            localStorage.setItem('urbanBiomeCart', JSON.stringify(cart));
+            updateCartDisplay();
+        }
+
+        function removeFromCart(productId) {
+            if (cart[productId]) {
+                delete cart[productId];
+                localStorage.setItem('urbanBiomeCart', JSON.stringify(cart));
+                updateCartDisplay();
+            }
+        }
+
+        // --- Modal Logic ---
+        function openProductModal(productId) {
+            const product = allProducts.find(p => p.id === productId);
+            if (!product) return;
+
+            modalProductName.textContent = product.name;
+            modalProductDescription.textContent = product.description;
+            const interventionsHtml = product.interventions.map(intervention =>
+                `<a href="/wiki/${intervention.url}">${intervention.name}</a>`
+            ).join(', ');
+            modalProductInterventions.innerHTML = `<strong>Used in:</strong> ${interventionsHtml}`;
+            // Add datasheet link logic here if data is available
+            modal.style.display = "block";
+        }
+
+        closeModalBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // --- Fetch Product Data ---
+        async function fetchProducts() {
+            try {
+                const response = await fetch('/api/products'); // Fetch from the Worker endpoint
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                allProducts = await response.json();
+                productListElement.classList.remove('loading');
+                renderProducts(allProducts);
+            } catch (error) {
+                console.error("Failed to fetch products:", error);
+                productListElement.classList.remove('loading');
+                productListElement.classList.add('error');
+            }
+        }
+
+        // --- Event Listeners ---
+        searchBox.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase().trim();
+            const filteredProducts = allProducts.filter(product =>
+                product.name.toLowerCase().includes(searchTerm) ||
+                product.description.toLowerCase().includes(searchTerm) ||
+                product.interventions.some(intervention => intervention.name.toLowerCase().includes(searchTerm))
+            );
+            renderProducts(filteredProducts);
+        });
+
+        productListElement.addEventListener('click', (e) => {
+            if (e.target.classList.contains('add-to-cart-btn')) {
+                const productId = e.target.dataset.productId;
+                const productName = e.target.dataset.productName;
+                addToCart(productId, productName);
+            } else if (e.target.classList.contains('product-name')) {
+                 // Find the parent .shop-item to get the product ID
+                 const shopItem = e.target.closest('.shop-item');
+                 if (shopItem && shopItem.dataset.productId) {
+                    openProductModal(shopItem.dataset.productId);
+                 }
+            }
+        });
+
+        cartItemsElement.addEventListener('click', (e) => {
+            if (e.target.classList.contains('remove-from-cart-btn')) {
+                const productId = e.target.dataset.productId;
+                removeFromCart(productId);
+            }
+        });
+
+        checkoutBtn.addEventListener('click', () => {
+            if (Object.keys(cart).length > 0) {
+                alert('Checkout simulated! Cart cleared. (No actual transaction occurred).');
+                cart = {};
+                localStorage.removeItem('urbanBiomeCart');
+                updateCartDisplay();
+            } else {
+                alert('Your cart is empty!');
+            }
+        });
+
+        // --- Initial Load ---
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchProducts();
+            updateCartDisplay();
+        });
+
+    </script>
 </body>
 </html>
