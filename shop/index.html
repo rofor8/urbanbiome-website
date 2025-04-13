@@ -44,6 +44,8 @@
             height: fit-content;
             position: sticky;
             top: 120px; /* Adjust based on header height + padding */
+            max-height: calc(100vh - 140px); /* 100% viewport height minus top offset and some padding */
+            overflow-y: auto; /* Allow scrolling within the cart area */
         }
         .cart-area h3 {
             margin-top: 0;
