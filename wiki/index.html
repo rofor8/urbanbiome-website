@@ -111,23 +111,20 @@
 
             renderArea.style.display = 'none';
 
-            const pathSegments = window.location.pathname.split('/').filter(Boolean);
-            console.log('Raw path segments:', pathSegments);
+            // Get intervention ID from query parameters
+            const queryParams = new URLSearchParams(window.location.search);
+            const interventionId = queryParams.get('id');
+            console.log('Full query string:', window.location.search); // Log the query string
+            console.log('Extracted intervention ID from query param:', interventionId);
 
-            if (pathSegments.length < 2 || pathSegments[0].toLowerCase() !== 'wiki') {
-                 displayError('Invalid URL structure. Expected /wiki/intervention-id.');
-                 console.error('Problematic path segments:', pathSegments, 'Full path:', window.location.pathname);
+            // Check if the ID was found in the query parameters
+            if (!interventionId) {
+                 displayError('Could not find intervention ID in URL query parameter (?id=...). Check the _redirects file.');
+                 console.error('Query parameters:', window.location.search);
                  return;
             }
             
-            const interventionId = pathSegments[1];
-
-            if (!interventionId) {
-                displayError('Could not determine intervention ID from URL.');
-                 console.error('Failed to extract interventionId from segments:', pathSegments);
-                return;
-            }
-
+            // Log the extracted ID for confirmation
             console.log(`Using intervention ID: ${interventionId}`);
 
             try {
