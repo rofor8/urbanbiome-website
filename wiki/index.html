@@ -111,21 +111,28 @@
 
             renderArea.style.display = 'none';
 
-            // Get intervention ID from query parameters
-            const queryParams = new URLSearchParams(window.location.search);
-            const interventionId = queryParams.get('id');
-            console.log('Full query string:', window.location.search); // Log the query string
-            console.log('Extracted intervention ID from query param:', interventionId);
+            // Get intervention ID from the PATH
+            const pathSegments = window.location.pathname.split('/').filter(Boolean);
+            console.log('Raw path segments:', pathSegments);
+            console.log('Full path:', window.location.pathname);
 
-            // Check if the ID was found in the query parameters
-            if (!interventionId) {
-                 displayError('Could not find intervention ID in URL query parameter (?id=...). Check the _redirects file.');
-                 console.error('Query parameters:', window.location.search);
+            // Check if the path looks like /wiki/intervention-id
+            if (pathSegments.length < 2 || pathSegments[0].toLowerCase() !== 'wiki') {
+                 displayError('Invalid URL structure. Expected /wiki/intervention-id.');
+                 console.error('Problematic path segments:', pathSegments);
                  return;
             }
             
-            // Log the extracted ID for confirmation
-            console.log(`Using intervention ID: ${interventionId}`);
+            // The ID should be the second segment
+            const interventionId = pathSegments[1]; 
+
+            if (!interventionId) { // Extra safety check
+                displayError('Could not determine intervention ID from URL path.');
+                console.error('Failed to extract interventionId from segments:', pathSegments);
+                return;
+            }
+            
+            console.log(`Using intervention ID: ${interventionId}`); // Log the extracted ID
 
             try {
                 const apiUrl = `/api/intervention-data/${interventionId}`;
