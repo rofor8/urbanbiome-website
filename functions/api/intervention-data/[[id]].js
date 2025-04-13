@@ -39,30 +39,26 @@ export async function onRequestGet(context) {
   const interventionId = idParam[0]; 
 
   try {
-    // Fetch the data string from KV using the intervention ID as the key
-    const dataString = await env.INTERVENTION_DATA_KV.get(interventionId);
+    // Fetch the data directly as JSON from KV using the intervention ID as the key
+    const data = await env.INTERVENTION_DATA_KV.get(interventionId, { type: "json" });
 
-    if (dataString === null) {
+    if (data === null) {
         // Use helper function for response
         return createJsonResponse({ error: `Intervention data not found for ID: ${interventionId}` }, 404, allowedOrigin);
     }
 
-    // The data stored in KV is itself a JSON string, parse it
-    const data = JSON.parse(dataString);
+    // No need to parse, 'data' is already the JSON object
 
     // Return the parsed data as a JSON response using the helper
     return createJsonResponse(data, 200, allowedOrigin);
 
   } catch (error) {
-    console.error(`Error fetching/parsing data for ID ${interventionId}:`, error);
-    // Differentiate between parsing errors and other potential KV errors
-    if (error instanceof SyntaxError) {
-         // Use helper function for response
-         return createJsonResponse({ error: "Failed to parse intervention data from storage." }, 500, allowedOrigin);
-    } else {
-        // Use helper function for response
-        return createJsonResponse({ error: "Failed to retrieve intervention data." }, 500, allowedOrigin);
-    }
+    console.error(`Error fetching data for ID ${interventionId}:`, error);
+    // Handle potential errors (e.g., KV access issues, though parsing error is less likely now)
+    // Note: A SyntaxError might still occur if the stored value isn't valid JSON, 
+    // even when using { type: "json" }. The KV store might return null or throw.
+    // Keeping a generic error might be safer.
+    return createJsonResponse({ error: "Failed to retrieve intervention data." }, 500, allowedOrigin);
   }
 }
 
