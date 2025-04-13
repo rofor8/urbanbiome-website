@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Stripe.js Script -->
+    <script src="https://js.stripe.com/v3/"></script>
     <style>
         /* General Styles */
         main section {
@@ -189,6 +191,8 @@
             text-align: right;
             font-size: 1.1rem;
             color: #333;
+            padding-top: 10px;
+            border-top: 1px solid #ccc;
         }
         #checkout-btn {
              display: block;
@@ -272,6 +276,91 @@
             color: #0056b3;
         }
 
+        /* Price Styling */
+        .shop-item .item-price {
+            font-weight: bold;
+            color: #333;
+            font-size: 1.1rem;
+            margin-top: 5px; /* Adjust as needed */
+            text-align: right;
+             width: 100%; /* Ensure it takes space in flex */
+             padding-top: 8px;
+        }
+
+        /* Cart Price Styling */
+        #cart-items li .cart-item-details {
+             flex-grow: 1;
+             margin-right: 10px;
+             word-break: break-word;
+        }
+         #cart-items li .cart-item-details .item-name {
+            display: block; /* Ensure name takes full width */
+         }
+         #cart-items li .cart-item-details .item-price-info {
+             font-size: 0.85rem;
+             color: #555;
+             display: block; /* On new line */
+             margin-top: 2px;
+         }
+
+        /* Stripe Form Styling */
+        #payment-form {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+        }
+        #card-element {
+            border: 1px solid #ccc;
+            padding: 10px 12px;
+            border-radius: 4px;
+            background-color: white;
+            margin-bottom: 10px;
+        }
+        #card-errors {
+            color: #dc3545;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            min-height: 1em; /* Prevent layout shift */
+        }
+         #submit-payment-btn {
+             display: block;
+             width: 100%;
+             padding: 12px;
+             background-color: #007bff;
+             color: white;
+             border: none;
+             border-radius: 5px;
+             font-size: 1rem;
+             font-weight: 500;
+             cursor: pointer;
+             margin-top: 15px;
+             text-align: center;
+             transition: background-color 0.2s ease, opacity 0.2s ease;
+             opacity: 1;
+         }
+         #submit-payment-btn:hover {
+             background-color: #0056b3;
+         }
+         #submit-payment-btn:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+            opacity: 0.7;
+         }
+        .hidden {
+            display: none;
+        }
+        #payment-processing-msg {
+            color: #0056b3;
+            text-align: center;
+            margin-top: 10px;
+        }
+        #payment-success-msg {
+            color: #28a745;
+             text-align: center;
+             margin-top: 10px;
+             font-weight: bold;
+        }
+
     </style>
 </head>
 <body>
@@ -308,8 +397,20 @@
                         <!-- Cart items will be loaded here -->
                     </ul>
                     <p id="cart-empty-msg">Your cart is empty.</p>
-                    <!-- <div id="cart-total">Total: £0.00</div> --> <!-- Price logic TBC -->
-                    <button id="checkout-btn" style="display: none;">Checkout (Simulated)</button>
+                    <div id="cart-total">Total: £0.00</div>
+
+                    <!-- Stripe Payment Form (initially hidden) -->
+                    <form id="payment-form" class="hidden">
+                        <h4>Enter Payment Details</h4>
+                        <div id="card-element"><!-- Stripe Card Element will be inserted here --></div>
+                        <div id="card-errors" role="alert"></div>
+                        <button id="submit-payment-btn" type="submit">Pay Now</button>
+                        <p id="payment-processing-msg" class="hidden">Processing payment...</p>
+                    </form>
+                    <p id="payment-success-msg" class="hidden">Payment successful! Thank you.</p>
+
+                     <!-- Original simulated checkout button, now acts as 'Proceed to Payment' -->
+                     <button id="checkout-btn">Proceed to Payment</button>
                 </div>
             </div>
         </section>
@@ -353,23 +454,40 @@
     </footer>
 
     <script>
-        let allProducts = []; // To store the fetched product data
+        // IMPORTANT: Replace with your actual Stripe Publishable Key
+        const STRIPE_PUBLISHABLE_KEY = 'pk_live_51PqvnpCyn6OZ4btkds9ruyxbZ7eDt2xXDhcfx1o0JfTHSzLZR0Q4DxszQv5RaAqvOdGNLcWxbtS5fjjLA98kZKdV00Wd6BUG2b'; // Replace with your key!
+
+        let allProducts = [];
         let cart = JSON.parse(localStorage.getItem('urbanBiomeCart')) || {};
+        let stripe = null;
+        let cardElement = null;
+        let currentClientSecret = null;
 
         const productListElement = document.getElementById('product-list');
         const cartItemsElement = document.getElementById('cart-items');
         const cartEmptyMsgElement = document.getElementById('cart-empty-msg');
         const searchBox = document.getElementById('search-box');
         const checkoutBtn = document.getElementById('checkout-btn');
+        const cartTotalElement = document.getElementById('cart-total');
+        const paymentForm = document.getElementById('payment-form');
+        const cardErrorsElement = document.getElementById('card-errors');
+        const submitPaymentBtn = document.getElementById('submit-payment-btn');
+        const paymentProcessingMsg = document.getElementById('payment-processing-msg');
+        const paymentSuccessMsg = document.getElementById('payment-success-msg');
         const modal = document.getElementById("productModal");
         const modalProductName = document.getElementById("modal-product-name");
         const modalProductDescription = document.getElementById("modal-product-description");
         const modalProductInterventions = document.getElementById("modal-product-interventions");
         const closeModalBtn = document.querySelector(".close-modal");
 
+        // --- Formatting Function ---
+        function formatPrice(priceInPounds) {
+            return `£${priceInPounds.toFixed(2)}`;
+        }
+
         // --- Rendering Functions ---
         function renderProducts(productsToRender) {
-            productListElement.innerHTML = ''; // Clear existing list
+            productListElement.innerHTML = '';
             if (productsToRender.length === 0 && !productListElement.classList.contains('loading')) {
                 productListElement.innerHTML = '<p>No products found matching your search.</p>';
                 return;
@@ -387,9 +505,10 @@
                         <h4 class="product-name">${product.name}</h4>
                         <p>${product.description}</p>
                         <p class="interventions-list"><strong>Used in:</strong> ${interventionsHtml}</p>
+                        <div class="item-price">${formatPrice(product.price)}</div>
                     </div>
                     <div class="item-actions">
-                        <button class="add-to-cart-btn" data-product-id="${product.id}" data-product-name="${product.name}">Add to Cart</button>
+                        <button class="add-to-cart-btn" data-product-id="${product.id}" data-product-name="${product.name}" data-product-price="${product.price}">Add to Cart</button>
                     </div>
                 `;
                 productListElement.appendChild(itemElement);
@@ -397,38 +516,66 @@
         }
 
         function updateCartDisplay() {
-            cartItemsElement.innerHTML = ''; // Clear cart
+            cartItemsElement.innerHTML = '';
+            let total = 0;
             let itemCount = 0;
 
             if (Object.keys(cart).length === 0) {
                 cartEmptyMsgElement.style.display = 'block';
                 checkoutBtn.style.display = 'none';
+                cartTotalElement.style.display = 'none';
+                paymentForm.classList.add('hidden'); // Hide payment form if cart empty
+                 paymentSuccessMsg.classList.add('hidden'); // Hide success msg
             } else {
                 cartEmptyMsgElement.style.display = 'none';
-                checkoutBtn.style.display = 'block';
+                checkoutBtn.style.display = 'block'; // Show 'Proceed to Payment' button
+                cartTotalElement.style.display = 'block';
 
                 for (const productId in cart) {
                     const item = cart[productId];
                     itemCount += item.quantity;
+                    const itemSubtotal = item.price * item.quantity;
+                    total += itemSubtotal;
+
                     const cartItemElement = document.createElement('li');
                     cartItemElement.innerHTML = `
-                        <span>${item.name} (x${item.quantity})</span>
-                        <button class="remove-from-cart-btn" data-product-id="${productId}">&times;</button> <!-- Use times symbol for remove -->
+                        <div class="cart-item-details">
+                            <span class="item-name">${item.name} (x${item.quantity})</span>
+                            <span class="item-price-info">${formatPrice(item.price)} each</span>
+                         </div>
+                        <button class="remove-from-cart-btn" data-product-id="${productId}">&times;</button>
                     `;
                     cartItemsElement.appendChild(cartItemElement);
                 }
+                // Only show payment form if checkout hasn't been clicked yet
+                if (!paymentForm.classList.contains('active')) {
+                     paymentForm.classList.add('hidden');
+                }
             }
+            cartTotalElement.textContent = `Total: ${formatPrice(total)}`;
         }
 
         // --- Cart Logic ---
-        function addToCart(productId, productName) {
+        function addToCart(productId, productName, productPrice) {
+            const price = parseFloat(productPrice);
+            if (isNaN(price)) {
+                console.error("Invalid price for product:", productId);
+                return; // Don't add if price is invalid
+            }
+
             if (cart[productId]) {
                 cart[productId].quantity += 1;
             } else {
-                cart[productId] = { name: productName, quantity: 1 };
+                cart[productId] = { name: productName, quantity: 1, price: price };
             }
             localStorage.setItem('urbanBiomeCart', JSON.stringify(cart));
             updateCartDisplay();
+            // If payment form was active, hide it again as cart changed
+            paymentForm.classList.remove('active');
+            paymentForm.classList.add('hidden');
+            checkoutBtn.disabled = false; // Re-enable checkout button
+            paymentSuccessMsg.classList.add('hidden');
+
         }
 
         function removeFromCart(productId) {
@@ -436,6 +583,11 @@
                 delete cart[productId];
                 localStorage.setItem('urbanBiomeCart', JSON.stringify(cart));
                 updateCartDisplay();
+                 // If payment form was active, hide it again as cart changed
+                 paymentForm.classList.remove('active');
+                 paymentForm.classList.add('hidden');
+                 checkoutBtn.disabled = false; // Re-enable checkout button
+                 paymentSuccessMsg.classList.add('hidden');
             }
         }
 
@@ -449,8 +601,7 @@
             const interventionsHtml = product.interventions.map(intervention =>
                 `<a href="/wiki/${intervention.url}">${intervention.name}</a>`
             ).join(', ');
-            modalProductInterventions.innerHTML = `<strong>Used in:</strong> ${interventionsHtml}`;
-            // Add datasheet link logic here if data is available
+            modalProductInterventions.innerHTML = `<strong>Used in:</strong> ${interventionsHtml} <br><strong>Price:</strong> ${formatPrice(product.price)}`; // Added price
             modal.style.display = "block";
         }
 
@@ -467,7 +618,7 @@
         // --- Fetch Product Data ---
         async function fetchProducts() {
             try {
-                const response = await fetch('/api/products'); // Fetch from the Worker endpoint
+                const response = await fetch('/api/products');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -480,6 +631,86 @@
                 productListElement.classList.add('error');
             }
         }
+
+        // --- Initialize Stripe --- (Run on DOMContentLoaded)
+        function initializeStripe() {
+            try {
+                 stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
+                 const elements = stripe.elements();
+                 cardElement = elements.create('card', {
+                     // Optional: add style customization here
+                     // style: { base: { fontSize: '16px' } }
+                 });
+                 cardElement.mount('#card-element');
+
+                 // Handle real-time validation errors from the card Element.
+                 cardElement.on('change', function(event) {
+                    if (event.error) {
+                        cardErrorsElement.textContent = event.error.message;
+                    } else {
+                        cardErrorsElement.textContent = '';
+                    }
+                 });
+
+            } catch (error) {
+                console.error("Failed to initialize Stripe:", error);
+                // Optionally display an error message to the user
+            }
+        }
+
+        // --- Handle Payment Submission ---
+        paymentForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            if (!stripe || !cardElement || !currentClientSecret) {
+                console.error("Stripe not initialized or client secret missing.");
+                cardErrorsElement.textContent = "Payment system error. Please refresh.";
+                return;
+            }
+
+            submitPaymentBtn.disabled = true;
+            paymentProcessingMsg.classList.remove('hidden');
+            cardErrorsElement.textContent = ''; // Clear previous errors
+
+            const { error, paymentIntent } = await stripe.confirmCardPayment(
+                currentClientSecret,
+                {
+                    payment_method: {
+                        card: cardElement,
+                        // billing_details: { name: 'Jenny Rosen' }, // Optional: Add billing details if needed
+                    },
+                }
+            );
+
+            if (error) {
+                // Show error to your customer (e.g., insufficient funds, card declined).
+                console.error('Stripe payment confirmation error:', error);
+                cardErrorsElement.textContent = error.message;
+                submitPaymentBtn.disabled = false;
+                paymentProcessingMsg.classList.add('hidden');
+            } else {
+                // The payment has been processed!
+                console.log('PaymentIntent:', paymentIntent);
+                 if (paymentIntent.status === 'succeeded') {
+                    // Show a success message to your customer
+                    paymentSuccessMsg.classList.remove('hidden');
+                    paymentProcessingMsg.classList.add('hidden');
+                    paymentForm.classList.add('hidden'); // Hide form after success
+                    checkoutBtn.style.display = 'none'; // Hide proceed button
+
+                    // Clear the cart
+                    cart = {};
+                    localStorage.removeItem('urbanBiomeCart');
+                    updateCartDisplay(); // Update display to show empty cart
+                 } else {
+                    // Handle other statuses if needed (e.g., requires_action)
+                    cardErrorsElement.textContent = `Payment status: ${paymentIntent.status}. Please contact support.`;
+                    submitPaymentBtn.disabled = false;
+                    paymentProcessingMsg.classList.add('hidden');
+                 }
+            }
+        });
+
 
         // --- Event Listeners ---
         searchBox.addEventListener('input', (e) => {
@@ -496,13 +727,13 @@
             if (e.target.classList.contains('add-to-cart-btn')) {
                 const productId = e.target.dataset.productId;
                 const productName = e.target.dataset.productName;
-                addToCart(productId, productName);
+                const productPrice = e.target.dataset.productPrice; // Get price
+                addToCart(productId, productName, productPrice);
             } else if (e.target.classList.contains('product-name')) {
-                 // Find the parent .shop-item to get the product ID
-                 const shopItem = e.target.closest('.shop-item');
-                 if (shopItem && shopItem.dataset.productId) {
+                const shopItem = e.target.closest('.shop-item');
+                if (shopItem && shopItem.dataset.productId) {
                     openProductModal(shopItem.dataset.productId);
-                 }
+                }
             }
         });
 
@@ -513,14 +744,52 @@
             }
         });
 
-        checkoutBtn.addEventListener('click', () => {
-            if (Object.keys(cart).length > 0) {
-                alert('Checkout simulated! Cart cleared. (No actual transaction occurred).');
-                cart = {};
-                localStorage.removeItem('urbanBiomeCart');
-                updateCartDisplay();
-            } else {
-                alert('Your cart is empty!');
+        // **UPDATED** Checkout Button Listener (Proceed to Payment)
+        checkoutBtn.addEventListener('click', async () => {
+             if (Object.keys(cart).length === 0) {
+                 alert('Your cart is empty!');
+                 return;
+             }
+
+            checkoutBtn.disabled = true; // Disable button while processing
+            checkoutBtn.textContent = 'Processing...';
+            cardErrorsElement.textContent = ''; // Clear previous errors
+            paymentSuccessMsg.classList.add('hidden'); // Hide success message
+
+            // Prepare cart data for the backend ({ productId: quantity })
+            const cartPayload = {};
+            for (const productId in cart) {
+                cartPayload[productId] = cart[productId].quantity;
+            }
+
+            try {
+                // Call the backend function to create a PaymentIntent
+                const response = await fetch('/api/create-payment-intent', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(cartPayload),
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({ error: 'Failed to parse error response.' }));
+                    throw new Error(errorData.error || `Server error: ${response.status}`);
+                }
+
+                const { clientSecret } = await response.json();
+                currentClientSecret = clientSecret; // Store the client secret
+
+                // Show the payment form
+                paymentForm.classList.remove('hidden');
+                paymentForm.classList.add('active'); // Mark as active
+                checkoutBtn.style.display = 'none'; // Hide 'Proceed' button
+
+            } catch (error) {
+                console.error('Failed to create PaymentIntent:', error);
+                cardErrorsElement.textContent = `Error: ${error.message}`; // Show error near card form
+                checkoutBtn.disabled = false;
+                checkoutBtn.textContent = 'Proceed to Payment';
             }
         });
 
@@ -528,6 +797,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             fetchProducts();
             updateCartDisplay();
+            initializeStripe(); // Initialize Stripe on page load
         });
 
     </script>
