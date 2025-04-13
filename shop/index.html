@@ -87,23 +87,37 @@
             align-items: flex-start;
             flex-wrap: wrap;
             transition: box-shadow 0.2s ease-in-out;
+            position: relative;
+            overflow: hidden;
         }
         .shop-item:hover {
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         }
         .shop-item .item-info {
-            flex-basis: calc(75% - 20px); /* Allow space for button */
-            padding-right: 15px;
+            flex-basis: 100%;
+            padding-right: 0;
         }
         .shop-item h4 {
             margin-top: 0;
             margin-bottom: 10px;
             font-size: 1.2rem;
             color: #2a2f4a; /* Darker blue */
-            cursor: pointer; /* Indicate clickable for details */
+            cursor: pointer;
+            display: inline-block;
+            margin-right: 10px;
         }
          .shop-item h4:hover {
             color: #0056b3;
+         }
+        .shop-item h4::after {
+            content: '\25BC';
+            font-size: 0.7em;
+            margin-left: 8px;
+            display: inline-block;
+            transition: transform 0.2s ease-in-out;
+         }
+         .shop-item.expanded h4::after {
+             transform: rotate(180deg);
          }
         .shop-item p {
             margin-bottom: 8px;
@@ -131,8 +145,11 @@
             text-decoration: underline;
         }
         .shop-item .item-actions {
-            flex-basis: 25%;
-            text-align: right;
+            flex-basis: 100%;
+            text-align: left;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
         }
         .add-to-cart-btn {
             padding: 9px 15px;
@@ -283,10 +300,13 @@
             font-weight: bold;
             color: #333;
             font-size: 1.1rem;
-            margin-top: 5px; /* Adjust as needed */
-            text-align: right;
-             width: 100%; /* Ensure it takes space in flex */
-             padding-top: 8px;
+            margin-top: 10px;
+            text-align: left;
+            padding-left: 0;
+            padding-top: 0;
+            width: auto;
+            display: inline-block;
+            vertical-align: middle;
         }
 
         /* Cart Price Styling */
@@ -356,11 +376,18 @@
             text-align: center;
             margin-top: 10px;
         }
-        #payment-success-msg {
-            color: #28a745;
-             text-align: center;
-             margin-top: 10px;
-             font-weight: bold;
+        .shop-item .item-details {
+            display: none;
+            padding: 15px 0 5px 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #555;
+        }
+        .shop-item.expanded .item-details {
+            display: block;
+        }
+        .shop-item .item-details p {
+            margin-bottom: 8px;
         }
 
         /* Shipping Address Area Styling */
@@ -437,6 +464,17 @@
              border-top: 1px solid #ccc;
         }
 
+        /* Highlight style for linked product */
+        .highlighted {
+            animation: highlight-fade 2s ease-out;
+            border-color: #007bff;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+        }
+        @keyframes highlight-fade {
+            0% { background-color: rgba(0, 123, 255, 0.15); }
+            100% { background-color: transparent; }
+        }
+
     </style>
 </head>
 <body>
@@ -508,18 +546,6 @@
         </section>
     </main>
 
-    <!-- Product Detail Modal -->
-    <div id="productModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h3 id="modal-product-name"></h3>
-            <p id="modal-product-description"></p>
-            <p id="modal-product-interventions"></p>
-            <!-- Add link to datasheet here if data available -->
-            <!-- <p><a id="modal-datasheet-link" href="#" target="_blank">View Datasheet</a></p> -->
-        </div>
-    </div>
-
     <footer>
         <div class="footer-content">
             <div class="footer-section">
@@ -552,9 +578,9 @@
         let allProducts = [];
         let cart = JSON.parse(localStorage.getItem('urbanBiomeCart')) || {};
         let stripe = null;
-        let elements = null; // Keep track of elements instance
+        let elements = null;
         let cardElement = null;
-        let addressElement = null; // Add Address Element tracker
+        let addressElement = null;
         let currentClientSecret = null;
 
         // Element Selectors
@@ -574,11 +600,6 @@
         const submitPaymentBtn = document.getElementById('submit-payment-btn');
         const paymentProcessingMsg = document.getElementById('payment-processing-msg');
         const paymentSuccessMsg = document.getElementById('payment-success-msg');
-        const modal = document.getElementById("productModal");
-        const modalProductName = document.getElementById("modal-product-name");
-        const modalProductDescription = document.getElementById("modal-product-description");
-        const modalProductInterventions = document.getElementById("modal-product-interventions");
-        const closeModalBtn = document.querySelector(".close-modal");
 
         // --- Formatting Function ---
         function formatPrice(priceInPounds) {
@@ -603,9 +624,15 @@
                 itemElement.innerHTML = `
                     <div class="item-info">
                         <h4 class="product-name">${product.name}</h4>
-                        <p>${product.description}</p>
-                        <p class="interventions-list"><strong>Used in:</strong> ${interventionsHtml}</p>
                         <div class="item-price">${formatPrice(product.price)}</div>
+
+                        <!-- Hidden details section -->
+                        <div class="item-details">
+                            <p>${product.description}</p>
+                            <p class="interventions-list"><strong>Used in:</strong> ${interventionsHtml}</p>
+                            <!-- Add weight/dimensions here if desired -->
+                            <!-- <p>Weight: ${product.weightKg || 'N/A'} kg</p> -->
+                        </div>
                     </div>
                     <div class="item-actions">
                         <button class="add-to-cart-btn" data-product-id="${product.id}" data-product-name="${product.name}" data-product-price="${product.price}">Add to Cart</button>
@@ -683,30 +710,6 @@
             }
         }
 
-        // --- Modal Logic ---
-        function openProductModal(productId) {
-            const product = allProducts.find(p => p.id === productId);
-            if (!product) return;
-
-            modalProductName.textContent = product.name;
-            modalProductDescription.textContent = product.description;
-            const interventionsHtml = product.interventions.map(intervention =>
-                `<a href="/wiki/${intervention.url}">${intervention.name}</a>`
-            ).join(', ');
-            modalProductInterventions.innerHTML = `<strong>Used in:</strong> ${interventionsHtml} <br><strong>Price:</strong> ${formatPrice(product.price)}`; // Added price
-            modal.style.display = "block";
-        }
-
-        closeModalBtn.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-
         // --- Fetch Product Data ---
         async function fetchProducts() {
             try {
@@ -717,10 +720,12 @@
                 allProducts = await response.json();
                 productListElement.classList.remove('loading');
                 renderProducts(allProducts);
+                return true; // Indicate success
             } catch (error) {
                 console.error("Failed to fetch products:", error);
                 productListElement.classList.remove('loading');
                 productListElement.classList.add('error');
+                return false; // Indicate failure
             }
         }
 
@@ -825,13 +830,16 @@
             if (e.target.classList.contains('add-to-cart-btn')) {
                 const productId = e.target.dataset.productId;
                 const productName = e.target.dataset.productName;
-                const productPrice = e.target.dataset.productPrice; // Get price
+                const productPrice = e.target.dataset.productPrice;
                 addToCart(productId, productName, productPrice);
-            } else if (e.target.classList.contains('product-name')) {
-                const shopItem = e.target.closest('.shop-item');
-                if (shopItem && shopItem.dataset.productId) {
-                    openProductModal(shopItem.dataset.productId);
-                }
+                return; // Stop processing click here
+            }
+
+            if (e.target.classList.contains('product-name')) {
+                 const shopItem = e.target.closest('.shop-item');
+                 if (shopItem) {
+                    shopItem.classList.toggle('expanded');
+                 }
             }
         });
 
@@ -944,11 +952,41 @@
             }
         });
 
-        // --- Initial Load ---
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchProducts();
+        // --- Handle URL Parameter and Highlighting ---
+        function handleUrlParameters() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productIdToHighlight = urlParams.get('product_id');
+
+            if (productIdToHighlight) {
+                // Use a small delay or check if products are rendered
+                // This assumes fetchProducts has completed (or we wait for it)
+                const checkExist = setInterval(function() {
+                    const productElement = document.querySelector(`.shop-item[data-product-id="${productIdToHighlight}"]`);
+                    if (productElement) {
+                       clearInterval(checkExist);
+                       // Expand the item
+                       productElement.classList.add('expanded');
+                       // Scroll to the item
+                       productElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                       // Add highlight class
+                       productElement.classList.add('highlighted');
+                       // Optional: Remove highlight after a delay
+                       setTimeout(() => {
+                           productElement.classList.remove('highlighted');
+                       }, 2000); // 2 seconds
+                    }
+                 }, 100); // check every 100ms
+            }
+        }
+
+        // --- Initial Load --- (UPDATED to handle URL params)
+        document.addEventListener('DOMContentLoaded', async () => {
+            initializeStripe(); // Initialize Stripe first
             updateCartDisplay();
-            initializeStripe();
+            const productsLoaded = await fetchProducts(); // Wait for products
+            if (productsLoaded) {
+                 handleUrlParameters(); // Handle highlight/scroll after products loaded
+            }
         });
 
     </script>
