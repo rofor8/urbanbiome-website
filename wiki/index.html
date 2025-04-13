@@ -8,6 +8,21 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Styles for the wiki content rendering */
+        .wiki-content ul { margin-left: 20px; margin-bottom: 1rem; list-style: disc; }
+        .wiki-content li { margin-bottom: 0.5rem; }
+        .wiki-content h3 { margin-top: 2rem; margin-bottom: 1rem; font-size: 1.5rem; }
+        .benefits-list li { background: #f0fff0; padding: 8px 12px; border-radius: 4px; margin-bottom: 8px; }
+        .products-list li { background: #f0f8ff; padding: 8px 12px; border-radius: 4px; margin-bottom: 8px; }
+        .guidance-section { margin-bottom: 1.5rem; }
+        .guidance-section h4 { font-size: 1.2rem; margin-bottom: 0.75rem; }
+        .guidance-section p { margin-bottom: 0.5rem; line-height: 1.6; }
+        .further-reading li { background: #fafafa; padding: 8px 12px; border-radius: 4px; margin-bottom: 8px; }
+        .wiki-content .sources { font-style: italic; color: #555; margin-bottom: 1.5rem; display: block; font-size: 0.9em; }
+        #loading-message { text-align: center; padding: 2rem; color: #666; }
+        #error-message { text-align: center; padding: 2rem; color: red; }
+    </style>
 </head>
 <body>
     <header>
@@ -26,62 +41,201 @@
     </header>
 
     <main>
-        <section style="padding-top: 8rem;"> <!-- Add padding to account for fixed header -->
-            <h2>Urban Biome Wiki</h2>
-            <p>Select an intervention below for detailed guidance:</p>
-            <!-- Content will go here -->
-            <ul>
-                <li><a href="/wiki/street_trees">Street Trees</a></li>
-                <li><a href="/wiki/suds_enabled_street_trees">SuDS-Enabled Street Trees</a></li>
-                <li><a href="/wiki/green_roof_extensive">Extensive Green Roof</a></li>
-                <li><a href="/wiki/green_roof_intensive">Intensive Green Roof</a></li>
-                <li><a href="/wiki/green_wall_living">Living Wall</a></li>
-                <li><a href="/wiki/green_wall_facade">Green Façade</a></li>
-                <li><a href="/wiki/urban_park_greenspace">Urban Park / Green Space</a></li>
-                <li><a href="/wiki/suds_general">SuDS (General - Swale/Filter)</a></li>
-                <li><a href="/wiki/wildlife_features_new_dev">Wildlife Features in New Developments</a></li>
-                <li><a href="/wiki/rain_garden">Rain Garden</a></li>
-                <li><a href="/wiki/blue_roof">Blue Roof</a></li>
-                <li><a href="/wiki/biosolar_roof">Biosolar Roof</a></li>
-                <li><a href="/wiki/wildlife_pond">Wildlife Pond</a></li>
-                <li><a href="/wiki/wildlife_friendly_lighting">Wildlife-Friendly Lighting</a></li>
-                <li><a href="/wiki/swift_boxes">Install Swift Boxes</a></li>
-                <li><a href="/wiki/wildlife_boxes_bricks">Integrate Wildlife Boxes/Bricks</a></li>
-                <li><a href="/wiki/hedgehog_highways">Hedgehog Highways</a></li>
-                <li><a href="/wiki/community_orchards">Community Orchards</a></li>
-                <li><a href="/wiki/new_allotments">New Allotment Sites</a></li>
-                <li><a href="/wiki/community_farms">Community Farms/Food Growing</a></li>
-                <li><a href="/wiki/wildlife_verge_management">Wildlife-Friendly Verge Management</a></li>
-                <li><a href="/wiki/create_pocket_parks">Create Pocket Parks</a></li>
-                <li><a href="/wiki/natural_play_space">Natural Play Space</a></li>
-            </ul>
-            <p style="margin-top: 2rem;"><a href="/">Back to Home</a></p> <!-- Fixed link -->
+        <section style="padding-top: 8rem;">
+            <h2 id="intervention-title">Loading...</h2>
+            <div id="wiki-render-area" class="wiki-content">
+                 <p id="loading-message">Loading intervention details...</p>
+                 <p id="error-message" style="display: none;"></p>
+                 <span id="intervention-sources" class="sources"></span>
+                 <div id="benefits-section" style="display: none;">
+                     <h3>Key Benefits</h3>
+                     <ul id="benefits-list" class="benefits-list"></ul>
+                 </div>
+                 <div id="guidance-section" style="display: none;">
+                     <h3>Technical Guidance</h3>
+                     <div id="guidance-content"></div>
+                 </div>
+                 <div id="products-section" style="display: none;">
+                     <h3>Products Needed</h3>
+                     <ul id="products-list" class="products-list"></ul>
+                 </div>
+                 <div id="reading-section" style="display: none;">
+                    <h3>Further Reading</h3>
+                    <ul id="reading-list" class="further-reading"></ul>
+                 </div>
+            </div>
+             <p style="margin-top: 2rem;"><a href="/wiki/">Back to Wiki Index</a></p>
         </section>
     </main>
 
     <footer>
         <div class="footer-content">
-            <div class="footer-section">
-                <h4>Urban Biome</h4>
-                <p>Smart urban planning for sustainable cities</p>
-            </div>
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <a href="/#about">About</a>
-                <a href="/#what-we-do">What We Do</a>
-                <a href="/wiki/">Wiki</a>
-                <a href="/shop/">Shop</a>
-                <a href="/installers/">Find Installers</a>
-                <a href="/#get-involved">Get Involved</a>
-            </div>
-            <div class="footer-section">
-                <h4>Contact</h4>
-                <a href="mailto:reuben@urbanbiome.info">reuben@urbanbiome.info</a>
-            </div>
-        </div>
+             <div class="footer-section">
+                 <h4>Urban Biome</h4>
+                 <p>Smart urban planning for sustainable cities</p>
+             </div>
+             <div class="footer-section">
+                 <h4>Quick Links</h4>
+                 <a href="/#about">About</a>
+                 <a href="/#what-we-do">What We Do</a>
+                 <a href="/wiki/">Wiki</a>
+                 <a href="/shop/">Shop</a>
+                 <a href="/installers/">Find Installers</a>
+                 <a href="/#get-involved">Get Involved</a>
+             </div>
+             <div class="footer-section">
+                 <h4>Contact</h4>
+                 <a href="mailto:reuben@urbanbiome.info">reuben@urbanbiome.info</a>
+             </div>
+         </div>
         <div class="footer-bottom">
             <p>&copy; 2024 Urban Biome. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const titleElement = document.getElementById('intervention-title');
+            const renderArea = document.getElementById('wiki-render-area');
+            const sourcesElement = document.getElementById('intervention-sources');
+            const benefitsList = document.getElementById('benefits-list');
+            const benefitsSection = document.getElementById('benefits-section');
+            const guidanceContent = document.getElementById('guidance-content');
+            const guidanceSection = document.getElementById('guidance-section');
+            const productsList = document.getElementById('products-list');
+            const productsSection = document.getElementById('products-section');
+            const readingList = document.getElementById('reading-list');
+            const readingSection = document.getElementById('reading-section');
+            const loadingMessage = document.getElementById('loading-message');
+            const errorMessage = document.getElementById('error-message');
+
+            renderArea.style.display = 'none';
+
+            const pathSegments = window.location.pathname.split('/').filter(Boolean);
+            if (pathSegments.length < 2 || pathSegments[0] !== 'wiki') {
+                 displayError('Invalid URL structure for wiki page.');
+                 console.error('Path segments:', pathSegments);
+                 return;
+            }
+            const interventionId = pathSegments[pathSegments.length - 1];
+
+            if (!interventionId) {
+                displayError('Could not determine intervention ID from URL.');
+                return;
+            }
+
+            console.log(`Fetching data for intervention ID: ${interventionId}`);
+
+            try {
+                const apiUrl = `/api/intervention-data/${interventionId}`;
+                console.log('Fetching data from:', apiUrl);
+                const response = await fetch(apiUrl);
+
+                if (!response.ok) {
+                    let errorDetail = `HTTP error! status: ${response.status}`;
+                    try {
+                        const errorData = await response.json();
+                        errorDetail = errorData.error || errorDetail;
+                    } catch (parseError) {
+                        console.warn('Could not parse error response body:', parseError);
+                    }
+                    console.error('API Error Response:', response.status, errorDetail);
+                    throw new Error(errorDetail);
+                }
+
+                const data = await response.json();
+                console.log('Received data:', data);
+                loadingMessage.style.display = 'none';
+
+                titleElement.textContent = data.name || 'Wiki Entry';
+                document.title = `${data.name || 'Wiki Entry'} - Urban Biome Wiki`;
+
+                sourcesElement.textContent = data.sources ? `(Sources: ${data.sources})` : '';
+
+                if (data.benefits && data.benefits.length > 0) {
+                    benefitsList.innerHTML = data.benefits.map(benefit =>
+                        `<li><strong>${benefit.category}:</strong> ${benefit.text}</li>`
+                    ).join('');
+                    benefitsSection.style.display = 'block';
+                }
+
+                if (data.technicalGuidance && data.technicalGuidance.length > 0) {
+                    guidanceContent.innerHTML = data.technicalGuidance.map(section => `
+                        <div class="guidance-section">
+                            <h4>${section.heading}</h4>
+                            ${section.content.map(p => `<p>${p}</p>`).join('')}
+                        </div>
+                    `).join('');
+                    guidanceSection.style.display = 'block';
+                }
+
+                if (data.productsNeeded && data.productsNeeded.length > 0) {
+                    const productCatalog = await fetchShopCatalog();
+                    console.log('Product Catalog:', productCatalog);
+
+                    productsList.innerHTML = data.productsNeeded.map(productId => {
+                        const product = productCatalog.find(p => p.id === productId);
+                        const productName = product ? product.name : productId;
+                        console.log(`Mapping product ID ${productId} to name: ${productName}`);
+                        return `<li><a href="/shop/?product_id=${productId}">${productName}</a></li>`;
+                    }).join('');
+                    productsSection.style.display = 'block';
+                }
+
+                 if (data.furtherReading && data.furtherReading.length > 0) {
+                    readingList.innerHTML = data.furtherReading.map(link =>
+                        `<li><a href="${link.url}" target="_blank" rel="noopener noreferrer">${link.title}</a></li>`
+                    ).join('');
+                    readingSection.style.display = 'block';
+                }
+
+                renderArea.style.display = 'block';
+
+            } catch (error) {
+                console.error('Error fetching or rendering intervention data:', error);
+                displayError(`Failed to load data: ${error.message}`);
+            }
+        });
+
+        let cachedCatalog = null;
+        async function fetchShopCatalog() {
+            const catalogUrl = '/api/products';
+            console.log('Fetching product catalog from:', catalogUrl);
+            if (cachedCatalog) {
+                console.log('Using cached product catalog.');
+                return cachedCatalog;
+            }
+            try {
+                const response = await fetch(catalogUrl);
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch product catalog (${response.status})`);
+                }
+                cachedCatalog = await response.json();
+                console.log('Successfully fetched and cached catalog:', cachedCatalog);
+                return cachedCatalog;
+            } catch (error) {
+                console.error("Error fetching product catalog:", error);
+                return [];
+            }
+        }
+
+        function displayError(message) {
+             const titleElement = document.getElementById('intervention-title');
+             const loadingMessage = document.getElementById('loading-message');
+             const errorMessage = document.getElementById('error-message');
+             const renderArea = document.getElementById('wiki-render-area');
+
+             if (loadingMessage) loadingMessage.style.display = 'none';
+             if (renderArea) renderArea.style.display = 'none';
+
+             titleElement.textContent = 'Error';
+             document.title = 'Error - Urban Biome Wiki';
+
+             if (errorMessage) {
+                 errorMessage.textContent = message;
+                 errorMessage.style.display = 'block';
+             }
+        }
+    </script>
 </body>
 </html>
