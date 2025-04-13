@@ -15,7 +15,7 @@
         .wiki-content li { margin-bottom: 0.5rem; }
         .wiki-content h3 { margin-top: 2rem; margin-bottom: 1rem; font-size: 1.5rem; }
         .benefits-list li { background: #f0fff0; padding: 8px 12px; border-radius: 4px; margin-bottom: 8px; }
-        .products-list li { background: #f0f8ff; padding: 8px 12px; border-radius: 4px; margin-bottom: 8px; }
+        /* .products-list li { background: #f0f8ff; padding: 8px 12px; border-radius: 4px; margin-bottom: 8px; } */ /* Remove default list styling */
         .guidance-section { margin-bottom: 1.5rem; }
         .guidance-section h4 { font-size: 1.2rem; margin-bottom: 0.75rem; }
         .guidance-section p { margin-bottom: 0.5rem; line-height: 1.6; }
@@ -23,6 +23,103 @@
         .wiki-content .sources { font-style: italic; color: #555; margin-bottom: 1.5rem; display: block; font-size: 0.9em; }
         #loading-message { text-align: center; padding: 2rem; color: #666; }
         #error-message { text-align: center; padding: 2rem; color: red; }
+
+        /* --- START: New Styles for Product Cards --- */
+        #products-list {
+            list-style: none; /* Remove bullet points */
+            padding-left: 0; /* Remove default padding */
+        }
+        .product-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .product-card .info {
+            flex-basis: calc(70% - 20px); /* Adjust basis */
+            margin-right: 20px;
+        }
+        .product-card .info h4 {
+            margin: 0 0 5px 0;
+            font-size: 1.1rem;
+            color: #2a2f4a;
+        }
+        .product-card .info p {
+            font-size: 0.9rem;
+            color: #555;
+            margin: 0 0 8px 0;
+            line-height: 1.4;
+        }
+        .product-card .actions {
+            flex-basis: 30%;
+            text-align: right;
+        }
+        .product-card .price {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: block;
+            color: #333;
+        }
+        .product-card .add-btn {
+            padding: 8px 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.2s ease;
+        }
+        .product-card .add-btn:hover {
+            background-color: #218838;
+        }
+        #add-all-btn {
+             display: inline-block; /* Or block with margin */
+             padding: 10px 18px;
+             background-color: #007bff;
+             color: white;
+             border: none;
+             border-radius: 5px;
+             cursor: pointer;
+             font-size: 1rem;
+             font-weight: 500;
+             transition: background-color 0.2s ease;
+             margin-bottom: 20px; /* Space below button */
+        }
+        #add-all-btn:hover {
+             background-color: #0056b3;
+        }
+        .cart-feedback { /* Style for add-to-cart confirmation */
+            font-size: 0.9em;
+            color: green;
+            margin-left: 10px;
+            display: none; /* Hidden by default */
+            font-style: italic;
+        }
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .product-card .info {
+                flex-basis: 100%;
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            .product-card .actions {
+                flex-basis: 100%;
+                text-align: left; /* Align actions left on small screens */
+            }
+             .product-card .price {
+                 display: inline-block;
+                 margin-right: 15px;
+                 margin-bottom: 0;
+             }
+        }
+         /* --- END: New Styles for Product Cards --- */
     </style>
 </head>
 <body>
@@ -61,6 +158,7 @@
                  </div>
                  <div id="products-section">
                      <h3>Products Needed</h3>
+                     <button id="add-all-btn" style="display: none;">Add All Items to Cart</button> <!-- Initially hidden -->
                      <ul id="products-list" class="products-list"></ul>
                  </div>
                  <div id="reading-section" style="display: none;"> <!-- Hide if empty -->
@@ -110,6 +208,7 @@
             const readingSection = document.getElementById('reading-section');
             const loadingMessage = document.getElementById('loading-message');
             const errorMessage = document.getElementById('error-message');
+            const addAllButton = document.getElementById('add-all-btn');
 
             const pathSegments = window.location.pathname.split('/').filter(Boolean);
             const interventionId = pathSegments[pathSegments.length - 1]; // Get last segment as ID
@@ -164,10 +263,38 @@
 
                     productsList.innerHTML = data.productsNeeded.map(productId => {
                         const product = productCatalog.find(p => p.id === productId);
-                        const productName = product ? product.name : productId; // Fallback to ID if name not found
-                        // Link to shop page with highlight parameter
-                        return `<li><a href="/shop/?product_id=${productId}">${productName}</a></li>`;
+                        if (!product) {
+                            return `<li>Error: Product ID ${productId} not found in catalog.</li>`;
+                        }
+                        const productName = product.name;
+                        const productPrice = product.price;
+                        const productDescription = product.description || '';
+                        const truncatedDescription = productDescription.length > 100 ? productDescription.substring(0, 100) + '...' : productDescription;
+
+                        // Create product card HTML
+                        return `
+                            <li class="product-card" data-product-id="${productId}">
+                                <div class="info">
+                                    <h4>${productName}</h4>
+                                    <p>${truncatedDescription}</p>
+                                </div>
+                                <div class="actions">
+                                    <span class="price">£${productPrice.toFixed(2)}</span>
+                                    <button class="add-btn"
+                                            data-product-id="${productId}"
+                                            data-product-name="${productName}"
+                                            data-product-price="${productPrice}">Add to Cart</button>
+                                    <span class="cart-feedback">Added!</span>
+                                </div>
+                            </li>
+                        `;
                     }).join('');
+
+                    // Show the 'Add All' button if there are products
+                    if (data.productsNeeded.length > 0) {
+                        addAllButton.style.display = 'inline-block';
+                    }
+
                 } else {
                      document.getElementById('products-section').style.display = 'none';
                 }
@@ -187,6 +314,79 @@
                 displayError(`Failed to load data: ${error.message}`);
             }
         });
+
+        // --- START: Cart Logic (adapted from shop/index.html) ---
+        let cart = JSON.parse(localStorage.getItem('urbanBiomeCart')) || {};
+
+        function addToCart(productId, productName, productPrice) {
+            const price = parseFloat(productPrice);
+            if (isNaN(price)) {
+                console.error("Invalid price for product:", productId);
+                return;
+            }
+
+            if (cart[productId]) {
+                cart[productId].quantity += 1;
+            } else {
+                cart[productId] = { name: productName, quantity: 1, price: price };
+            }
+            localStorage.setItem('urbanBiomeCart', JSON.stringify(cart));
+            console.log("Cart updated:", cart); // Log for debugging
+
+            // Optional: Show feedback to user on this page
+            const button = document.querySelector(`.add-btn[data-product-id="${productId}"]`);
+            if (button) {
+                 const feedback = button.nextElementSibling;
+                 if (feedback && feedback.classList.contains('cart-feedback')) {
+                     feedback.style.display = 'inline';
+                     setTimeout(() => { feedback.style.display = 'none'; }, 2000); // Hide after 2s
+                 }
+            }
+        }
+
+        // Add event listener to the product list container (event delegation)
+        document.getElementById('products-list').addEventListener('click', (event) => {
+            if (event.target.classList.contains('add-btn')) {
+                const button = event.target;
+                addToCart(
+                    button.dataset.productId,
+                    button.dataset.productName,
+                    button.dataset.productPrice
+                );
+            }
+        });
+
+         // Add event listener for the 'Add All' button
+         document.getElementById('add-all-btn').addEventListener('click', async () => {
+            console.log("Add All clicked");
+            const productCatalog = await fetchShopCatalog(); // Ensure catalog is loaded
+            const productIds = Array.from(document.querySelectorAll('#products-list .product-card'))
+                                  .map(card => card.dataset.productId);
+
+            if (!productCatalog || productCatalog.length === 0) {
+                console.error("Product catalog not available for Add All");
+                alert("Could not add all items. Product data unavailable.");
+                return;
+            }
+
+            let itemsAddedCount = 0;
+            productIds.forEach(productId => {
+                 const product = productCatalog.find(p => p.id === productId);
+                 if (product) {
+                    addToCart(product.id, product.name, product.price);
+                    itemsAddedCount++;
+                 } else {
+                     console.warn(`Product ID ${productId} not found in catalog during Add All.`);
+                 }
+            });
+
+            if (itemsAddedCount > 0) {
+                 alert(`${itemsAddedCount} item(s) added to your cart.`);
+                 // Optionally update feedback for all buttons, though might be noisy
+            }
+         });
+
+         // --- END: Cart Logic ---
 
         // Helper function to fetch product names from the shop catalog API
         let cachedCatalog = null;
