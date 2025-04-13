@@ -3,16 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Urban Biome Shop</title>
+    <title>Shop - Urban Biome</title>
     <link rel="stylesheet" href="/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* Add some basic styling for the shop list */
-        .shop-list { list-style: none; padding-left: 0; }
-        .shop-list li { border: 1px solid #eee; padding: 15px; margin-bottom: 15px; border-radius: 5px; background: #f9f9f9; }
-        .shop-list h4 { margin-top: 0; margin-bottom: 8px; color: var(--primary-color); }
+        .shop-item {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+        .shop-item h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+            color: #333;
+        }
+        .shop-item p {
+            margin-bottom: 5px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .interventions-list {
+            font-size: 0.85rem;
+            color: #0056b3;
+            margin-top: 10px;
+        }
+        .interventions-list a {
+            text-decoration: none;
+            color: #0056b3;
+            margin-right: 5px;
+        }
+        .interventions-list a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -33,46 +60,761 @@
 
     <main>
         <section style="padding-top: 8rem;">
-            <h2>Urban Biome Shop</h2>
-            <p>Browse products related to urban greening interventions. (Details coming soon)</p>
-            
-            <ul class="shop-list">
-                <li>
-                    <h4>Trees & Planting Mediums</h4>
-                    <p>Includes standard and SuDS-tolerant tree saplings, compost, structural soils, and various mulches.</p>
-                    <!-- Example Link: <a href="/shop/?category=trees">View Products</a> -->
-                </li>
-                 <li>
-                    <h4>Tree Support & Protection</h4>
-                    <p>Stakes, ties, standard tree guards, heavy-duty SuDS-compatible grilles, and root barriers.</p>
-                </li>
-                <li>
-                    <h4>Green Roof Components (Extensive)</h4>
-                    <p>Lightweight substrates, drainage layers, filter fleeces, sedum mats/plugs, edge profiles, gravel.</p>
-                </li>
-                 <li>
-                    <h4>Green Roof Components (Intensive)</h4>
-                    <p>High-performance waterproofing, heavy-duty root barriers, high-capacity drainage/reservoir boards, intensive substrates, diverse vegetation (turf, perennials, shrubs), irrigation systems, safety railings, paving/decking.</p>
-                </li>
-                 <li>
-                    <h4>Living Wall Systems</h4>
-                    <p>Modular panels/pockets, mounting frames, specialised vertical growing media, integrated irrigation components (emitters, timers, filters, fertigation units), base drainage channels.</p>
-                </li>
-                 <li>
-                    <h4>Green Façade Supplies</h4>
-                    <p>Climbing plants (self-clinging/twining), trellis panels, wire support systems, mesh panels, stand-off brackets, plant ties, large containers, fertiliser.</p>
-                </li>
-                <li>
-                    <h4>Water Management (SuDS & Irrigation)</h4>
-                    <p>Geotextile membranes, soakaway crates, inlet/overflow pipes, watering tubes/bags, drip irrigation components.</p>
-                </li>
-                <li>
-                    <h4>General Landscaping & Accessories</h4>
-                    <p>Wall fixings, general fertilisers, planters, roof furniture, inspection chambers.</p>
-                </li>
-            </ul>
+            <h2>Product Types</h2>
+            <p>Browse products needed for various urban greening interventions. Click on intervention names to learn more.</p>
 
-            <p style="margin-top: 2rem;"><a href="/">Back to Home</a></p>
+            <!-- Product Items List -->
+            <div class="shop-item">
+                <h3>Topsoil / Tree Soil / Structural Soil (Specified)</h3>
+                <p>Quality soil meeting relevant standards (e.g., BS 3882) or engineered mixes for specific applications like tree pits under paving.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/street_trees.html">Street Trees</a>, <a href="/wiki/suds_street_trees.html">SuDS-Enabled Street Trees</a>, <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/suds_general.html">SuDS (General)</a>, <a href="/wiki/wildlife_features_new_dev.html">Wildlife Features</a>, <a href="/wiki/community_orchards.html">Community Orchards</a>, <a href="/wiki/new_allotments.html">New Allotments</a>, <a href="/wiki/community_farms.html">Community Farms</a>, <a href="/wiki/create_pocket_parks.html">Pocket Parks</a></p>
+            </div>
+
+            <div class="shop-item">
+                <h3>Compost / Soil Improver</h3>
+                <p>Organic matter to improve soil structure, fertility, and water retention.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/street_trees.html">Street Trees</a>, <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/green_wall_facade.html">Green Façade</a>, <a href="/wiki/community_orchards.html">Community Orchards</a>, <a href="/wiki/new_allotments.html">New Allotments</a>, <a href="/wiki/community_farms.html">Community Farms</a></p>
+            </div>
+
+            <div class="shop-item">
+                <h3>Tree Stock (UK Native/Adapted Species, various sizes to BS 8545)</h3>
+                <p>Trees suitable for street planting, SuDS features, orchards, or general landscaping.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/street_trees.html">Street Trees</a>, <a href="/wiki/suds_street_trees.html">SuDS-Enabled Street Trees</a>, <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/wildlife_features_new_dev.html">Wildlife Features</a>, <a href="/wiki/community_orchards.html">Community Orchards</a>, <a href="/wiki/create_pocket_parks.html">Pocket Parks</a>, <a href="/wiki/natural_play_space.html">Natural Play</a></p>
+            </div>
+
+             <div class="shop-item">
+                <h3>Tree Stakes & Ties</h3>
+                <p>Support systems for newly planted trees, used only if necessary for stability.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/street_trees.html">Street Trees</a>, <a href="/wiki/suds_street_trees.html">SuDS-Enabled Street Trees</a>, <a href="/wiki/community_orchards.html">Community Orchards</a></p>
+            </div>
+
+             <div class="shop-item">
+                <h3>Tree Guard/Shelter</h3>
+                <p>Protection for young trees against vandalism, animals, or maintenance equipment.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/street_trees.html">Street Trees</a>, <a href="/wiki/community_orchards.html">Community Orchards</a></p>
+            </div>
+
+             <div class="shop-item">
+                <h3>Root Barrier</h3>
+                <p>Membrane installed vertically to guide tree roots away from infrastructure.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/street_trees.html">Street Trees</a>, <a href="/wiki/suds_street_trees.html">SuDS-Enabled Street Trees</a>, <a href="/wiki/green_roof_extensive.html">Extensive Green Roof</a>, <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a></p>
+            </div>
+
+             <div class="shop-item">
+                <h3>Mulch (e.g., Bark Chippings, Gravel/Pebbles, Inorganic)</h3>
+                <p>Surface covering to retain moisture, suppress weeds, and protect soil.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/street_trees.html">Street Trees</a>, <a href="/wiki/suds_street_trees.html">SuDS-Enabled Street Trees</a>, <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/rain_garden.html">Rain Garden</a></p>
+            </div>
+
+             <div class="shop-item">
+                <h3>Watering Tube/Bag</h3>
+                <p>Device to aid efficient watering of newly planted trees.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/street_trees.html">Street Trees</a>, <a href="/wiki/suds_street_trees.html">SuDS-Enabled Street Trees</a></p>
+            </div>
+
+             <div class="shop-item">
+                <h3>Geotextile Membrane (Permeable/Impermeable)</h3>
+                <p>Fabric used for separation, filtration, protection, or lining in SuDS and landscape features.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/suds_street_trees.html">SuDS-Enabled Street Trees</a>, <a href="/wiki/green_roof_extensive.html">Extensive Green Roof</a>, <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a>, <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/suds_general.html">SuDS (General)</a>, <a href="/wiki/permeable_surfaces.html">Permeable Surfaces</a>, <a href="/wiki/rain_garden.html">Rain Garden</a></p>
+            </div>
+
+             <div class="shop-item">
+                <h3>Modular Soakaway/Attenuation Crates</h3>
+                <p>Plastic crates creating underground void space for water storage/infiltration.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/suds_street_trees.html">SuDS-Enabled Street Trees</a>, <a href="/wiki/blue_roof.html">Blue Roof</a></p>
+            </div>
+
+             <div class="shop-item">
+                <h3>Inlet Pipes / Surface Water Channels</h3>
+                <p>Components to convey water into SuDS features like tree pits.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/suds_street_trees.html">SuDS-Enabled Street Trees</a>, <a href="/wiki/rain_garden.html">Rain Garden</a></p>
+            </div>
+
+             <div class="shop-item">
+                <h3>Overflow / Underdrain Pipework & Fittings</h3>
+                <p>Pipes and associated fittings for controlled discharge or overflow from SuDS.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/suds_street_trees.html">SuDS-Enabled Street Trees</a>, <a href="/wiki/rain_garden.html">Rain Garden</a>, <a href="/wiki/wildlife_pond.html">Wildlife Pond</a></p>
+            </div>
+
+             <div class="shop-item">
+                <h3>Heavy Duty Tree Grille (SuDS Compatible)</h3>
+                <p>Protective cover for tree pits in paved areas, allowing water ingress.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/suds_street_trees.html">SuDS-Enabled Street Trees</a></p>
+            </div>
+
+            <!-- Extensive Green Roof Specific -->
+            <div class="shop-item">
+                <h3>Waterproofing Membrane (Roof specific)</h3>
+                <p>Essential layer to prevent water ingress into the building.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_roof_extensive.html">Extensive Green Roof</a>, <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a>, <a href="/wiki/blue_roof.html">Blue Roof</a>, <a href="/wiki/biosolar_roof.html">Biosolar Roof</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Protection Fleece</h3>
+                <p>Protects waterproofing/root barrier layers from mechanical damage.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_roof_extensive.html">Extensive Green Roof</a>, <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a>, <a href="/wiki/blue_roof.html">Blue Roof</a>, <a href="/wiki/biosolar_roof.html">Biosolar Roof</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Drainage Layer (Green Roof - e.g., Cuspated Sheet)</h3>
+                <p>Allows excess water to drain from the green roof build-up.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_roof_extensive.html">Extensive Green Roof</a>, <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a>, <a href="/wiki/biosolar_roof.html">Biosolar Roof</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Filter Fleece / Geotextile</h3>
+                <p>Prevents substrate fines from washing into and clogging the drainage layer.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_roof_extensive.html">Extensive Green Roof</a>, <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a>, <a href="/wiki/blue_roof.html">Blue Roof</a>, <a href="/wiki/biosolar_roof.html">Biosolar Roof</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Extensive Green Roof Substrate (Lightweight)</h3>
+                <p>Engineered growing medium meeting standards for extensive green roofs.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_roof_extensive.html">Extensive Green Roof</a>, <a href="/wiki/biosolar_roof.html">Biosolar Roof</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Vegetation (e.g., Sedum Mat/Blanket, Plug Plants, Seeds)</h3>
+                <p>Drought-tolerant plants suitable for extensive green roofs.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_roof_extensive.html">Extensive Green Roof</a>, <a href="/wiki/biosolar_roof.html">Biosolar Roof</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Edge Retainment Profile/System</h3>
+                <p>Provides a neat edge and retains substrate/gravel margins.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_roof_extensive.html">Extensive Green Roof</a>, <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a>, <a href="/wiki/biosolar_roof.html">Biosolar Roof</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Gravel/Pebbles (for vegetation-free margins)</h3>
+                <p>Used for fire breaks and drainage pathways around roof perimeters and penetrations.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_roof_extensive.html">Extensive Green Roof</a>, <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a>, <a href="/wiki/biosolar_roof.html">Biosolar Roof</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Drainage Outlets / Inspection Chambers</h3>
+                <p>Allow water egress from the roof and access for maintenance.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_roof_extensive.html">Extensive Green Roof</a>, <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a></p>
+            </div>
+
+            <!-- Intensive Green Roof Specific -->
+            <div class="shop-item">
+                <h3>High-Performance Waterproofing Membrane</h3>
+                <p>Robust membrane essential for intensive systems due to higher loads and deeper substrate.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a>, <a href="/wiki/blue_roof.html">Blue Roof</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Root Barrier Membrane (Heavy Duty)</h3>
+                <p>Stronger root barrier often needed for intensive systems.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Drainage/Reservoir Board (High Capacity)</h3>
+                <p>Drainage layer with enhanced water storage capacity, often used in intensive roofs.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Intensive Green Roof Substrate</h3>
+                <p>Deeper, engineered substrate supporting wider range of plants including shrubs/trees.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Vegetation (Plants, Shrubs, Turf, Small Trees)</h3>
+                <p>Wider variety of plants suitable for deeper substrates on intensive roofs.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Irrigation System (Drip lines, controllers, etc.)</h3>
+                <p>Usually essential for maintaining planting on intensive green roofs.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a>, <a href="/wiki/green_wall_living.html">Living Wall</a>, <a href="/wiki/community_farms.html">Community Farms</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Paving / Decking Systems (for accessible areas)</h3>
+                <p>Suitable surfacing for pathways and amenity areas on intensive roofs.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Roof Furniture, Planters (Optional)</h3>
+                <p>Benches, tables, large planters for additional amenity on intensive roofs.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_roof_intensive.html">Intensive Green Roof</a></p>
+            </div>
+
+            <!-- Living Wall Specific -->
+            <div class="shop-item">
+                <h3>Living Wall System (Modules/Panels/Pockets & Frame)</h3>
+                <p>Proprietary systems providing structure and growing medium for vertical planting.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_wall_living.html">Living Wall</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Wall Waterproofing Membrane (If required)</h3>
+                <p>May be needed behind some living wall systems to protect building fabric.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_wall_living.html">Living Wall</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Fertigation Unit (Optional)</h3>
+                <p>System to automatically add nutrients to the living wall irrigation water.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_wall_living.html">Living Wall</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Vertical Growing Medium</h3>
+                <p>Specialist lightweight substrate for use in vertical living wall systems.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_wall_living.html">Living Wall</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Plants (Suitable species, often supplied as plugs)</h3>
+                <p>Plants adapted for vertical growth in the specific living wall system.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_wall_living.html">Living Wall</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Base Drainage Channel / Guttering</h3>
+                <p>Collects runoff from the base of the living wall.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_wall_living.html">Living Wall</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Structural Fixings (Wall specific)</h3>
+                <p>Securely attach living wall framework to the building structure.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_wall_living.html">Living Wall</a></p>
+            </div>
+
+             <!-- Green Façade Specific -->
+            <div class="shop-item">
+                <h3>Climbing Plants (Self-clinging or Twining/Scrambling)</h3>
+                <p>Plants used for green façades, either clinging directly or needing support.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_wall_facade.html">Green Façade</a>, <a href="/wiki/create_pocket_parks.html">Pocket Parks</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Trellis Panels (Wood/Metal - Optional)</h3>
+                <p>Support structure for climbing plants.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_wall_facade.html">Green Façade</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Wire Support System (Wires, vine eyes, tensioners - Optional)</h3>
+                <p>Alternative support structure using tensioned wires.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_wall_facade.html">Green Façade</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Mesh Support Panels (Optional)</h3>
+                <p>Rigid mesh panels fixed to walls to support climbers.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_wall_facade.html">Green Façade</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Stand-off Wall Brackets (Optional)</h3>
+                <p>Creates gap between support structure and wall for air circulation.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_wall_facade.html">Green Façade</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Wall Fixings (Appropriate for wall type)</h3>
+                <p>Screws, plugs etc. for securing support structures or wildlife boxes.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_wall_facade.html">Green Façade</a>, <a href="/wiki/swift_boxes.html">Swift Boxes</a>, <a href="/wiki/wildlife_boxes_bricks.html">Wildlife Boxes/Bricks</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Plant Ties / Support Clips</h3>
+                <p>Used to train climbers onto support structures.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_wall_facade.html">Green Façade</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Large Containers (If not planting in ground)</h3>
+                <p>For planting climbers or other large plants where direct ground planting isn't possible.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_wall_facade.html">Green Façade</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>General Purpose Fertiliser</h3>
+                <p>Nutrient supply for plants, especially containerised or those in low-fertility media.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/green_wall_facade.html">Green Façade</a></p>
+            </div>
+
+             <!-- Park / Landscape / Habitat Specific -->
+             <div class="shop-item">
+                <h3>Native Trees, Hedging & Shrubs</h3>
+                <p>Plant stock suitable for parks, hedges, and wildlife planting schemes.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/wildlife_features_new_dev.html">Wildlife Features</a>, <a href="/wiki/new_allotments.html">New Allotments</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Wildflower Seed Mix / Turf (UK Native)</h3>
+                <p>Seed or turf for creating species-rich meadows in parks or verges.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/wildlife_features_new_dev.html">Wildlife Features</a>, <a href="/wiki/community_orchards.html">Community Orchards</a>, <a href="/wiki/wildlife_verge_management.html">Verge Management</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Amenity Grass Seed / Turf</h3>
+                <p>For creating standard lawns or playing fields.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Native Aquatic & Marginal Plants</h3>
+                <p>Plants suitable for wildlife ponds and wetlands.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/wildlife_features_new_dev.html">Wildlife Features</a>, <a href="/wiki/wildlife_pond.html">Wildlife Pond</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Permeable Paving Materials (for paths)</h3>
+                <p>Permeable surfacing options suitable for park pathways.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/create_pocket_parks.html">Pocket Parks</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Other Path Surfacing Materials</h3>
+                <p>Gravel, tarmac, resin-bound aggregate etc. for park paths.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/new_allotments.html">New Allotments</a>, <a href="/wiki/community_farms.html">Community Farms</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Park Furniture (Benches, bins, signage)</h3>
+                <p>Standard items for public parks and green spaces.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/create_pocket_parks.html">Pocket Parks</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Play Equipment</h3>
+                <p>Manufactured play equipment for parks.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Fencing / Gates</h3>
+                <p>For park boundaries, safety around features, or specific zones.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/new_allotments.html">New Allotments</a>, <a href="/wiki/community_farms.html">Community Farms</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Drainage Pipes & Components</h3>
+                <p>Pipes, connections, overflows, underdrains used in various SuDS features.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/suds_general.html">SuDS (General)</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Inlet/Outlet Structures</h3>
+                <p>Headwalls, gabions, control devices etc. for managing water flow in SuDS.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/suds_general.html">SuDS (General)</a>, <a href="/wiki/wildlife_pond.html">Wildlife Pond</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Pond Liner/Clay Liner (If required)</h3>
+                <p>Impermeable layer for creating ponds or wetlands in permeable ground.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/wildlife_features_new_dev.html">Wildlife Features</a>, <a href="/wiki/wildlife_pond.html">Wildlife Pond</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Logs/Rocks for Habitat Piles</h3>
+                <p>Materials used to create shelter for invertebrates, amphibians etc.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/urban_park_greenspace.html">Urban Park / Green Space</a>, <a href="/wiki/wildlife_features_new_dev.html">Wildlife Features</a>, <a href="/wiki/hedgehog_highways.html">Hedgehog Highways</a>, <a href="/wiki/wildlife_pond.html">Wildlife Pond</a></p>
+            </div>
+
+            <!-- SuDS Specific -->
+            <div class="shop-item">
+                <h3>Grass Seed Mix (Amenity/Wetland Tolerant)</h3>
+                <p>Seed mixes suitable for SuDS features like swales or detention basins.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/suds_general.html">SuDS (General)</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Filter Media / Engineered Soil (for SuDS)</h3>
+                <p>Specialist soils designed for filtration and drainage in bioretention or enhanced swales.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/suds_general.html">SuDS (General)</a>, <a href="/wiki/rain_garden.html">Rain Garden</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Perforated Pipe (for underdrained swales)</h3>
+                <p>Pipe used in the base of dry/enhanced swales to aid drainage.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/suds_general.html">SuDS (General)</a>, <a href="/wiki/rain_garden.html">Rain Garden</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Gravel/Pipe Bedding Material (for underdrains)</h3>
+                <p>Clean aggregate used around underdrain pipes.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/suds_general.html">SuDS (General)</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Check Dams (Timber, stone - Optional for swales)</h3>
+                <p>Small barriers across swales to slow flow and increase infiltration/storage.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/suds_general.html">SuDS (General)</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Level Spreader (for filter strip inlets)</h3>
+                <p>Device to ensure sheet flow onto a filter strip.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/suds_general.html">SuDS (General)</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Erosion Control Matting (Temporary/Permanent)</h3>
+                <p>Matting to stabilise soil on slopes, especially during vegetation establishment.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/suds_general.html">SuDS (General)</a></p>
+            </div>
+
+             <!-- Permeable Surfaces Specific -->
+            <div class="shop-item">
+                <h3>Permeable Paving Units (CBPP, Clay, Stone)</h3>
+                <p>Paving blocks designed with voids or joints for water infiltration.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/permeable_surfaces.html">Permeable Surfaces</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Porous Asphalt / Concrete Mix</h3>
+                <p>Surfacing material with interconnected voids allowing water passage.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/permeable_surfaces.html">Permeable Surfaces</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Resin Bound Aggregate System</h3>
+                <p>Aggregate bound with permeable resin for surfacing.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/permeable_surfaces.html">Permeable Surfaces</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Grass Reinforcement Grids (Plastic/Concrete)</h3>
+                <p>Grids filled with soil/gravel to support grass growth while allowing traffic.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/permeable_surfaces.html">Permeable Surfaces</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Jointing / Bedding Aggregate (e.g., 2-6.3mm clean angular grit)</h3>
+                <p>Specifically graded grit for permeable paving joints and bedding layer.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/permeable_surfaces.html">Permeable Surfaces</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Permeable Sub-base Aggregate (e.g., Type 3, 4/20, 4/40)</h3>
+                <p>Open-graded aggregate providing structural support and water storage.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/permeable_surfaces.html">Permeable Surfaces</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Impermeable Geomembrane Liner (for Type C systems)</h3>
+                <p>Liner to prevent infiltration from permeable pavements where required.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/permeable_surfaces.html">Permeable Surfaces</a>, <a href="/wiki/rain_garden.html">Rain Garden</a>, <a href="/wiki/wildlife_pond.html">Wildlife Pond</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Perforated Pipes / Fin Drains (for outlets if needed)</h3>
+                <p>Used to collect and convey water from the base of permeable pavements.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/permeable_surfaces.html">Permeable Surfaces</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Flow Control Devices / Chambers (if needed)</h3>
+                <p>Structures to control the discharge rate from permeable pavements.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/permeable_surfaces.html">Permeable Surfaces</a></p>
+            </div>
+
+            <!-- Rain Garden Specific -->
+             <div class="shop-item">
+                <h3>Transition Layer Sand/Grit</h3>
+                <p>Layer between filter media and drainage layer to prevent migration of fines.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/rain_garden.html">Rain Garden</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Drainage Layer Gravel/Aggregate</h3>
+                <p>Layer containing underdrain pipe in bioretention/rain garden systems.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/rain_garden.html">Rain Garden</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Filter Geotextile (if used instead of transition layer)</h3>
+                <p>Geotextile alternative to sand/grit transition layer.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/rain_garden.html">Rain Garden</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Plants (Water-tolerant perennials, grasses, shrubs)</h3>
+                <p>Species selected for their ability to withstand periodic wetting and drying in rain gardens.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/rain_garden.html">Rain Garden</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Inlet Components (Splash stones, channel sections)</h3>
+                <p>Manage water entry into rain gardens, preventing erosion.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/rain_garden.html">Rain Garden</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Outlet/Overflow Pipework & Headwall/Structure</h3>
+                <p>Manages excess water leaving a rain garden or pond.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/rain_garden.html">Rain Garden</a>, <a href="/wiki/wildlife_pond.html">Wildlife Pond</a></p>
+            </div>
+
+            <!-- Blue/Biosolar Roof Specific -->
+             <div class="shop-item">
+                <h3>Blue Roof Flow Control Outlet Drain</h3>
+                <p>Specialised roof outlet with integrated flow restrictor for blue roofs.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/blue_roof.html">Blue Roof</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Overflow Drain Components</h3>
+                <p>Safety outlet for blue roofs in case of blockage or extreme rainfall.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/blue_roof.html">Blue Roof</a>, <a href="/wiki/wildlife_pond.html">Wildlife Pond</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Storage Layer/Modules (Optional - e.g., aggregate, crates)</h3>
+                <p>Used in blue roofs or under podiums to create water storage volume.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/blue_roof.html">Blue Roof</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Photovoltaic (PV) Panels</h3>
+                <p>Solar panels for generating electricity on biosolar roofs.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/biosolar_roof.html">Biosolar Roof</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>PV Mounting System (Biosolar compatible - ballasted/fixed)</h3>
+                <p>Framework to support PV panels above a green roof.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/biosolar_roof.html">Biosolar Roof</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>PV Inverter, Cabling & Electrical Components</h3>
+                <p>Required electrical components for a functioning PV system.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/biosolar_roof.html">Biosolar Roof</a></p>
+            </div>
+
+            <!-- Wildlife/Habitat Specific -->
+             <div class="shop-item">
+                <h3>Wildlife Friendly Lighting Fixtures</h3>
+                <p>Lighting designed to minimise disturbance to nocturnal wildlife.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/wildlife_features_new_dev.html">Wildlife Features</a>, <a href="/wiki/wildlife_friendly_lighting.html">Wildlife Lighting</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Warm Spectrum LED Luminaires (&lt;3000K)</h3>
+                <p>Lower blue light content LEDs, less disruptive to wildlife.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/wildlife_friendly_lighting.html">Wildlife Lighting</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Full Cut-off Luminaires / Shields / Hoods</h3>
+                <p>Fixtures that direct light downwards, reducing sky glow and light spill.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/wildlife_friendly_lighting.html">Wildlife Lighting</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Motion Sensors (PIRs)</h3>
+                <p>Activate lights only when movement is detected.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/wildlife_friendly_lighting.html">Wildlife Lighting</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Timers / Dimming Controls</h3>
+                <p>Control when lights are on and potentially their brightness.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/wildlife_friendly_lighting.html">Wildlife Lighting</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Light Filters (for existing fixtures - specialist)</h3>
+                <p>Can modify the colour spectrum of existing light sources.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/wildlife_friendly_lighting.html">Wildlife Lighting</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>External Swift Box (Wood, Woodcrete, Plastic)</h3>
+                <p>Artificial nest box designed specifically for swifts.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/swift_boxes.html">Swift Boxes</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Internal Swift Brick</h3>
+                <p>Nest box designed to be integrated into the building fabric.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/swift_boxes.html">Swift Boxes</a>, <a href="/wiki/wildlife_boxes_bricks.html">Wildlife Boxes/Bricks</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Bird Boxes (External - various species)</h3>
+                <p>Nest boxes suitable for common garden birds like tits, sparrows, robins.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/wildlife_features_new_dev.html">Wildlife Features</a>, <a href="/wiki/wildlife_boxes_bricks.html">Wildlife Boxes/Bricks</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Bird Bricks / Sparrow Terrace (Integrated)</h3>
+                <p>Integrated nest units for house sparrows or other small birds.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/wildlife_boxes_bricks.html">Wildlife Boxes/Bricks</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Bat Box (External - various designs)</h3>
+                <p>Artificial roosting boxes for different bat species.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/wildlife_features_new_dev.html">Wildlife Features</a>, <a href="/wiki/wildlife_boxes_bricks.html">Wildlife Boxes/Bricks</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Bat Brick / Tube (Integrated)</h3>
+                <p>Roosting units designed to be built into walls or soffits.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/wildlife_features_new_dev.html">Wildlife Features</a>, <a href="/wiki/wildlife_boxes_bricks.html">Wildlife Boxes/Bricks</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Hedgehog Friendly Gravel Boards (with holes)</h3>
+                <p>Concrete or composite gravel boards with pre-cut holes for hedgehog access.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/wildlife_features_new_dev.html">Wildlife Features</a>, <a href="/wiki/hedgehog_highways.html">Hedgehog Highways</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Hedgehog Highway Sign/Marker (Optional)</h3>
+                <p>Small sign to indicate the presence of a hedgehog gap.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/hedgehog_highways.html">Hedgehog Highways</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Hedgehog House/Hibernaculum (Optional habitat feature)</h3>
+                <p>Provides a safe place for hedgehogs to shelter or hibernate.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/hedgehog_highways.html">Hedgehog Highways</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Insect Hotel / Bee Bricks</h3>
+                <p>Structures providing nesting/hibernating spaces for beneficial insects.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/wildlife_features_new_dev.html">Wildlife Features</a>, <a href="/wiki/wildlife_boxes_bricks.html">Wildlife Boxes/Bricks</a></p>
+            </div>
+
+            <!-- Community Growing Specific -->
+            <div class="shop-item">
+                <h3>Fruit Trees (UK Native/Heritage varieties, appropriate rootstock)</h3>
+                <p>Fruit trees suitable for community orchards.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/community_orchards.html">Community Orchards</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Tree Guards (Spiral/Mesh - rabbit/deer protection)</h3>
+                <p>Protect young fruit trees from animal damage.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/community_orchards.html">Community Orchards</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Mulch Mats (for young trees)</h3>
+                <p>Suppress weeds around the base of newly planted orchard trees.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/community_orchards.html">Community Orchards</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Wildflower Seed Mix (Orchard/Meadow appropriate)</h3>
+                <p>Seed mix suitable for sowing under orchard trees or in adjacent areas.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/community_orchards.html">Community Orchards</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Pruning Tools (Secateurs, Loppers, Saws)</h3>
+                <p>Essential tools for orchard maintenance.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/community_orchards.html">Community Orchards</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Watering Equipment (Cans, Hoses, Water Butt)</h3>
+                <p>Needed for establishing young trees in orchards.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/community_orchards.html">Community Orchards</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Signage / Interpretation Boards (Optional)</h3>
+                <p>Informational signs for community orchards or parks.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/community_orchards.html">Community Orchards</a>, <a href="/wiki/new_allotments.html">New Allotments</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Seating / Litter Bins (Optional)</h3>
+                <p>Amenity furniture for community orchards or parks.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/community_orchards.html">Community Orchards</a>, <a href="/wiki/create_pocket_parks.html">Pocket Parks</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Water Standpipes / Troughs</h3>
+                <p>Provide access to water on allotment sites.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/new_allotments.html">New Allotments</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Water Butts (Large capacity)</h3>
+                <p>Collect rainwater from sheds/structures on allotments/farms.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/new_allotments.html">New Allotments</a>, <a href="/wiki/community_farms.html">Community Farms</a>, <a href="/wiki/wildlife_pond.html">Wildlife Pond</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Security Fencing & Gates</h3>
+                <p>Secure the boundary of allotment sites or community farms.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/new_allotments.html">New Allotments</a>, <a href="/wiki/community_farms.html">Community Farms</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Communal Tool Shed</h3>
+                <p>Storage for shared tools on allotment or community farm sites.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/new_allotments.html">New Allotments</a>, <a href="/wiki/community_farms.html">Community Farms</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Communal Composting Bins / Bays (Large scale)</h3>
+                <p>Facilities for managing green waste on allotments/farms.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/new_allotments.html">New Allotments</a>, <a href="/wiki/community_farms.html">Community Farms</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Native Hedging Plants (for boundaries)</h3>
+                <p>Provide stock-proof and wildlife-friendly boundaries.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/new_allotments.html">New Allotments</a>, <a href="/wiki/community_farms.html">Community Farms</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Seeds / Plants (Vegetables, Fruits, Herbs)</h3>
+                <p>Planting material for food growing.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/community_farms.html">Community Farms</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Raised Bed Kits / Timber</h3>
+                <p>For creating accessible or defined growing areas.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/community_farms.html">Community Farms</a>, <a href="/wiki/create_pocket_parks.html">Pocket Parks</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Polytunnel / Greenhouse</h3>
+                <p>Protected cropping structures for community farms.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/community_farms.html">Community Farms</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Water Storage Tanks / Pumps</h3>
+                <p>Large scale water storage and distribution for community farms.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/community_farms.html">Community Farms</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Horticultural Tools (Spades, forks, hoes, wheelbarrows etc.)</h3>
+                <p>Basic tools needed for cultivation.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/community_farms.html">Community Farms</a></p>
+            </div>
+
+            <!-- Natural Play Specific -->
+            <div class="shop-item">
+                <h3>Play Grade Logs / Boulders</h3>
+                <p>Natural elements for climbing and balancing in play areas.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/natural_play_space.html">Natural Play</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Play Sand / Bark / Woodchip</h3>
+                <p>Loose fill materials for play areas and safety surfacing.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/natural_play_space.html">Natural Play</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Timber for Play Structures / Dens / Decking</h3>
+                <p>Wood for building bespoke natural play features.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/natural_play_space.html">Natural Play</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Plants (Robust Shrubs, Grasses, Sensory Plants)</h3>
+                <p>Hardy plants suitable for integration into play spaces.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/natural_play_space.html">Natural Play</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Water Pump / Play Channel Components (Optional)</h3>
+                <p>Equipment for incorporating water play features.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/natural_play_space.html">Natural Play</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Impact Absorbing Safety Surfacing</h3>
+                <p>Required under play equipment to meet safety standards (can include loose fill like sand/bark).</p>
+                <p class="interventions-list">Used in: <a href="/wiki/natural_play_space.html">Natural Play</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Landscape Fabric / Fixings</h3>
+                <p>Used for weed suppression or separation under loose fill surfaces.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/natural_play_space.html">Natural Play</a></p>
+            </div>
+
+            <!-- RWH Specific -->
+            <div class="shop-item">
+                <h3>Storage Tank (Below/Above Ground - GRP, PE, Concrete)</h3>
+                <p>Container for storing harvested rainwater.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/rainwater_harvesting_new_dev.html">Rainwater Harvesting</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Pre-Tank Filter / Leaf Guard / First Flush Diverter</h3>
+                <p>Removes debris before water enters the RWH storage tank.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/rainwater_harvesting_new_dev.html">Rainwater Harvesting</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Calmed Inlet</h3>
+                <p>Reduces turbulence as water enters the RWH tank, preventing sediment disturbance.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/rainwater_harvesting_new_dev.html">Rainwater Harvesting</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Pump & Controller (Submersible/External, potentially with mains backup control)</h3>
+                <p>Distributes stored rainwater for use, often with automated controls.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/rainwater_harvesting_new_dev.html">Rainwater Harvesting</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Post-Tank Filtration Unit (Cartridge, UV etc. as needed)</h3>
+                <p>Further treatment of stored water depending on intended use.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/rainwater_harvesting_new_dev.html">Rainwater Harvesting</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Non-Potable Water Pipework & Fittings (Correctly labelled)</h3>
+                <p>Pipe system to distribute harvested water, distinct from mains supply.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/rainwater_harvesting_new_dev.html">Rainwater Harvesting</a></p>
+            </div>
+            <div class="shop-item">
+                <h3>Mains Water Top-up System (with compliant air gap)</h3>
+                <p>Ensures supply continuity when RWH tank is empty, preventing backflow.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/rainwater_harvesting_new_dev.html">Rainwater Harvesting</a></p>
+            </div>
+             <div class="shop-item">
+                <h3>Overflow Outlet Components</h3>
+                <p>Allows excess water to safely leave the RWH tank.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/rainwater_harvesting_new_dev.html">Rainwater Harvesting</a></p>
+            </div>
+
+             <!-- Pocket Park Specific -->
+             <div class="shop-item">
+                <h3>Trees (Small/Medium varieties suitable for urban spaces)</h3>
+                <p>Trees appropriate for smaller pocket park settings.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/create_pocket_parks.html">Pocket Parks</a></p>
+            </div>
+              <div class="shop-item">
+                <h3>Shrubs, Perennials, Grasses (Robust varieties)</h3>
+                <p>Planting suitable for pocket park environments.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/create_pocket_parks.html">Pocket Parks</a></p>
+            </div>
+              <div class="shop-item">
+                <h3>Path Edging Materials</h3>
+                <p>Define pathways within pocket parks.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/create_pocket_parks.html">Pocket Parks</a></p>
+            </div>
+               <div class="shop-item">
+                <h3>Benches / Litter Bins</h3>
+                <p>Amenity furniture for pocket parks.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/create_pocket_parks.html">Pocket Parks</a></p>
+            </div>
+              <div class="shop-item">
+                <h3>Planters / Raised Beds (Optional)</h3>
+                <p>Container planting options for pocket parks.</p>
+                <p class="interventions-list">Used in: <a href="/wiki/create_pocket_parks.html">Pocket Parks</a></p>
+            </div>
+
         </section>
     </main>
 
