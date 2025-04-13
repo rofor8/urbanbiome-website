@@ -728,7 +728,7 @@
                  stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
                  // Pass the client secret obtained later to elements.create
                  // We initialize elements here, but create Address/Card later if needed
-                 elements = stripe.elements({ mode: 'shipping' }); // Use shipping mode for Address Element
+                 elements = stripe.elements(); // Correct: No mode needed for the main elements instance
 
                  // Address Element (mounted when needed)
                  addressElement = elements.create('address', {
