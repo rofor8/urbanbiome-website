@@ -361,6 +361,80 @@
              font-weight: bold;
         }
 
+        /* Shipping Address Area Styling */
+        #shipping-address-area {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+        }
+        #address-element {
+             margin-bottom: 15px;
+             /* Stripe element often styles itself, but add padding if needed */
+             /* padding: 10px; */
+             /* border: 1px solid #ccc; */
+             /* border-radius: 4px; */
+        }
+        #address-errors {
+            color: #dc3545;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            min-height: 1em;
+        }
+        #calculate-shipping-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #17a2b8; /* Teal color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin-top: 10px;
+            text-align: center;
+            transition: background-color 0.2s ease, opacity 0.2s ease;
+        }
+        #calculate-shipping-btn:hover {
+            background-color: #138496;
+        }
+        #calculate-shipping-btn:disabled {
+             background-color: #6c757d;
+             cursor: not-allowed;
+             opacity: 0.7;
+        }
+        .spinner { /* Simple loading spinner */
+            border: 3px solid #f3f3f3; /* Light grey */
+            border-top: 3px solid #17a2b8; /* Teal */
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Shipping Cost Display */
+        #shipping-cost-display,
+        #final-total-display {
+            text-align: right;
+            margin-top: 8px;
+            font-size: 0.95rem;
+            color: #555;
+        }
+        #final-total-display {
+             font-weight: bold;
+             font-size: 1.1rem;
+             color: #333;
+             padding-top: 10px;
+             margin-top: 10px;
+             border-top: 1px solid #ccc;
+        }
+
     </style>
 </head>
 <body>
@@ -397,9 +471,25 @@
                         <!-- Cart items will be loaded here -->
                     </ul>
                     <p id="cart-empty-msg">Your cart is empty.</p>
-                    <div id="cart-total">Total: £0.00</div>
+                    <div id="cart-total">Subtotal: £0.00</div>
 
-                    <!-- Stripe Payment Form (initially hidden) -->
+                    <!-- Proceed to Checkout Button (Step 1) -->
+                    <button id="proceed-checkout-btn">Enter Shipping Address</button>
+
+                    <!-- Shipping Address Area (Hidden initially) -->
+                    <div id="shipping-address-area" class="hidden">
+                        <h4>Shipping Address</h4>
+                        <div id="address-element"></div>
+                        <div id="address-errors" role="alert"></div>
+                        <button id="calculate-shipping-btn" type="button">
+                            <span>Calculate Shipping & Continue</span>
+                            <div class="spinner hidden"></div>
+                        </button>
+                         <div id="shipping-cost-display" class="hidden">Shipping: £0.00</div>
+                         <div id="final-total-display" class="hidden">Total: £0.00</div>
+                    </div>
+
+                    <!-- Stripe Payment Form (Hidden initially, shown after shipping calculation) -->
                     <form id="payment-form" class="hidden">
                         <h4>Enter Payment Details</h4>
                         <div id="card-element"><!-- Stripe Card Element will be inserted here --></div>
@@ -409,8 +499,8 @@
                     </form>
                     <p id="payment-success-msg" class="hidden">Payment successful! Thank you.</p>
 
-                     <!-- Original simulated checkout button, now acts as 'Proceed to Payment' -->
-                     <button id="checkout-btn">Proceed to Payment</button>
+                    <!-- Original button removed/replaced -->
+                    <!-- <button id="checkout-btn">Proceed to Payment</button> -->
                 </div>
             </div>
         </section>
@@ -455,20 +545,28 @@
 
     <script>
         // IMPORTANT: Replace with your actual Stripe Publishable Key
-        const STRIPE_PUBLISHABLE_KEY = 'pk_test_51PqvnpCyn6OZ4btk7AGK3odaKMUmolL9ssIFUfPEDOhb6H7iljXi8v4RigwaKIB0Tp9y6cbjcTp9RDm5BwMOIfC300xphFPpJd'; // Replace with your key!
+        const STRIPE_PUBLISHABLE_KEY = 'pk_test_51PqvnpCyn6OZ4btk7AGK3odaKMUmolL9ssIFUfPEDOhb6H7iljXi8v4RigwaKIB0Tp9y6cbjcTp9RDm5BwMOIfC300xphFPpJd'; // Using Test Key
 
         let allProducts = [];
         let cart = JSON.parse(localStorage.getItem('urbanBiomeCart')) || {};
         let stripe = null;
+        let elements = null; // Keep track of elements instance
         let cardElement = null;
+        let addressElement = null; // Add Address Element tracker
         let currentClientSecret = null;
 
+        // Element Selectors
         const productListElement = document.getElementById('product-list');
         const cartItemsElement = document.getElementById('cart-items');
         const cartEmptyMsgElement = document.getElementById('cart-empty-msg');
         const searchBox = document.getElementById('search-box');
-        const checkoutBtn = document.getElementById('checkout-btn');
         const cartTotalElement = document.getElementById('cart-total');
+        const proceedCheckoutBtn = document.getElementById('proceed-checkout-btn');
+        const shippingAddressArea = document.getElementById('shipping-address-area');
+        const addressErrorsElement = document.getElementById('address-errors');
+        const calculateShippingBtn = document.getElementById('calculate-shipping-btn');
+        const shippingCostDisplay = document.getElementById('shipping-cost-display');
+        const finalTotalDisplay = document.getElementById('final-total-display');
         const paymentForm = document.getElementById('payment-form');
         const cardErrorsElement = document.getElementById('card-errors');
         const submitPaymentBtn = document.getElementById('submit-payment-btn');
@@ -517,25 +615,26 @@
 
         function updateCartDisplay() {
             cartItemsElement.innerHTML = '';
-            let total = 0;
+            let subtotal = 0; // Renamed from total
             let itemCount = 0;
 
             if (Object.keys(cart).length === 0) {
                 cartEmptyMsgElement.style.display = 'block';
-                checkoutBtn.style.display = 'none';
+                proceedCheckoutBtn.style.display = 'none';
                 cartTotalElement.style.display = 'none';
-                paymentForm.classList.add('hidden'); // Hide payment form if cart empty
-                 paymentSuccessMsg.classList.add('hidden'); // Hide success msg
+                shippingAddressArea.classList.add('hidden');
+                paymentForm.classList.add('hidden');
+                paymentSuccessMsg.classList.add('hidden');
             } else {
                 cartEmptyMsgElement.style.display = 'none';
-                checkoutBtn.style.display = 'block'; // Show 'Proceed to Payment' button
+                proceedCheckoutBtn.style.display = 'block';
                 cartTotalElement.style.display = 'block';
 
                 for (const productId in cart) {
                     const item = cart[productId];
                     itemCount += item.quantity;
                     const itemSubtotal = item.price * item.quantity;
-                    total += itemSubtotal;
+                    subtotal += itemSubtotal;
 
                     const cartItemElement = document.createElement('li');
                     cartItemElement.innerHTML = `
@@ -547,12 +646,14 @@
                     `;
                     cartItemsElement.appendChild(cartItemElement);
                 }
-                // Only show payment form if checkout hasn't been clicked yet
-                if (!paymentForm.classList.contains('active')) {
-                     paymentForm.classList.add('hidden');
-                }
+                 // Reset checkout flow if cart changes
+                shippingAddressArea.classList.add('hidden');
+                paymentForm.classList.add('hidden');
+                proceedCheckoutBtn.disabled = false;
+                calculateShippingBtn.disabled = false;
+                paymentSuccessMsg.classList.add('hidden');
             }
-            cartTotalElement.textContent = `Total: ${formatPrice(total)}`;
+            cartTotalElement.textContent = `Subtotal: ${formatPrice(subtotal)}`;
         }
 
         // --- Cart Logic ---
@@ -560,7 +661,7 @@
             const price = parseFloat(productPrice);
             if (isNaN(price)) {
                 console.error("Invalid price for product:", productId);
-                return; // Don't add if price is invalid
+                return;
             }
 
             if (cart[productId]) {
@@ -569,25 +670,14 @@
                 cart[productId] = { name: productName, quantity: 1, price: price };
             }
             localStorage.setItem('urbanBiomeCart', JSON.stringify(cart));
-            updateCartDisplay();
-            // If payment form was active, hide it again as cart changed
-            paymentForm.classList.remove('active');
-            paymentForm.classList.add('hidden');
-            checkoutBtn.disabled = false; // Re-enable checkout button
-            paymentSuccessMsg.classList.add('hidden');
-
+            updateCartDisplay(); // Will reset UI visibility
         }
 
         function removeFromCart(productId) {
             if (cart[productId]) {
                 delete cart[productId];
                 localStorage.setItem('urbanBiomeCart', JSON.stringify(cart));
-                updateCartDisplay();
-                 // If payment form was active, hide it again as cart changed
-                 paymentForm.classList.remove('active');
-                 paymentForm.classList.add('hidden');
-                 checkoutBtn.disabled = false; // Re-enable checkout button
-                 paymentSuccessMsg.classList.add('hidden');
+                updateCartDisplay(); // Will reset UI visibility
             }
         }
 
@@ -632,16 +722,24 @@
             }
         }
 
-        // --- Initialize Stripe --- (Run on DOMContentLoaded)
+        // --- Initialize Stripe --- (Now initializes Address Element too)
         function initializeStripe() {
             try {
                  stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
-                 const elements = stripe.elements();
-                 cardElement = elements.create('card', {
-                     // Optional: add style customization here
-                     // style: { base: { fontSize: '16px' } }
+                 // Pass the client secret obtained later to elements.create
+                 // We initialize elements here, but create Address/Card later if needed
+                 elements = stripe.elements({ mode: 'shipping' }); // Use shipping mode for Address Element
+
+                 // Address Element (mounted when needed)
+                 addressElement = elements.create('address', {
+                    mode: 'shipping',
+                    allowedCountries: ['GB', 'US', 'CA', 'AU', 'NZ'], // Example: Limit countries
+                    // Add other Address Element options as needed
+                    // See: https://stripe.com/docs/elements/address-element/js/options
                  });
-                 cardElement.mount('#card-element');
+
+                 // Card Element (mounted later)
+                 cardElement = elements.create('card');
 
                  // Handle real-time validation errors from the card Element.
                  cardElement.on('change', function(event) {
@@ -654,11 +752,10 @@
 
             } catch (error) {
                 console.error("Failed to initialize Stripe:", error);
-                // Optionally display an error message to the user
             }
         }
 
-        // --- Handle Payment Submission ---
+        // --- Handle Payment Submission --- (Mostly identical, uses existing clientSecret)
         paymentForm.addEventListener('submit', async (event) => {
             event.preventDefault();
 
@@ -696,7 +793,7 @@
                     paymentSuccessMsg.classList.remove('hidden');
                     paymentProcessingMsg.classList.add('hidden');
                     paymentForm.classList.add('hidden'); // Hide form after success
-                    checkoutBtn.style.display = 'none'; // Hide proceed button
+                    proceedCheckoutBtn.style.display = 'none'; // Hide proceed button
 
                     // Clear the cart
                     cart = {};
@@ -710,7 +807,6 @@
                  }
             }
         });
-
 
         // --- Event Listeners ---
         searchBox.addEventListener('input', (e) => {
@@ -744,32 +840,76 @@
             }
         });
 
-        // **UPDATED** Checkout Button Listener (Proceed to Payment)
-        checkoutBtn.addEventListener('click', async () => {
-             if (Object.keys(cart).length === 0) {
+        // *** NEW FLOW: Proceed to Checkout Button Listener ***
+        proceedCheckoutBtn.addEventListener('click', () => {
+            if (Object.keys(cart).length === 0) {
                  alert('Your cart is empty!');
+                 return;
+            }
+            if (!stripe || !elements || !addressElement) {
+                console.error("Stripe Elements not initialized.");
+                alert("Checkout system error. Please refresh.");
+                return;
+            }
+
+            // Show address form, mount element if not already mounted
+            shippingAddressArea.classList.remove('hidden');
+            if (!document.getElementById('address-element').hasChildNodes()) {
+                addressElement.mount('#address-element');
+            }
+            proceedCheckoutBtn.style.display = 'none'; // Hide this button
+            paymentForm.classList.add('hidden'); // Ensure payment form is hidden
+            addressErrorsElement.textContent = ''; // Clear previous errors
+            shippingCostDisplay.classList.add('hidden');
+            finalTotalDisplay.classList.add('hidden');
+
+        });
+
+         // *** NEW FLOW: Calculate Shipping Button Listener ***
+        calculateShippingBtn.addEventListener('click', async () => {
+            if (!stripe || !addressElement || Object.keys(cart).length === 0) {
+                console.error("Stripe/Address Element not ready or cart empty.");
+                addressErrorsElement.textContent = "Cannot calculate shipping. Please refresh or add items.";
+                return;
+            }
+
+            // Show spinner, disable button
+            const spinner = calculateShippingBtn.querySelector('.spinner');
+            const buttonText = calculateShippingBtn.querySelector('span');
+            spinner.classList.remove('hidden');
+            buttonText.textContent = 'Calculating...';
+            calculateShippingBtn.disabled = true;
+            addressErrorsElement.textContent = '';
+            paymentForm.classList.add('hidden'); // Hide card form
+
+            // --- Get Address Data --- (Requires Address Element completion)
+            const { value: addressValue, complete: addressComplete } = await addressElement.getValue();
+
+            if (!addressComplete) {
+                 addressErrorsElement.textContent = 'Please complete all required address fields.';
+                 spinner.classList.add('hidden');
+                 buttonText.textContent = 'Calculate Shipping & Continue';
+                 calculateShippingBtn.disabled = false;
                  return;
              }
 
-            checkoutBtn.disabled = true; // Disable button while processing
-            checkoutBtn.textContent = 'Processing...';
-            cardErrorsElement.textContent = ''; // Clear previous errors
-            paymentSuccessMsg.classList.add('hidden'); // Hide success message
+            const shippingAddress = addressValue.address;
+            shippingAddress.name = addressValue.name; // Add name if collected
 
-            // Prepare cart data for the backend ({ productId: quantity })
+            // --- Prepare Cart Payload --- (Identical to previous)
             const cartPayload = {};
             for (const productId in cart) {
                 cartPayload[productId] = cart[productId].quantity;
             }
 
+            // --- Call Backend --- (Now includes address)
             try {
-                // Call the backend function to create a PaymentIntent
                 const response = await fetch('/api/create-payment-intent', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(cartPayload),
+                    body: JSON.stringify({ cartData: cartPayload, shippingAddress: shippingAddress }),
                 });
 
                 if (!response.ok) {
@@ -777,19 +917,28 @@
                     throw new Error(errorData.error || `Server error: ${response.status}`);
                 }
 
-                const { clientSecret } = await response.json();
-                currentClientSecret = clientSecret; // Store the client secret
+                const { clientSecret, calculatedShippingCost, calculatedFinalTotal } = await response.json();
+                currentClientSecret = clientSecret;
 
-                // Show the payment form
+                // --- Display Costs and Payment Form ---
+                shippingCostDisplay.textContent = `Shipping: ${formatPrice(parseFloat(calculatedShippingCost))}`;
+                finalTotalDisplay.textContent = `Total: ${formatPrice(parseFloat(calculatedFinalTotal))}`;
+                shippingCostDisplay.classList.remove('hidden');
+                finalTotalDisplay.classList.remove('hidden');
+
                 paymentForm.classList.remove('hidden');
-                paymentForm.classList.add('active'); // Mark as active
-                checkoutBtn.style.display = 'none'; // Hide 'Proceed' button
+                if (!document.getElementById('card-element').hasChildNodes()) {
+                     cardElement.mount('#card-element');
+                }
+                calculateShippingBtn.style.display = 'none'; // Hide calculate button
 
             } catch (error) {
-                console.error('Failed to create PaymentIntent:', error);
-                cardErrorsElement.textContent = `Error: ${error.message}`; // Show error near card form
-                checkoutBtn.disabled = false;
-                checkoutBtn.textContent = 'Proceed to Payment';
+                console.error('Failed to get shipping/create PaymentIntent:', error);
+                addressErrorsElement.textContent = `Error: ${error.message}`; // Show error in address section
+                 // Reset button state
+                 spinner.classList.add('hidden');
+                 buttonText.textContent = 'Calculate Shipping & Continue';
+                 calculateShippingBtn.disabled = false;
             }
         });
 
@@ -797,7 +946,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             fetchProducts();
             updateCartDisplay();
-            initializeStripe(); // Initialize Stripe on page load
+            initializeStripe();
         });
 
     </script>
