@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Urban Biome Wiki</title>
+    <title>{{page_title}}</title>
     <link rel="stylesheet" href="/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,8 +20,6 @@
         .guidance-section p { margin-bottom: 0.5rem; line-height: 1.6; }
         .further-reading li { background: #fafafa; padding: 8px 12px; border-radius: 4px; margin-bottom: 8px; }
         .wiki-content .sources { font-style: italic; color: #555; margin-bottom: 1.5rem; display: block; font-size: 0.9em; }
-        #loading-message { text-align: center; padding: 2rem; color: #666; }
-        #error-message { text-align: center; padding: 2rem; color: red; }
     </style>
 </head>
 <body>
@@ -42,27 +40,18 @@
 
     <main>
         <section style="padding-top: 8rem;">
-            <h2 id="intervention-title">Loading...</h2>
+            <h2 id="intervention-title">{{intervention.name}}</h2>
             <div id="wiki-render-area" class="wiki-content">
-                 <p id="loading-message">Loading intervention details...</p>
-                 <p id="error-message" style="display: none;"></p>
-                 <span id="intervention-sources" class="sources"></span>
-                 <div id="benefits-section" style="display: none;">
-                     <h3>Key Benefits</h3>
-                     <ul id="benefits-list" class="benefits-list"></ul>
-                 </div>
-                 <div id="guidance-section" style="display: none;">
-                     <h3>Technical Guidance</h3>
-                     <div id="guidance-content"></div>
-                 </div>
-                 <div id="products-section" style="display: none;">
-                     <h3>Products Needed</h3>
-                     <ul id="products-list" class="products-list"></ul>
-                 </div>
-                 <div id="reading-section" style="display: none;">
-                    <h3>Further Reading</h3>
-                    <ul id="reading-list" class="further-reading"></ul>
-                 </div>
+                 <span id="intervention-sources" class="sources">{{intervention.sources_formatted}}</span>
+                 
+                 {{benefits_section_html}}
+                 
+                 {{guidance_section_html}}
+                 
+                 {{products_section_html}}
+
+                 {{reading_section_html}}
+                 
             </div>
              <p style="margin-top: 2rem;"><a href="/wiki/">Back to Wiki Index</a></p>
         </section>
@@ -92,158 +81,5 @@
             <p>&copy; 2024 Urban Biome. All rights reserved.</p>
         </div>
     </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            const titleElement = document.getElementById('intervention-title');
-            const renderArea = document.getElementById('wiki-render-area');
-            const sourcesElement = document.getElementById('intervention-sources');
-            const benefitsList = document.getElementById('benefits-list');
-            const benefitsSection = document.getElementById('benefits-section');
-            const guidanceContent = document.getElementById('guidance-content');
-            const guidanceSection = document.getElementById('guidance-section');
-            const productsList = document.getElementById('products-list');
-            const productsSection = document.getElementById('products-section');
-            const readingList = document.getElementById('reading-list');
-            const readingSection = document.getElementById('reading-section');
-            const loadingMessage = document.getElementById('loading-message');
-            const errorMessage = document.getElementById('error-message');
-
-            renderArea.style.display = 'none';
-
-            // Get intervention ID from the PATH
-            const pathSegments = window.location.pathname.split('/').filter(Boolean);
-            console.log('Raw path segments:', pathSegments);
-            console.log('Full path:', window.location.pathname);
-
-            // Check if the path looks like /wiki/intervention-id
-            if (pathSegments.length < 2 || pathSegments[0].toLowerCase() !== 'wiki') {
-                 displayError('Invalid URL structure. Expected /wiki/intervention-id.');
-                 console.error('Problematic path segments:', pathSegments);
-                 return;
-            }
-            
-            // The ID should be the second segment
-            const interventionId = pathSegments[1]; 
-
-            if (!interventionId) { // Extra safety check
-                displayError('Could not determine intervention ID from URL path.');
-                console.error('Failed to extract interventionId from segments:', pathSegments);
-                return;
-            }
-            
-            console.log(`Using intervention ID: ${interventionId}`); // Log the extracted ID
-
-            try {
-                const apiUrl = `/api/intervention-data/${interventionId}`;
-                console.log('Fetching data from:', apiUrl);
-                const response = await fetch(apiUrl);
-
-                if (!response.ok) {
-                    let errorDetail = `HTTP error! status: ${response.status}`;
-                    try {
-                        const errorData = await response.json();
-                        errorDetail = errorData.error || errorDetail;
-                    } catch (parseError) {
-                        console.warn('Could not parse error response body:', parseError);
-                    }
-                    console.error('API Error Response:', response.status, errorDetail);
-                    throw new Error(errorDetail);
-                }
-
-                const data = await response.json();
-                console.log('Received data:', data);
-                loadingMessage.style.display = 'none';
-
-                titleElement.textContent = data.name || 'Wiki Entry';
-                document.title = `${data.name || 'Wiki Entry'} - Urban Biome Wiki`;
-
-                sourcesElement.textContent = data.sources ? `(Sources: ${data.sources})` : '';
-
-                if (data.benefits && data.benefits.length > 0) {
-                    benefitsList.innerHTML = data.benefits.map(benefit =>
-                        `<li><strong>${benefit.category}:</strong> ${benefit.text}</li>`
-                    ).join('');
-                    benefitsSection.style.display = 'block';
-                }
-
-                if (data.technicalGuidance && data.technicalGuidance.length > 0) {
-                    guidanceContent.innerHTML = data.technicalGuidance.map(section => `
-                        <div class="guidance-section">
-                            <h4>${section.heading}</h4>
-                            ${section.content.map(p => `<p>${p}</p>`).join('')}
-                        </div>
-                    `).join('');
-                    guidanceSection.style.display = 'block';
-                }
-
-                if (data.productsNeeded && data.productsNeeded.length > 0) {
-                    const productCatalog = await fetchShopCatalog();
-                    console.log('Product Catalog:', productCatalog);
-
-                    productsList.innerHTML = data.productsNeeded.map(productId => {
-                        const product = productCatalog.find(p => p.id === productId);
-                        const productName = product ? product.name : productId;
-                        console.log(`Mapping product ID ${productId} to name: ${productName}`);
-                        return `<li><a href="/shop/?product_id=${productId}">${productName}</a></li>`;
-                    }).join('');
-                    productsSection.style.display = 'block';
-                }
-
-                 if (data.furtherReading && data.furtherReading.length > 0) {
-                    readingList.innerHTML = data.furtherReading.map(link =>
-                        `<li><a href="${link.url}" target="_blank" rel="noopener noreferrer">${link.title}</a></li>`
-                    ).join('');
-                    readingSection.style.display = 'block';
-                }
-
-                renderArea.style.display = 'block';
-
-            } catch (error) {
-                console.error('Error fetching or rendering intervention data:', error);
-                displayError(`Failed to load data: ${error.message}`);
-            }
-        });
-
-        let cachedCatalog = null;
-        async function fetchShopCatalog() {
-            const catalogUrl = '/api/products';
-            console.log('Fetching product catalog from:', catalogUrl);
-            if (cachedCatalog) {
-                console.log('Using cached product catalog.');
-                return cachedCatalog;
-            }
-            try {
-                const response = await fetch(catalogUrl);
-                if (!response.ok) {
-                    throw new Error(`Failed to fetch product catalog (${response.status})`);
-                }
-                cachedCatalog = await response.json();
-                console.log('Successfully fetched and cached catalog:', cachedCatalog);
-                return cachedCatalog;
-            } catch (error) {
-                console.error("Error fetching product catalog:", error);
-                return [];
-            }
-        }
-
-        function displayError(message) {
-             const titleElement = document.getElementById('intervention-title');
-             const loadingMessage = document.getElementById('loading-message');
-             const errorMessage = document.getElementById('error-message');
-             const renderArea = document.getElementById('wiki-render-area');
-
-             if (loadingMessage) loadingMessage.style.display = 'none';
-             if (renderArea) renderArea.style.display = 'none';
-
-             titleElement.textContent = 'Error';
-             document.title = 'Error - Urban Biome Wiki';
-
-             if (errorMessage) {
-                 errorMessage.textContent = message;
-                 errorMessage.style.display = 'block';
-             }
-        }
-    </script>
 </body>
 </html>
