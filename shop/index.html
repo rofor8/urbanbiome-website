@@ -8,6 +8,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Add some basic styling for the shop list */
+        .shop-list { list-style: none; padding-left: 0; }
+        .shop-list li { border: 1px solid #eee; padding: 15px; margin-bottom: 15px; border-radius: 5px; background: #f9f9f9; }
+        .shop-list h4 { margin-top: 0; margin-bottom: 8px; color: var(--primary-color); }
+    </style>
 </head>
 <body>
     <header>
@@ -28,8 +34,45 @@
     <main>
         <section style="padding-top: 8rem;">
             <h2>Urban Biome Shop</h2>
-            <p>Products coming soon!</p>
-            <p><a href="/">Back to Home</a></p>
+            <p>Browse products related to urban greening interventions. (Details coming soon)</p>
+            
+            <ul class="shop-list">
+                <li>
+                    <h4>Trees & Planting Mediums</h4>
+                    <p>Includes standard and SuDS-tolerant tree saplings, compost, structural soils, and various mulches.</p>
+                    <!-- Example Link: <a href="/shop/?category=trees">View Products</a> -->
+                </li>
+                 <li>
+                    <h4>Tree Support & Protection</h4>
+                    <p>Stakes, ties, standard tree guards, heavy-duty SuDS-compatible grilles, and root barriers.</p>
+                </li>
+                <li>
+                    <h4>Green Roof Components (Extensive)</h4>
+                    <p>Lightweight substrates, drainage layers, filter fleeces, sedum mats/plugs, edge profiles, gravel.</p>
+                </li>
+                 <li>
+                    <h4>Green Roof Components (Intensive)</h4>
+                    <p>High-performance waterproofing, heavy-duty root barriers, high-capacity drainage/reservoir boards, intensive substrates, diverse vegetation (turf, perennials, shrubs), irrigation systems, safety railings, paving/decking.</p>
+                </li>
+                 <li>
+                    <h4>Living Wall Systems</h4>
+                    <p>Modular panels/pockets, mounting frames, specialised vertical growing media, integrated irrigation components (emitters, timers, filters, fertigation units), base drainage channels.</p>
+                </li>
+                 <li>
+                    <h4>Green Façade Supplies</h4>
+                    <p>Climbing plants (self-clinging/twining), trellis panels, wire support systems, mesh panels, stand-off brackets, plant ties, large containers, fertiliser.</p>
+                </li>
+                <li>
+                    <h4>Water Management (SuDS & Irrigation)</h4>
+                    <p>Geotextile membranes, soakaway crates, inlet/overflow pipes, watering tubes/bags, drip irrigation components.</p>
+                </li>
+                <li>
+                    <h4>General Landscaping & Accessories</h4>
+                    <p>Wall fixings, general fertilisers, planters, roof furniture, inspection chambers.</p>
+                </li>
+            </ul>
+
+            <p style="margin-top: 2rem;"><a href="/">Back to Home</a></p>
         </section>
     </main>
 
