@@ -328,6 +328,22 @@
             margin-top: 40px;
             border: 1px solid var(--border-color);
         }
+        .legend {
+            line-height: 18px;
+            color: #555;
+            background-color: #fff;
+            padding: 6px 8px;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        }
+        .legend i {
+            width: 18px;
+            height: 18px;
+            float: left;
+            margin-right: 8px;
+            opacity: 0.7;
+        }
+
 
         /* Founders Section */
         #founders .founder-grid {
@@ -700,6 +716,9 @@
                 <p style="font-style: italic; font-size: 0.9em; color: #666;">The UrbanBiome Tool in action.</p>
                 <h3>Visualize, analyze, and plan for a greener city with our innovative platform.</h3>
                 <a href="https://urbanbiome.app" target="_blank" class="btn btn-outline">Explore the UrbanBiome Tool</a>
+                <p style="font-size: 0.9em; color: #666; margin-top: 15px;">
+                    Please note: Access to the UrbanBiome Tool requires authentication. Please <a href="#contact">contact us</a> to request access.
+                </p>
             </div>
 
             <hr style="border-color: var(--medium-grey); margin: 60px auto; max-width: 800px;">
@@ -723,6 +742,9 @@
             </div>
 
             <div id="map"></div>
+             <p style="font-size: 0.9em; color: #666; text-align: center; max-width: 800px; margin: 20px auto 0;">
+                Normalised difference vegetation index or NDVI and can be used to estimate the density of greeness of an area of land. The index ranges from 1 to -1 with higher values representing more greenspace. The index is based on spectral data from landsat 8 satellite. The index uses the near-infrared reflectance of vegetation cover.
+            </p>
 
             <div class="tool-links">
                 <div class="tool-link-item">
@@ -1066,6 +1088,20 @@
                 layer.feature.properties
             );
         });
+        
+        // Add a legend to the map
+        var legend = L.control({position: 'bottomright'});
+
+        legend.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'info legend');
+            div.innerHTML =
+                '<h4>NDVI</h4>' +
+                '<i style="background: ' + getColor(ndviMax) + '"></i> High<br>' +
+                '<i style="background: ' + getColor(ndviMin) + '"></i> Low';
+            return div;
+        };
+
+        legend.addTo(map);
 
     </script>
 
