@@ -10,22 +10,18 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     
     <style>
-        /* CSS Variables for easy color management */
+        /* CSS Variables for Light Earth Theme */
         :root {
-            --primary-green: #2e8b57; /* Sea Green */
-            --secondary-green: #4CAF50; /* A brighter green for accents */
-            --dark-green: #1a4f32;
-            --light-grey: #f4f4f4;
-            --medium-grey: #e0e0e0;
-            --dark-grey: #333;
-            --text-color: #333;
-            --heading-color: #222;
-            --background-color: #ffffff;
-            --section-bg-odd: var(--light-grey);
-            --section-bg-even: var(--background-color);
-            --border-color: #ddd;
-            --link-color: var(--primary-green);
-            --link-hover-color: var(--dark-green);
+            --primary-accent: #5e8d7f;      /* Muted, earthy green */
+            --secondary-accent: #7aab9a;    /* Lighter accent for hover */
+            --heading-color: #5d5d4c;      /* Dark, earthy taupe for headings */
+            --text-color: #4a4a4a;         /* Dark grey/brown text */
+            --background-color: #f5f5f0;   /* Light cream/off-white background */
+            --background-alt: #e9e9e0;    /* Slightly darker for odd sections */
+            --light-bg: #ffffff;            /* White for cards and highlights */
+            --border-color: #dcdccc;
+            --link-color: var(--primary-accent);
+            --link-hover-color: var(--secondary-accent);
         }
 
         /* Base Styles */
@@ -74,7 +70,7 @@
 
         /* Header / Hero Section */
         .hero {
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('nature-image.png') no-repeat center center/cover;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('nature-image.png') no-repeat center center/cover;
             color: #fff;
             text-align: center;
             padding: 100px 20px;
@@ -87,7 +83,7 @@
         .hero h1 {
             font-size: 4em;
             margin-bottom: 10px;
-            color: #fff; /* Ensure white color for hero text */
+            color: #fff; 
         }
 
         .hero p {
@@ -104,13 +100,14 @@
 
         /* Navigation */
         .navbar {
-            background-color: var(--dark-green);
-            color: #fff;
+            background-color: var(--light-bg);
+            color: var(--text-color);
             padding: 15px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .navbar .container {
@@ -122,7 +119,7 @@
         .navbar .logo {
             font-size: 1.8em;
             font-weight: bold;
-            color: #fff;
+            color: var(--heading-color);
         }
 
         .navbar .nav-links {
@@ -137,13 +134,13 @@
         }
 
         .navbar .nav-links a {
-            color: #fff;
+            color: var(--text-color);
             font-weight: 500;
             transition: color 0.3s ease;
         }
 
         .navbar .nav-links a:hover {
-            color: var(--secondary-green);
+            color: var(--primary-accent);
             text-decoration: none;
         }
 
@@ -154,11 +151,11 @@
         }
 
         section:nth-of-type(odd) { /* Apply background to odd sections */
-            background-color: var(--section-bg-odd);
+            background-color: var(--light-bg);
         }
 
         section:nth-of-type(even) { /* Apply background to even sections */
-            background-color: var(--section-bg-even);
+            background-color: var(--background-color);
         }
 
         .section-header {
@@ -178,15 +175,15 @@
             display: block;
             width: 60px;
             height: 3px;
-            background-color: var(--primary-green);
+            background-color: var(--primary-accent);
             margin: 10px auto 0;
         }
 
         /* Buttons */
         .btn {
             display: inline-block;
-            background-color: var(--primary-green);
-            color: #fff;
+            background-color: var(--primary-accent);
+            color: var(--light-bg);
             padding: 12px 25px;
             border-radius: 5px;
             transition: background-color 0.3s ease, transform 0.2s ease;
@@ -194,24 +191,25 @@
             border: none;
             cursor: pointer;
             font-size: 1em;
+            font-weight: bold;
             margin-top: 15px;
         }
 
         .btn:hover {
-            background-color: var(--dark-green);
+            background-color: var(--secondary-accent);
             transform: translateY(-2px);
             text-decoration: none;
         }
 
         .btn-outline {
             background-color: transparent;
-            border: 2px solid var(--primary-green);
-            color: var(--primary-green);
+            border: 2px solid var(--primary-accent);
+            color: var(--primary-accent);
         }
 
         .btn-outline:hover {
-            background-color: var(--primary-green);
-            color: #fff;
+            background-color: var(--primary-accent);
+            color: var(--light-bg);
         }
 
         /* General content layout */
@@ -233,15 +231,16 @@
         }
 
         .card {
-            background-color: #fff;
+            background-color: var(--light-bg);
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid var(--border-color);
             padding: 30px;
             text-align: center;
         }
 
         .card h3 {
-            color: var(--primary-green);
+            color: var(--primary-accent);
             margin-bottom: 15px;
         }
 
@@ -289,7 +288,7 @@
         .tool-feature-item {
             background-color: var(--background-color);
             padding: 25px;
-            border-left: 5px solid var(--primary-green);
+            border-left: 5px solid var(--primary-accent);
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
@@ -304,9 +303,9 @@
 
         .tool-link-item {
             padding: 25px;
-            background-color: var(--light-grey);
+            background-color: var(--light-bg);
             border-radius: 8px;
-            border: 1px solid var(--medium-grey);
+            border: 1px solid var(--border-color);
             transition: all 0.3s ease;
         }
 
@@ -330,11 +329,12 @@
         }
         .legend {
             line-height: 18px;
-            color: #555;
-            background-color: #fff;
+            color: var(--text-color);
+            background-color: var(--background-color);
             padding: 6px 8px;
             border-radius: 5px;
             box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            border: 1px solid var(--border-color);
         }
         .legend i {
             width: 18px;
@@ -354,9 +354,10 @@
         }
 
         #founders .founder-card {
-            background-color: #fff;
+            background-color: var(--light-bg);
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid var(--border-color);
             padding: 30px;
             text-align: center;
             max-width: 450px;
@@ -372,7 +373,7 @@
             border-radius: 50%;
             object-fit: cover;
             margin-bottom: 20px;
-            border: 4px solid var(--primary-green);
+            border: 4px solid var(--primary-accent);
         }
 
         #founders .founder-card h3 {
@@ -381,7 +382,7 @@
         }
 
         #founders .founder-card p.title {
-            color: var(--primary-green);
+            color: var(--primary-accent);
             font-weight: bold;
             margin-bottom: 15px;
         }
@@ -392,7 +393,7 @@
         }
 
         #solutions .solution-category h3 {
-            color: var(--primary-green);
+            color: var(--primary-accent);
             margin-bottom: 20px;
             font-size: 1.8em;
             text-align: center;
@@ -409,7 +410,7 @@
         }
 
         #solutions .consultation-services .service-item {
-            background-color: #fff;
+            background-color: var(--light-bg);
             padding: 25px;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
@@ -419,9 +420,10 @@
 
         /* Projects Section (detailed) */
         #projects .project-item {
-            background-color: #fff;
+            background-color: var(--light-bg);
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid var(--border-color);
             overflow: hidden;
             text-align: left;
             display: flex;
@@ -450,7 +452,7 @@
 
         #projects .project-content p {
             font-size: 0.95em;
-            color: #666;
+            color: var(--text-color);
             margin-bottom: 15px;
         }
 
@@ -460,12 +462,12 @@
             align-items: center;
             margin-bottom: 15px;
             font-size: 0.9em;
-            color: #555;
+            color: var(--text-color);
         }
 
         #projects .project-content .status-location span:first-child {
             font-weight: bold;
-            color: var(--primary-green);
+            color: var(--primary-accent);
         }
 
         #projects .project-content .btn {
@@ -491,7 +493,7 @@
         }
 
         #news .news-item {
-            background-color: #fff;
+            background-color: var(--light-bg);
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             margin-bottom: 25px;
@@ -526,7 +528,7 @@
         }
 
         #contact .contact-item {
-            background-color: var(--light-grey);
+            background-color: var(--light-bg);
             padding: 25px;
             border-radius: 8px;
             text-align: center;
@@ -536,15 +538,16 @@
         }
 
         #contact .contact-item h4 {
-            color: var(--primary-green);
+            color: var(--primary-accent);
             margin-bottom: 10px;
         }
 
         #contact .contact-form-container {
-            background-color: #fff;
+            background-color: var(--light-bg);
             padding: 40px;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid var(--border-color);
             max-width: 700px;
             margin: 0 auto;
         }
@@ -565,6 +568,8 @@
             border: 1px solid var(--border-color);
             border-radius: 5px;
             font-size: 1em;
+            background-color: var(--background-color);
+            color: var(--text-color);
             box-sizing: border-box; /* Ensures padding is inside width */
         }
 
@@ -582,8 +587,8 @@
 
         /* Footer */
         .footer {
-            background-color: var(--dark-green);
-            color: #fff;
+            background-color: var(--background-alt);
+            color: var(--text-color);
             text-align: center;
             padding: 40px 20px;
             font-size: 0.9em;
@@ -710,15 +715,15 @@
     <section id="philosophy">
         <div class="container text-center">
             <div class="section-header">
-                <h2>Our Philosophy: A Habitat for Humanity</h2>
+                <h2>Our Philosophy: Reconnecting Our Urban Habitat</h2>
             </div>
-            <p>Imagine designing the perfect habitat for a human. You wouldn't just provide shelter; you'd include everything we are evolutionarily adapted for: clean water to swim in, fire for community and cooking, and fresh food to gather. We believe the modern city can be a harsh, alienating environment. It often lacks these fundamental, primal elements, creating a space that we tolerate rather than thrive in.</p>
-            <p>Our mission is to transform the urban landscape into a supportive human habitat. We re-introduce these timeless, natural elements back into the city fabric, applying permaculture principles and data-driven design to create spaces that feel instinctually right.</p>
-            <p>This means going beyond ornamental parks. It means creating:</p>
+            <p>At our core, humans have a deep, instinctual need to connect with the natural world. Modern city life, for all its advantages, can often sever this connection, leaving us in environments that feel functional but not truly nourishing. Our philosophy is simple: we believe the best urban spaces are those that honor this innate need for nature.</p>
+            <p>Our mission is to weave these timeless, natural elements back into the city fabric. Using permaculture principles and data-driven design, we transform the urban landscape into a supportive habitat where communities don't just live, but thrive.</p>
+            <p>This means going beyond ornamental parks to create:</p>
             <ul class="list-unstyled" style="max-width: 600px; margin: 20px auto; text-align: left;">
-                <li>&#x1F34F; <strong>Edible landscapes</strong> where communities can forage for fruits and herbs, like a modern hunter-gatherer.</li>
+                <li>&#x1F34F; <strong>Edible landscapes</strong> where communities can forage for fruits and herbs.</li>
                 <li>&#x1F3CA; <strong>Natural swimming ponds and revitalized riverfronts</strong> that invite play and connection with water.</li>
-                <li>&#x1F525; <strong>Communal fire pits</strong> that serve as ancient hearths for modern stories and gatherings.</li>
+                <li>&#x1F525; <strong>Communal fire pits</strong> that serve as hearths for modern stories and gatherings.</li>
                 <li>&#x1F333; <strong>Dense, biodiverse 'Miyawaki' forests</strong> on small plots of land, creating pockets of wildness in the concrete jungle.</li>
             </ul>
             <p>Each project is a step towards building cities that are not just smarter, but truly alive.</p>
@@ -735,12 +740,12 @@
                 <p style="font-style: italic; font-size: 0.9em; color: #666;">The UrbanBiome Tool in action.</p>
                 <h3>Visualize, analyze, and plan for a greener city with our innovative platform.</h3>
                 <a href="https://urbanbiome.app" target="_blank" class="btn btn-outline">Explore the UrbanBiome Tool</a>
-                <p style="font-size: 0.9em; color: #666; margin-top: 15px;">
+                <p style="font-size: 0.9em; color: #777; margin-top: 15px;">
                     Please note: Access to the UrbanBiome Tool requires authentication. Please <a href="#contact">contact us</a> to request access.
                 </p>
             </div>
 
-            <hr style="border-color: var(--medium-grey); margin: 60px auto; max-width: 800px;">
+            <hr style="border-color: var(--border-color); margin: 60px auto; max-width: 800px;">
 
             <div class="section-header">
                 <h3>Build and Strategy</h3>
@@ -761,7 +766,7 @@
             </div>
 
             <div id="map"></div>
-             <p style="font-size: 0.9em; color: #666; text-align: center; max-width: 800px; margin: 20px auto 0;">
+             <p style="font-size: 0.9em; color: #777; text-align: center; max-width: 800px; margin: 20px auto 0;">
                 Normalised difference vegetation index or NDVI and can be used to estimate the density of greeness of an area of land. The index ranges from 1 to -1 with higher values representing more greenspace. The index is based on spectral data from landsat 8 satellite. The index uses the near-infrared reflectance of vegetation cover.
             </p>
 
