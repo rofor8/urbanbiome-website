@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UrbanBiome - Reimagining Cities, Naturally.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Segoe+UI&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet CSS for the interactive map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
     <style>
         /* CSS Variables for easy color management */
         :root {
@@ -69,7 +74,7 @@
 
         /* Header / Hero Section */
         .hero {
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://via.placeholder.com/1500x600/2e8b57/ffffff?text=UrbanBiome+Nature+Image') no-repeat center center/cover;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('nature-image.png') no-repeat center center/cover;
             color: #fff;
             text-align: center;
             padding: 100px 20px;
@@ -89,6 +94,12 @@
             font-size: 1.5em;
             margin-bottom: 30px;
             color: #fff;
+        }
+        
+        .hero .tagline {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 20px;
         }
 
         /* Navigation */
@@ -261,7 +272,7 @@
 
         #urbanbiome-tool .tool-image {
             width: 100%;
-            max-width: 700px;
+            max-width: 900px;
             height: auto;
             border-radius: 8px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
@@ -310,17 +321,12 @@
             margin-top: 15px;
         }
 
-        .tool-map-placeholder {
-            background-color: var(--medium-grey);
-            color: var(--dark-grey);
-            height: 400px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
+        /* Leaflet Map Styling */
+        #map {
+            height: 500px; 
+            border-radius: 8px; 
             margin-top: 40px;
-            font-style: italic;
-            border: 1px dashed var(--dark-grey);
+            border: 1px solid var(--border-color);
         }
 
         /* Founders Section */
@@ -641,10 +647,9 @@
 <body>
 
     <header class="hero">
-        <h1>UrbanBiome</h1>
-        <p>Abstract representation of urban nature</p>
-        <p class="tagline">Reimagining Cities, Naturally.</p>
-        <p>UrbanBiome is dedicated to transforming urban landscapes into thriving ecosystems through innovative nature-based solutions and permaculture principles.</p>
+        <h1>Breathing Life Into Urban Spaces.</h1>
+        <p class="tagline">Cultivating Resilient Cities.</p>
+        <p>We envision cities where nature and architecture coexist. UrbanBiome pioneers the data-driven solutions and ecological designs that turn this vision into reality, one green space at a time.</p>
         <a href="#contact" class="btn">Get In Touch</a>
     </header>
 
@@ -679,7 +684,7 @@
             </div>
             <p>A future where every city block contributes to biodiversity and human well-being. Pioneering sustainable urban development through nature-based solutions.</p>
             <div style="margin-top: 40px;">
-                <img src="https://via.placeholder.com/800x400/2e8b57/ffffff?text=UrbanBiome's+Vision+Visual" alt="Supporting visual for UrbanBiome's vision" class="tool-image">
+                <img src="https://placehold.co/800x400/2e8b57/ffffff?text=UrbanBiome's+Vision" alt="Supporting visual for UrbanBiome's vision" class="tool-image">
                 <p style="font-style: italic; font-size: 0.9em; color: #666;">Supporting visual for UrbanBiome's vision</p>
             </div>
         </div>
@@ -691,10 +696,10 @@
                 <h2>The UrbanBiome Tool</h2>
             </div>
             <div class="tool-overview">
-                <img src="https://via.placeholder.com/900x500/A0C49D/2E8B57?text=Screenshot+of+the+UrbanBiome+Tool" alt="Screenshot of the UrbanBiome Tool" class="tool-image">
-                <p style="font-style: italic; font-size: 0.9em; color: #666;">Screenshot of the UrbanBiome Tool</p>
+                <img src="tool.png" alt="A screenshot of the UrbanBiome tool interface, showing a map of 'The Dings' area with data layers for analysis and suggested interventions like 'Community Farms'." class="tool-image">
+                <p style="font-style: italic; font-size: 0.9em; color: #666;">The UrbanBiome Tool in action.</p>
                 <h3>Visualize, analyze, and plan for a greener city with our innovative platform.</h3>
-                <a href="#" class="btn btn-outline">Explore the UrbanBiome Tool</a>
+                <a href="https://urbanbiome.app" target="_blank" class="btn btn-outline">Explore the UrbanBiome Tool</a>
             </div>
 
             <hr style="border-color: var(--medium-grey); margin: 60px auto; max-width: 800px;">
@@ -717,9 +722,7 @@
                 </div>
             </div>
 
-            <div class="tool-map-placeholder">
-                Interactive UrbanBiome Tool Map - "Est Spot" example (Placeholder for actual map component)
-            </div>
+            <div id="map"></div>
 
             <div class="tool-links">
                 <div class="tool-link-item">
@@ -795,13 +798,13 @@
 
             <div class="founder-grid">
                 <div class="founder-card">
-                    <img src="https://via.placeholder.com/150/5E8B7E/FFFFFF?text=Reuben" alt="Portrait of Reuben Forster">
+                    <img src="reuben.png" alt="Portrait of Reuben Forster">
                     <h3>Reuben Forster</h3>
                     <p class="title">GIS Analyst / Ecological Design</p>
                     <p>Reuben Forster is a Designer and Technologist committed to leveraging technology for societal betterment. He specializes in computational problem-solving, marrying natural phenomena with technological innovation. His work includes optimizing GIS capabilities for urban redevelopment, climate resilience, and evaluating nature-based solutions.</p>
                 </div>
                 <div class="founder-card">
-                    <img src="https://via.placeholder.com/150/8B8E7E/FFFFFF?text=Manon" alt="Portrait of Manon Dangelser">
+                    <img src="mannon.png" alt="Portrait of Manon Dangelser">
                     <h3>Manon Dangelser</h3>
                     <p class="title">Senior Consultant | Sustainability | Resilience</p>
                     <p>Manon is a climate resilience consultant, sustainability specialist & engineer. Her focus is to advocate for the integration of resilience and climate adaptation measures at early design stage. She collaborates with urban designers, landscape architects, climate scientists and digital experts to develop solutions to adapt the urban environment & create healthier, greener cities for all.</p>
@@ -859,7 +862,7 @@
             </div>
             <div class="grid-3">
                 <div class="project-item">
-                    <img src="https://via.placeholder.com/400x250/9BB899/FFFFFF?text=Greenway+Revitalization" alt="Greenway Revitalization Project">
+                    <img src="https://placehold.co/400x250/9BB899/FFFFFF?text=Greenway+Revitalization" alt="Greenway Revitalization Project">
                     <div class="project-content">
                         <h3>Greenway Revitalization</h3>
                         <div class="status-location">
@@ -871,7 +874,7 @@
                     </div>
                 </div>
                 <div class="project-item">
-                    <img src="https://via.placeholder.com/400x250/C1D8C1/FFFFFF?text=Rooftop+Farm" alt="Rooftop Permaculture Farm Project">
+                    <img src="https://placehold.co/400x250/C1D8C1/FFFFFF?text=Rooftop+Farm" alt="Rooftop Permaculture Farm Project">
                     <div class="project-content">
                         <h3>Rooftop Permaculture Farm</h3>
                         <div class="status-location">
@@ -883,7 +886,7 @@
                     </div>
                 </div>
                 <div class="project-item">
-                    <img src="https://via.placeholder.com/400x250/7A9E88/FFFFFF?text=Wetland+Restoration" alt="Urban Wetland Restoration Project">
+                    <img src="https://placehold.co/400x250/7A9E88/FFFFFF?text=Wetland+Restoration" alt="Urban Wetland Restoration Project">
                     <div class="project-content">
                         <h3>Urban Wetland Restoration</h3>
                         <div class="status-location">
@@ -1010,6 +1013,61 @@
             <p>© 2025 UrbanBiome. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Leaflet JS and Esri Leaflet Plugin -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://unpkg.com/esri-leaflet@3.0.10/dist/esri-leaflet.js"></script>
+
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([51.4545, -2.5879], 12);
+
+        // Add the base OpenStreetMap layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Define min and max NDVI values from the API details for normalization
+        const ndviMin = 0.23334091;
+        const ndviMax = 0.74240534;
+
+        // Function to get a color from red to green based on a value
+        function getColor(value) {
+            if (value === null || value === undefined) {
+                return '#ccc'; // Default color for null values
+            }
+            // Normalize the value between 0 and 1
+            const normalized = (value - ndviMin) / (ndviMax - ndviMin);
+            // Clamp the value to be between 0 and 1
+            const clamped = Math.max(0, Math.min(1, normalized));
+            // Map the normalized value to a hue from 0 (red) to 120 (green)
+            const hue = clamped * 120;
+            return `hsl(${hue}, 100%, 45%)`; // Using HSL for easy color gradient
+        }
+
+        // Define the ArcGIS Feature Layer with custom styling
+        var ndviLayer = L.esri.featureLayer({
+            url: 'https://maps2.bristol.gov.uk/server2/rest/services/ext/Outdoor_heat_exposure/MapServer/2',
+            style: function (feature) {
+                return {
+                    fillColor: getColor(feature.properties.MEAN_NDVI),
+                    fillOpacity: 0.5,
+                    color: '#333', // Border color
+                    weight: 1      // Border width
+                };
+            }
+        }).addTo(map); // .addTo(map) makes it visible by default
+
+        // Add a popup to show the NDVI value
+        ndviLayer.bindPopup(function (layer) {
+            return L.Util.template(
+                '<b>LSOA Name:</b> {LSOA11NM}<br><b>Mean NDVI:</b> {MEAN_NDVI}',
+                layer.feature.properties
+            );
+        });
+
+    </script>
 
 </body>
 </html>
