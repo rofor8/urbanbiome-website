@@ -3,212 +3,1013 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Urban Biome - Smart Urban Planning Solutions</title>
-    <link rel="stylesheet" href="/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>UrbanBiome - Reimagining Cities, Naturally.</title>
+    <style>
+        /* CSS Variables for easy color management */
+        :root {
+            --primary-green: #2e8b57; /* Sea Green */
+            --secondary-green: #4CAF50; /* A brighter green for accents */
+            --dark-green: #1a4f32;
+            --light-grey: #f4f4f4;
+            --medium-grey: #e0e0e0;
+            --dark-grey: #333;
+            --text-color: #333;
+            --heading-color: #222;
+            --background-color: #ffffff;
+            --section-bg-odd: var(--light-grey);
+            --section-bg-even: var(--background-color);
+            --border-color: #ddd;
+            --link-color: var(--primary-green);
+            --link-hover-color: var(--dark-green);
+        }
+
+        /* Base Styles */
+        body {
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--heading-color);
+            margin-top: 0;
+            margin-bottom: 0.5em;
+            line-height: 1.2;
+        }
+
+        h1 { font-size: 2.8em; }
+        h2 { font-size: 2.2em; }
+        h3 { font-size: 1.8em; }
+        h4 { font-size: 1.4em; }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--link-hover-color);
+            text-decoration: underline;
+        }
+
+        p {
+            margin-bottom: 1em;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header / Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://via.placeholder.com/1500x600/2e8b57/ffffff?text=UrbanBiome+Nature+Image') no-repeat center center/cover;
+            color: #fff;
+            text-align: center;
+            padding: 100px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 60vh;
+        }
+
+        .hero h1 {
+            font-size: 4em;
+            margin-bottom: 10px;
+            color: #fff; /* Ensure white color for hero text */
+        }
+
+        .hero p {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: var(--dark-green);
+            color: #fff;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .navbar .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .navbar .nav-links li {
+            margin-left: 30px;
+        }
+
+        .navbar .nav-links a {
+            color: #fff;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .navbar .nav-links a:hover {
+            color: var(--secondary-green);
+            text-decoration: none;
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        section:nth-of-type(odd) { /* Apply background to odd sections */
+            background-color: var(--section-bg-odd);
+        }
+
+        section:nth-of-type(even) { /* Apply background to even sections */
+            background-color: var(--section-bg-even);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after { /* Underline effect for H2 */
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-green);
+            margin: 10px auto 0;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-green);
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 15px;
+        }
+
+        .btn:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-2px);
+            text-decoration: none;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-green);
+            color: var(--primary-green);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-green);
+            color: #fff;
+        }
+
+        /* General content layout */
+        .text-center {
+            text-align: center;
+        }
+
+        .grid-2, .grid-3 {
+            display: grid;
+            gap: 40px; /* Space between grid items */
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            padding: 30px;
+            text-align: center;
+        }
+
+        .card h3 {
+            color: var(--primary-green);
+            margin-bottom: 15px;
+        }
+
+        .list-unstyled {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .list-unstyled li {
+            margin-bottom: 10px;
+        }
+
+        /* About & Vision Section */
+        #about p, #aim p, #vision p {
+            font-size: 1.1em;
+            max-width: 800px;
+            margin: 0 auto 1em;
+        }
+
+        /* The UrbanBiome Tool Section */
+        #urbanbiome-tool .tool-overview {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        #urbanbiome-tool .tool-image {
+            width: 100%;
+            max-width: 700px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .tool-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .tool-feature-item {
+            background-color: var(--background-color);
+            padding: 25px;
+            border-left: 5px solid var(--primary-green);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .tool-links {
+            margin-top: 50px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .tool-link-item {
+            padding: 25px;
+            background-color: var(--light-grey);
+            border-radius: 8px;
+            border: 1px solid var(--medium-grey);
+            transition: all 0.3s ease;
+        }
+
+        .tool-link-item:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+        }
+
+        .tool-link-item a {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+        }
+
+        .tool-map-placeholder {
+            background-color: var(--medium-grey);
+            color: var(--dark-grey);
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            margin-top: 40px;
+            font-style: italic;
+            border: 1px dashed var(--dark-grey);
+        }
+
+        /* Founders Section */
+        #founders .founder-grid {
+            display: flex;
+            flex-wrap: wrap; /* Allows wrapping on smaller screens */
+            justify-content: center;
+            gap: 40px;
+        }
+
+        #founders .founder-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            padding: 30px;
+            text-align: center;
+            max-width: 450px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #founders .founder-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 4px solid var(--primary-green);
+        }
+
+        #founders .founder-card h3 {
+            margin-bottom: 5px;
+            font-size: 1.6em;
+        }
+
+        #founders .founder-card p.title {
+            color: var(--primary-green);
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        /* Solutions Section */
+        #solutions .solution-category {
+            margin-bottom: 60px;
+        }
+
+        #solutions .solution-category h3 {
+            color: var(--primary-green);
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        #solutions .diy-guides ul {
+            list-style: disc;
+            padding-left: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        #solutions .diy-guides li {
+            margin-bottom: 8px;
+        }
+
+        #solutions .consultation-services .service-item {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Projects Section (detailed) */
+        #projects .project-item {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            overflow: hidden;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #projects .project-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        #projects .project-content {
+            padding: 25px;
+            flex-grow: 1; /* Allows content to expand and push button to bottom */
+            display: flex;
+            flex-direction: column;
+        }
+
+        #projects .project-content h3 {
+            font-size: 1.6em;
+            color: var(--heading-color);
+            margin-bottom: 10px;
+        }
+
+        #projects .project-content p {
+            font-size: 0.95em;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        #projects .project-content .status-location {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        #projects .project-content .status-location span:first-child {
+            font-weight: bold;
+            color: var(--primary-green);
+        }
+
+        #projects .project-content .btn {
+            display: block;
+            width: calc(100% - 0px); /* Adjust for potential padding/margin on grid item */
+            margin-top: auto; /* Push button to bottom */
+        }
+
+        /* Services Section */
+        #services .service-grid .card {
+            min-height: 200px; /* Ensure cards have similar height */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* News & Updates */
+        #news .news-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #news .news-item {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #news .news-item h3 {
+            margin-bottom: 5px;
+            font-size: 1.5em;
+        }
+
+        #news .news-item .date {
+            font-size: 0.9em;
+            color: #777;
+            margin-bottom: 15px;
+        }
+
+        #news .news-item .btn {
+            align-self: flex-end; /* Align button to the right */
+            margin-top: 15px;
+        }
+
+        /* Contact Section */
+        #contact .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+            flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+        }
+
+        #contact .contact-item {
+            background-color: var(--light-grey);
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            flex: 1; /* Allow items to grow/shrink */
+            min-width: 280px; /* Minimum width before wrapping */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        #contact .contact-item h4 {
+            color: var(--primary-green);
+            margin-bottom: 10px;
+        }
+
+        #contact .contact-form-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        #contact .contact-form-container label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--heading-color);
+        }
+
+        #contact .contact-form-container input[type="text"],
+        #contact .contact-form-container input[type="email"],
+        #contact .contact-form-container textarea {
+            width: calc(100% - 20px); /* Account for padding */
+            padding: 12px 10px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box; /* Ensures padding is inside width */
+        }
+
+        #contact .contact-form-container textarea {
+            resize: vertical; /* Allow vertical resizing */
+            min-height: 120px;
+        }
+
+        #contact .contact-form-container input[type="submit"] {
+            width: auto; /* Button fits content */
+            display: block;
+            margin-left: auto;
+            margin-right: auto; /* Center button */
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark-green);
+            color: #fff;
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.9em;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .navbar .nav-links {
+                display: none; /* Hide nav links on smaller screens for simplicity (no hamburger menu for static site) */
+            }
+            .navbar .container {
+                justify-content: center; /* Center logo if no nav links */
+            }
+            .hero h1 {
+                font-size: 3em;
+            }
+            .hero p {
+                font-size: 1.2em;
+            }
+            .section-header h2 {
+                font-size: 2em;
+            }
+            section {
+                padding: 60px 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5em; }
+            h2 { font-size: 1.8em; }
+            h3 { font-size: 1.5em; }
+            .hero {
+                padding: 80px 20px;
+            }
+            .container {
+                padding: 0 15px;
+            }
+            .navbar .logo {
+                font-size: 1.5em;
+            }
+            /* Stack grid columns on smaller screens */
+            .grid-2, .grid-3, .founder-grid, .tool-features, .tool-links, .contact-info {
+                grid-template-columns: 1fr;
+            }
+            #founders .founder-card {
+                max-width: 90%; /* Adjust width for founders cards */
+            }
+            #contact .contact-form-container {
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2em;
+            }
+            .hero p {
+                font-size: 1em;
+            }
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+            section {
+                padding: 40px 0;
+            }
+            .section-header {
+                margin-bottom: 40px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">URBAN BIOME</div>
-            <div class="nav-links">
-                <a href="#welcome">Welcome</a> <!-- Maps to the 'Welcome Page' hero section -->
-                <a href="#who-we-are">Who We Are</a>
-                <a href="#ub-tool">UB Tool</a>
-                <a href="#solutions">Solutions</a>
-                <a href="/wiki/">Wiki</a>
-                <a href="/shop/">Shop</a>
-                <a href="/installers/">Find Installers</a>
-                <a href="#get-involved">Get Involved</a>
-                <a href="https://urbanbiome.app" class="cta-button">Launch App</a>
-            </div>
-        </nav>
+
+    <header class="hero">
+        <h1>UrbanBiome</h1>
+        <p>Abstract representation of urban nature</p>
+        <p class="tagline">Reimagining Cities, Naturally.</p>
+        <p>UrbanBiome is dedicated to transforming urban landscapes into thriving ecosystems through innovative nature-based solutions and permaculture principles.</p>
+        <a href="#contact" class="btn">Get In Touch</a>
     </header>
 
-    <main>
-        <!-- 1. Welcome Page (Hero Section from sketch) -->
-        <section id="welcome" class="hero">
-            <h1>Urban Biome</h1>
-            <p>Smart Urban Planning for a Sustainable Future</p>
-            <p><strong>Aim:</strong> Analyze and optimize urban environments with our advanced metrics platform.</p>
-            <div class="image-placeholder">[Image related to Aim]</div>
-            <h2>Vision</h2>
-            <p>Our vision is to create sustainable, livable cities by combining environmental science with modern technology.</p>
-            <div class="image-placeholder">[Image related to Vision]</div>
-            <a href="https://urbanbiome.app" class="cta-button">Try Urban Biome</a>
-        </section>
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">UrbanBiome</a>
+            <ul class="nav-links">
+                <li><a href="#aim">Our Aim</a></li>
+                <li><a href="#urbanbiome-tool">The Tool</a></li>
+                <li><a href="#solutions">Solutions</a></li>
+                <li><a href="#founders">Founders</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#news">News</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
 
-        <!-- Your existing "About Us" - can potentially be absorbed into "Who We Are" -->
-        <section id="about" class="about">
-            <h2>About Us (Existing - Review for merging)</h2>
-            <div class="content-grid">
-                <div class="text-content">
-                    <p>Urban Biome is a cutting-edge platform that helps urban planners, architects, and city officials make data-driven decisions about urban development. We combine environmental science with modern technology to create sustainable, livable cities.</p>
-                </div>
-                <div class="metrics-preview">
-                    <div class="metric-card">
-                        <h3>Environmental Impact</h3>
-                        <p>Measure and optimize environmental metrics</p>
-                    </div>
-                    <div class="metric-card">
-                        <h3>Community Wellness</h3>
-                        <p>Analyze social and community factors</p>
-                    </div>
-                </div>
+    <section id="aim">
+        <div class="container text-center">
+            <div class="section-header">
+                <h2>Our Aim</h2>
             </div>
-        </section>
+            <p>Transforming urban spaces into thriving ecological havens, empowering communities to integrate nature into city life.</p>
+        </div>
+    </section>
 
-        <!-- 2. Who We Are (New Section based on sketch) -->
-        <section id="who-we-are" class="section-container">
-            <h2>Who We Are</h2>
-            <div class="content-grid team-info">
-                <div class="member-card">
-                    <h3>Resen</h3>
-                    <p>[Placeholder: Bio for Resen]</p>
-                    <div class="image-placeholder member-photo">[Image of Resen]</div>
-                </div>
-                <div class="member-card">
-                    <h3>Nonou</h3>
-                    <p>[Placeholder: Bio for Nonou]</p>
-                    <div class="image-placeholder member-photo">[Image of Nonou]</div>
-                </div>
+    <section id="vision">
+        <div class="container text-center">
+            <div class="section-header">
+                <h2>Our Vision</h2>
             </div>
-
-            <div class="on-the-ground-section">
-                <h3>Our Work On The Ground</h3>
-                <p>An illustration showcasing the practical application of our solutions and what we've achieved directly in urban environments.</p>
-                <div class="image-placeholder illustration-ground">[Illustration/Diagram of solutions on the ground]</div>
-
-                <p>Here's a screenshot of our Urban Biome tool in action, demonstrating its intuitive interface and powerful features.</p>
-                <div class="image-placeholder tool-screenshot">[Tool Screenshot]</div>
-            </div>
-        </section>
-
-        <!-- Your existing "What We Do" - can potentially be absorbed into "UB Tool" or "Solutions" -->
-        <section id="what-we-do" class="what-we-do">
-            <h2>What We Do (Existing - Review for merging)</h2>
-            <div class="features-grid">
-                <div class="feature">
-                    <h3>Environmental Analysis</h3>
-                    <p>Measure and visualize environmental metrics including air quality, green coverage, and energy efficiency.</p>
-                </div>
-                <div class="feature">
-                    <h3>Urban Planning</h3>
-                    <p>Create and evaluate urban interventions with real-time impact assessment.</p>
-                </div>
-                <div class="feature">
-                    <h3>Community Impact</h3>
-                    <p>Analyze social metrics and community accessibility factors.</p>
-                </div>
-                <div class="feature">
-                    <h3>Sustainability Metrics</h3>
-                    <p>Track and optimize sustainability indicators across your urban projects.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 3. UB Tool (New Section based on sketch) -->
-        <section id="ub-tool" class="section-container">
-            <h2>The Urban Biome Tool</h2>
-            <h3>Built Area Strategy</h3>
-            <p>Our tool provides an explanatory interface that guides you on how to effectively use the platform to display and analyze open data for your urban planning needs.</p>
-
-            <div class="tool-overview-visual">
-                <div class="image-placeholder tool-diagram">[Diagram of tool's data flow or interface]</div>
-                <p>This diagram illustrates the core components and data integration within our Urban Biome platform.</p>
-            </div>
-
-            <div class="technical-details">
-                <h4>Technical Integration & Resources</h4>
-                <ul>
-                    <li><a href="#"><strong>Open Data Access:</strong></a> Explore vast datasets for comprehensive urban analysis.</li>
-                    <li><a href="#"><strong>API Integration:</strong></a> Seamlessly connect Urban Biome with your existing systems and workflows.</li>
-                    <li><a href="/wiki/"><strong>Wiki:</strong></a> Detailed documentation, tutorials, and guides for advanced usage.</li>
-                    <li><a href="#"><strong>ArcGIS Online Map Integration:</strong></a> Visualize geospatial data, conduct spatial analysis, and create interactive maps.</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- 4. Solutions (New Section based on sketch) -->
-        <section id="solutions" class="section-container">
-            <h2>Solutions for a Greener City</h2>
-
-            <div class="solution-category">
-                <h3>Greenery & Public Health (NHS Insights)</h3>
-                <p>Drawing insights from research, including those related to NHS initiatives, we explore the profound impact of urban greenery on public health and well-being. [Placeholder: Briefly expand on research summary].</p>
-            </div>
-
-            <div class="solution-category">
-                <h3>DIY Green Solutions</h3>
-                <p>Empower yourself with practical guides for implementing green projects:</p>
-                <ul>
-                    <li><strong>Green Roofs:</strong> Learn how to design and install your own green roof, transforming unused spaces into vibrant ecosystems.</li>
-                    <li><strong>Planters:</strong> Creative ideas and step-by-step instructions for urban planters, perfect for balconies, patios, and public spaces.</li>
-                </ul>
-            </div>
-
-            <div class="solution-category">
-                <h3>Our Offer</h3>
-                <p>[Placeholder: A clear, concise explanation of the services, products, or value proposition Urban Biome offers to cities, developers, or individuals.]</p>
-            </div>
-
-            <div class="solution-category">
-                <h3>How to Implement in Your City</h3>
-                <p>We provide comprehensive support to integrate sustainable solutions:</p>
-                <ul>
-                    <li><strong>Site Visits:</strong> Our experts can conduct on-site assessments to identify unique opportunities and challenges.</li>
-                    <li><strong>Opportunity Areas:</strong> Utilize our tools to pinpoint the most impactful locations for green interventions within your urban landscape.</li>
-                    <li><strong>Miyawaki Forests:</strong> Discover the benefits and implementation process for creating dense, rapidly growing native forests in urban settings.</li>
-                    <li><strong>Planter Implementation Programs:</strong> Support and resources for large-scale planter projects, from design to community engagement.</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Your existing "Get Involved" - can remain as a final call to action -->
-        <section id="get-involved" class="get-involved">
-            <h2>Get Involved</h2>
-            <div class="involvement-options">
-                <div class="option">
-                    <h3>Try the Platform</h3>
-                    <p>Experience our tools firsthand and start optimizing your urban projects.</p>
-                    <a href="https://urbanbiome.app" class="secondary-button">Launch App</a>
-                </div>
-                <div class="option">
-                    <h3>Contact Us</h3>
-                    <p>Interested in learning more? Get in touch with our team.</p>
-                    <a href="mailto:reuben@urbanbiome.info" class="secondary-button">Contact</a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>Urban Biome</h4>
-                <p>Smart urban planning for sustainable cities</p>
-            </div>
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <a href="#welcome">Welcome</a>
-                <a href="#who-we-are">Who We Are</a>
-                <a href="#ub-tool">UB Tool</a>
-                <a href="#solutions">Solutions</a>
-                <a href="/wiki/">Wiki</a>
-                <a href="/shop/">Shop</a>
-                <a href="/installers/">Find Installers</a>
-                <a href="#get-involved">Get Involved</a>
-            </div>
-            <div class="footer-section">
-                <h4>Contact</h4>
-                <a href="mailto:reuben@urbanbiome.info">reuben@urbanbiome.info</a>
+            <p>A future where every city block contributes to biodiversity and human well-being. Pioneering sustainable urban development through nature-based solutions.</p>
+            <div style="margin-top: 40px;">
+                <img src="https://via.placeholder.com/800x400/2e8b57/ffffff?text=UrbanBiome's+Vision+Visual" alt="Supporting visual for UrbanBiome's vision" class="tool-image">
+                <p style="font-style: italic; font-size: 0.9em; color: #666;">Supporting visual for UrbanBiome's vision</p>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>© 2024 Urban Biome. All rights reserved.</p>
+    </section>
+
+    <section id="urbanbiome-tool">
+        <div class="container">
+            <div class="section-header">
+                <h2>The UrbanBiome Tool</h2>
+            </div>
+            <div class="tool-overview">
+                <img src="https://via.placeholder.com/900x500/A0C49D/2E8B57?text=Screenshot+of+the+UrbanBiome+Tool" alt="Screenshot of the UrbanBiome Tool" class="tool-image">
+                <p style="font-style: italic; font-size: 0.9em; color: #666;">Screenshot of the UrbanBiome Tool</p>
+                <h3>Visualize, analyze, and plan for a greener city with our innovative platform.</h3>
+                <a href="#" class="btn btn-outline">Explore the UrbanBiome Tool</a>
+            </div>
+
+            <hr style="border-color: var(--medium-grey); margin: 60px auto; max-width: 800px;">
+
+            <div class="section-header">
+                <h3>Build and Strategy</h3>
+            </div>
+            <div class="tool-features">
+                <div class="tool-feature-item">
+                    <h4>How to Use:</h4>
+                    <p>Step-by-step guides and tutorials to get you started with the UB Tool.</p>
+                </div>
+                <div class="tool-feature-item">
+                    <h4>What We Display:</h4>
+                    <p>Understand the data layers, metrics (biodiversity maps, climate resilience), and insights provided.</p>
+                </div>
+                <div class="tool-feature-item">
+                    <h4>Purpose:</h4>
+                    <p>Learn why this tool exists and its benefits for planners, communities, and individuals.</p>
+                </div>
+            </div>
+
+            <div class="tool-map-placeholder">
+                Interactive UrbanBiome Tool Map - "Est Spot" example (Placeholder for actual map component)
+            </div>
+
+            <div class="tool-links">
+                <div class="tool-link-item">
+                    <h4>Open Data</h4>
+                    <p>Access the datasets powering UrbanBiome. Detailed information about available datasets, data standards, and licensing.</p>
+                    <a href="#">Download Raw Data (Placeholder)</a>
+                </div>
+                <div class="tool-link-item">
+                    <h4>API Access</h4>
+                    <p>Integrate UrbanBiome data programmatically. Developer documentation for API endpoints, authentication, and rate limits.</p>
+                    <a href="#">View API Docs (Placeholder)</a>
+                </div>
+                <div class="tool-link-item">
+                    <h4>Technical Area (Wiki)</h4>
+                    <p>Dive deeper into our methodologies. Access detailed technical specifications, research, and community contributions.</p>
+                    <a href="#">View Technical Wiki</a>
+                </div>
+                <div class="tool-link-item">
+                    <h4>ArcGIS Story Map</h4>
+                    <p>Engaging narratives of our projects. Explore UrbanBiome projects, data insights, and case studies in an interactive format.</p>
+                    <a href="#">View Story Map</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="solutions-ground">
+        <div class="container text-center">
+            <div class="section-header">
+                <h2>Solutions on the Ground</h2>
+            </div>
+            <p>Discover practical ways UrbanBiome is making a difference, from community gardens to innovative green infrastructure and DIY guides.</p>
+            <a href="#solutions" class="btn">See Our Solutions in Action</a>
+        </div>
+    </section>
+
+    <section id="mission-values">
+        <div class="container text-center">
+            <div class="section-header">
+                <h2>Our Mission & Values</h2>
+            </div>
+            <p style="max-width: 800px; margin: 0 auto 40px;">We strive to improve the environment in cities by integrating elements of nature, applying permaculture thinking, and leveraging data to create sustainable, resilient urban ecosystems.</p>
+
+            <h3>Core Values</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Ecological Regeneration</h3>
+                    <p>Fostering biodiversity and restoring natural processes in urban settings.</p>
+                </div>
+                <div class="card">
+                    <h3>Community Engagement</h3>
+                    <p>Collaborating with local communities to create shared green spaces.</p>
+                </div>
+                <div class="card">
+                    <h3>Sustainable Design</h3>
+                    <p>Implementing long-lasting, low-impact solutions inspired by permaculture.</p>
+                </div>
+                <div class="card">
+                    <h3>Data-Driven Impact</h3>
+                    <p>Utilizing Open GIS data to identify and prioritize areas for ecological improvement.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="founders">
+        <div class="container text-center">
+            <div class="section-header">
+                <h2>Meet Our Founders</h2>
+            </div>
+            <p style="max-width: 800px; margin: 0 auto 40px;">UrbanBiome is driven by a passionate team dedicated to creating sustainable and resilient urban ecosystems. Meet the minds behind our mission.</p>
+            <p style="max-width: 600px; margin: 0 auto 60px; font-style: italic;">The driving force behind UrbanBiome's vision for a greener urban future.</p>
+
+            <div class="founder-grid">
+                <div class="founder-card">
+                    <img src="https://via.placeholder.com/150/5E8B7E/FFFFFF?text=Reuben" alt="Portrait of Reuben Forster">
+                    <h3>Reuben Forster</h3>
+                    <p class="title">GIS Analyst / Ecological Design</p>
+                    <p>Reuben Forster is a Designer and Technologist committed to leveraging technology for societal betterment. He specializes in computational problem-solving, marrying natural phenomena with technological innovation. His work includes optimizing GIS capabilities for urban redevelopment, climate resilience, and evaluating nature-based solutions.</p>
+                </div>
+                <div class="founder-card">
+                    <img src="https://via.placeholder.com/150/8B8E7E/FFFFFF?text=Manon" alt="Portrait of Manon Dangelser">
+                    <h3>Manon Dangelser</h3>
+                    <p class="title">Senior Consultant | Sustainability | Resilience</p>
+                    <p>Manon is a climate resilience consultant, sustainability specialist & engineer. Her focus is to advocate for the integration of resilience and climate adaptation measures at early design stage. She collaborates with urban designers, landscape architects, climate scientists and digital experts to develop solutions to adapt the urban environment & create healthier, greener cities for all.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="solutions">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Solutions</h2>
+            </div>
+
+            <div class="solution-category">
+                <h3>Greenery & Nature-based Solutions (NbS)</h3>
+                <p>Nature-based Solutions (NbS) leverage the power of nature to address urban challenges like climate change, biodiversity loss, and human well-being. They involve protecting, restoring, and sustainably managing ecosystems to provide ecological, social, and economic benefits.</p>
+                <p>Our research focuses on identifying and promoting effective NbS such as urban green spaces, green roofs, sustainable drainage systems (SuDS), and urban forests. These solutions can improve air and water quality, reduce urban heat island effects, enhance biodiversity, and create more resilient and livable cities. We cite reputable sources and studies to back our findings and recommendations.</p>
+            </div>
+
+            <div class="solution-category diy-guides">
+                <h3>DIY & How-To Guides</h3>
+                <p class="text-center">Empowering you to make a difference, one green project at a time.</p>
+                <ul>
+                    <li>Green Roof Installation</li>
+                    <li>Urban Planters: Design & Build</li>
+                    <li>Miyawaki Forests for Urban Spaces</li>
+                </ul>
+            </div>
+
+            <div class="solution-category consultation-services">
+                <h3 class="text-center">How to do this in the city? (Consultation & Project Support)</h3>
+                <div class="grid-2">
+                    <div class="service-item">
+                        <h4>Site Visit & Assessment</h4>
+                        <p>Our experts can visit your location to assess its potential for greening initiatives, providing tailored recommendations and feasibility insights. We help identify opportunities to integrate nature effectively, considering local context and ecological goals.</p>
+                    </div>
+                    <div class="service-item">
+                        <h4>Opportunity Areas Development</h4>
+                        <p>UrbanBiome specializes in identifying and developing underutilized urban spaces into vibrant green areas. We work with communities, local authorities, and developers to transform these opportunity areas into valuable ecological assets, contributing to healthier and more resilient cities.</p>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <a href="#contact" class="btn">Request a Consultation</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Projects</h2>
+                <p>Showcasing our commitment to creating sustainable and vibrant urban environments.</p>
+            </div>
+            <div class="grid-3">
+                <div class="project-item">
+                    <img src="https://via.placeholder.com/400x250/9BB899/FFFFFF?text=Greenway+Revitalization" alt="Greenway Revitalization Project">
+                    <div class="project-content">
+                        <h3>Greenway Revitalization</h3>
+                        <div class="status-location">
+                            <span>Completed</span>
+                            <span>City Center, Metropolis</span>
+                        </div>
+                        <p>Transforming an underutilized urban corridor into a vibrant greenway with native plants and community gardens.</p>
+                        <a href="#" class="btn btn-outline">View on Map</a>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <img src="https://via.placeholder.com/400x250/C1D8C1/FFFFFF?text=Rooftop+Farm" alt="Rooftop Permaculture Farm Project">
+                    <div class="project-content">
+                        <h3>Rooftop Permaculture Farm</h3>
+                        <div class="status-location">
+                            <span>Ongoing</span>
+                            <span>North District, Gotham</span>
+                        </div>
+                        <p>Establishing a productive rooftop farm using permaculture principles to supply local produce and educate the community.</p>
+                        <a href="#" class="btn btn-outline">View on Map</a>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <img src="https://via.placeholder.com/400x250/7A9E88/FFFFFF?text=Wetland+Restoration" alt="Urban Wetland Restoration Project">
+                    <div class="project-content">
+                        <h3>Urban Wetland Restoration</h3>
+                        <div class="status-location">
+                            <span>Ongoing</span>
+                            <span>Riverside, Star City</span>
+                        </div>
+                        <p>Restoring a degraded urban wetland to improve water quality, enhance biodiversity, and provide recreational space.</p>
+                        <a href="#" class="btn btn-outline">View on Map</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container text-center">
+            <div class="section-header">
+                <h2>Our Services</h2>
+                <p>Offering expertise in creating resilient and ecologically sound urban spaces.</p>
+            </div>
+            <div class="grid-2 service-grid">
+                <div class="card">
+                    <h3>Nature-Based Solutions</h3>
+                    <p>Implementing green infrastructure like rain gardens, green roofs, and permeable pavements to manage stormwater and enhance urban biodiversity.</p>
+                </div>
+                <div class="card">
+                    <h3>Permaculture Design</h3>
+                    <p>Creating sustainable human settlements and agricultural systems modeled on the relationships found in natural ecosystems.</p>
+                </div>
+                <div class="card">
+                    <h3>Urban Greening Strategy</h3>
+                    <p>Developing comprehensive strategies for increasing green cover in cities, utilizing Open GIS data for site selection and impact assessment.</p>
+                </div>
+                <div class="card">
+                    <h3>Ecological Consulting</h3>
+                    <p>Providing expert advice on urban ecology, habitat restoration, and sustainable land management practices.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="news">
+        <div class="container">
+            <div class="section-header">
+                <h2>News & Updates</h2>
+                <p>Stay informed about our latest initiatives and achievements.</p>
+                <p><a href="#">RSS Feed (Placeholder)</a></p>
+            </div>
+            <ul class="news-list">
+                <li class="news-item">
+                    <h3>UrbanBiome Awarded Grant for City Park Regeneration</h3>
+                    <p class="date">October 26, 2023</p>
+                    <p>We're thrilled to announce funding to revitalize City Park, focusing on native species and community involvement.</p>
+                    <a href="#" class="btn btn-outline">Read More</a>
+                </li>
+                <li class="news-item">
+                    <h3>New Study on Urban Heat Island Effect Reduction</h3>
+                    <p class="date">September 15, 2023</p>
+                    <p>Our latest research highlights the significant impact of urban greening on mitigating heat island effects.</p>
+                    <a href="#" class="btn btn-outline">Read More</a>
+                </li>
+                <li class="news-item">
+                    <h3>Community Workshop: Intro to Permaculture</h3>
+                    <p class="date">August 05, 2023</p>
+                    <p>Join us for a hands-on workshop introducing the basics of permaculture design for urban gardens.</p>
+                    <a href="#" class="btn btn-outline">Read More</a>
+                </li>
+            </ul>
+            <div class="text-center" style="margin-top: 40px;">
+                <a href="#" class="btn">View All News (Placeholder)</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <p>We'd love to hear from you. Whether you have a question, a project idea, or want to collaborate, feel free to reach out.</p>
+            </div>
+
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h4>Email</h4>
+                    <p><a href="mailto:reuben@urbanbiome.info">reuben@urbanbiome.info</a></p>
+                    <p><a href="mailto:mannon@urbanbiome.info">mannon@urbanbiome.info</a></p>
+                </div>
+                <div class="contact-item">
+                    <h4>Website</h4>
+                    <p><a href="http://urbanbiome.co.uk" target="_blank">urbanbiome.co.uk</a></p>
+                </div>
+                <div class="contact-item">
+                    <h4>Office Hours</h4>
+                    <p>Monday - Friday: 9:00 AM - 5:00 PM</p>
+                    <p>Saturday - Sunday: Closed</p>
+                </div>
+            </div>
+
+            <div class="contact-form-container">
+                <h3>Send us a Message</h3>
+                <p>Fill out the form below and we'll respond as soon as possible.</p>
+                <form action="#" method="POST">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" placeholder="Your Name" required>
+
+                    <label for="emailAddress">Email Address</label>
+                    <input type="email" id="emailAddress" name="emailAddress" placeholder="your.email@example.com" required>
+
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" placeholder="Regarding..." required>
+
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Your message here..." required></textarea>
+
+                    <input type="submit" value="Send Message" class="btn">
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>UrbanBiome</p>
+            <p>© 2025 UrbanBiome. All rights reserved.</p>
         </div>
     </footer>
+
 </body>
 </html>
