@@ -22,6 +22,7 @@
             --border-color: #dcdccc;
             --link-color: var(--primary-accent);
             --link-hover-color: var(--secondary-accent);
+            --placeholder-orange: #f59e0b; /* A nice, noticeable orange */
         }
 
         /* Base Styles */
@@ -358,6 +359,19 @@
             float: left;
             margin-right: 8px;
             opacity: 0.7;
+        }
+        
+        /* Placeholder Tag Styling */
+        .placeholder-tag {
+            background-color: var(--placeholder-orange);
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 12px;
         }
 
 
@@ -897,12 +911,12 @@
         <div class="container">
             <div class="section-header">
                 <h2>Our Projects</h2>
-                <p>Showcasing our commitment to creating sustainable and vibrant urban environments.</p>
             </div>
             <div class="grid-3">
                 <div class="project-item">
                     <img src="https://placehold.co/400x250/9BB899/FFFFFF?text=Greenway+Revitalization" alt="Greenway Revitalization Project">
                     <div class="project-content">
+                        <span class="placeholder-tag">Example Project</span>
                         <h3>Greenway Revitalization</h3>
                         <div class="status-location">
                             <span>Completed</span>
@@ -915,6 +929,7 @@
                 <div class="project-item">
                     <img src="https://placehold.co/400x250/C1D8C1/FFFFFF?text=Rooftop+Farm" alt="Rooftop Permaculture Farm Project">
                     <div class="project-content">
+                        <span class="placeholder-tag">Example Project</span>
                         <h3>Rooftop Permaculture Farm</h3>
                         <div class="status-location">
                             <span>Ongoing</span>
@@ -927,6 +942,7 @@
                 <div class="project-item">
                     <img src="https://placehold.co/400x250/7A9E88/FFFFFF?text=Wetland+Restoration" alt="Urban Wetland Restoration Project">
                     <div class="project-content">
+                        <span class="placeholder-tag">Example Project</span>
                         <h3>Urban Wetland Restoration</h3>
                         <div class="status-location">
                             <span>Ongoing</span>
@@ -971,23 +987,24 @@
         <div class="container">
             <div class="section-header">
                 <h2>News & Updates</h2>
-                <p>Stay informed about our latest initiatives and achievements.</p>
-                <p><a href="#">RSS Feed (Placeholder)</a></p>
             </div>
             <ul class="news-list">
                 <li class="news-item">
+                    <span class="placeholder-tag">Example News</span>
                     <h3>UrbanBiome Awarded Grant for City Park Regeneration</h3>
                     <p class="date">October 26, 2023</p>
                     <p>We're thrilled to announce funding to revitalize City Park, focusing on native species and community involvement.</p>
                     <a href="#" class="btn btn-outline">Read More</a>
                 </li>
                 <li class="news-item">
+                    <span class="placeholder-tag">Example News</span>
                     <h3>New Study on Urban Heat Island Effect Reduction</h3>
                     <p class="date">September 15, 2023</p>
                     <p>Our latest research highlights the significant impact of urban greening on mitigating heat island effects.</p>
                     <a href="#" class="btn btn-outline">Read More</a>
                 </li>
                 <li class="news-item">
+                    <span class="placeholder-tag">Example News</span>
                     <h3>Community Workshop: Intro to Permaculture</h3>
                     <p class="date">August 05, 2023</p>
                     <p>Join us for a hands-on workshop introducing the basics of permaculture design for urban gardens.</p>
