@@ -127,6 +127,7 @@
             margin: 0;
             padding: 0;
             display: flex;
+            align-items: center;
         }
 
         .navbar .nav-links li {
@@ -141,6 +142,21 @@
 
         .navbar .nav-links a:hover {
             color: var(--primary-accent);
+            text-decoration: none;
+        }
+        
+        .nav-button a {
+            background-color: var(--primary-accent);
+            color: var(--light-bg);
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        
+        .nav-button a:hover {
+            background-color: var(--secondary-accent);
+            color: var(--light-bg);
             text-decoration: none;
         }
 
@@ -255,7 +271,7 @@
         }
 
         /* About & Vision Section */
-        #about p, #aim p, #vision p, #philosophy p {
+        #about p, #aim p, #vision p, #philosophy p, #support p {
             font-size: 1.1em;
             max-width: 800px;
             margin: 0 auto 1em;
@@ -678,39 +694,15 @@
         <div class="container">
             <a href="#" class="logo">UrbanBiome</a>
             <ul class="nav-links">
-                <li><a href="#aim">Our Aim</a></li>
                 <li><a href="#philosophy">Our Philosophy</a></li>
                 <li><a href="#urbanbiome-tool">The Tool</a></li>
                 <li><a href="#solutions">Solutions</a></li>
                 <li><a href="#founders">Founders</a></li>
                 <li><a href="#projects">Projects</a></li>
-                <li><a href="#news">News</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li class="nav-button"><a href="#support">Support Us</a></li>
             </ul>
         </div>
     </nav>
-
-    <section id="aim">
-        <div class="container text-center">
-            <div class="section-header">
-                <h2>Our Aim</h2>
-            </div>
-            <p>Transforming urban spaces into thriving ecological havens, empowering communities to integrate nature into city life.</p>
-        </div>
-    </section>
-
-    <section id="vision">
-        <div class="container text-center">
-            <div class="section-header">
-                <h2>Our Vision</h2>
-            </div>
-            <p>A future where every city block contributes to biodiversity and human well-being. Pioneering sustainable urban development through nature-based solutions.</p>
-            <div style="margin-top: 40px;">
-                <img src="https://placehold.co/800x400/2e8b57/ffffff?text=UrbanBiome's+Vision" alt="Supporting visual for UrbanBiome's vision" class="tool-image">
-                <p style="font-style: italic; font-size: 0.9em; color: #666;">Supporting visual for UrbanBiome's vision</p>
-            </div>
-        </div>
-    </section>
 
     <section id="philosophy">
         <div class="container text-center">
@@ -1008,13 +1000,22 @@
         </div>
     </section>
 
+    <section id="support">
+        <div class="container text-center">
+            <div class="section-header">
+                <h2>Support Our Mission</h2>
+            </div>
+            <p>Our work is driven by a passion for creating greener, more resilient cities for everyone. While our consulting services and software tool help us grow, contributions from supporters like you allow us to accelerate our research, develop open-source tools, and launch pilot projects in underserved communities.</p>
+            <p>If you share our vision, please consider supporting our mission. Every contribution helps us build a healthier urban habitat.</p>
+            <a href="https://buy.stripe.com/7sYeVc20U02j8QEawdc7u02" class="btn" target="_blank" rel="noopener noreferrer">Contribute via Stripe</a>
+        </div>
+    </section>
+
     <section id="contact">
         <div class="container">
             <div class="section-header">
                 <h2>Get In Touch</h2>
-                <p>We'd love to hear from you. Whether you have a question, a project idea, or want to collaborate, feel free to reach out.</p>
             </div>
-
             <div class="contact-info">
                 <div class="contact-item">
                     <h4>Email</h4>
