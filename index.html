@@ -6,9 +6,6 @@
     <title>UrbanBiome - Reimagining Cities, Naturally.</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Segoe+UI&display=swap" rel="stylesheet">
     
-    <!-- Leaflet CSS for the interactive map -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-    
     <style>
         /* CSS Variables for Light Earth Theme */
         :root {
@@ -336,30 +333,6 @@
             display: block;
             margin-top: 15px;
         }
-
-        /* Leaflet Map Styling */
-        #map {
-            height: 500px; 
-            border-radius: 8px; 
-            margin-top: 40px;
-            border: 1px solid var(--border-color);
-        }
-        .legend {
-            line-height: 18px;
-            color: var(--text-color);
-            background-color: var(--background-color);
-            padding: 6px 8px;
-            border-radius: 5px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.2);
-            border: 1px solid var(--border-color);
-        }
-        .legend i {
-            width: 18px;
-            height: 18px;
-            float: left;
-            margin-right: 8px;
-            opacity: 0.7;
-        }
         
         /* Placeholder Tag Styling */
         .placeholder-tag {
@@ -372,6 +345,26 @@
             text-transform: uppercase;
             display: inline-block;
             margin-bottom: 12px;
+        }
+        
+        .map-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-top: 75%; /* 4:3 Aspect Ratio */
+            margin-top: 40px;
+        }
+
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
         }
 
 
@@ -745,9 +738,17 @@
 
             <div class="section-header" style="margin-top: 80px;">
                 <h3>Visualising the Challenge: A City's Greenspace</h3>
-                <p style="max-width: 800px; margin: 20px auto 0;">This map visualises the Normalised Difference Vegetation Index (NDVI), a key measure of plant health. The data, provided by Bristol City Council's "Keep Bristol Cool" project, clearly shows a lack of green space in the city centre (red/orange areas). While we use open data like this, the UrbanBiome tool allows for even more granular analysis, processing raw satellite imagery to track the state of the biome over time.</p>
+                 <p style="max-width: 800px; margin: 20px auto 0;">This interactive map shows live Sentinel-2 satellite data, processed by Google Earth Engine to visualise the Normalised Difference Vegetation Index (NDVI). It is a powerful example of how we can identify areas that lack green space and target interventions where they are most needed.</p>
             </div>
-            <div id="map"></div>
+            
+            <div class="map-container">
+                <iframe
+                    src="https://rofor8.users.earthengine.app/view/nvditimesliderbristol"
+                    style="border:none;"
+                    title="Bristol Recent NDVI">
+                </iframe>
+            </div>
+
 
             <div class="tool-links">
                 <div class="tool-link-item">
@@ -1051,75 +1052,6 @@
             <p>© 2025 UrbanBiome. All rights reserved.</p>
         </div>
     </footer>
-
-    <!-- Leaflet JS and Esri Leaflet Plugin -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script src="https://unpkg.com/esri-leaflet@3.0.10/dist/esri-leaflet.js"></script>
-
-    <script>
-        // Initialize the map
-        var map = L.map('map').setView([51.4545, -2.5879], 12);
-
-        // Add the base OpenStreetMap layer
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
-
-        // Define min and max NDVI values from the API details for normalization
-        const ndviMin = 0.23334091;
-        const ndviMax = 0.74240534;
-
-        // Function to get a color from red to green based on a value
-        function getColor(value) {
-            if (value === null || value === undefined) {
-                return '#ccc'; // Default color for null values
-            }
-            // Normalize the value between 0 and 1
-            const normalized = (value - ndviMin) / (ndviMax - ndviMin);
-            // Clamp the value to be between 0 and 1
-            const clamped = Math.max(0, Math.min(1, normalized));
-            // Map the normalized value to a hue from 0 (red) to 120 (green)
-            const hue = clamped * 120;
-            return `hsl(${hue}, 100%, 45%)`; // Using HSL for easy color gradient
-        }
-
-        // Define the ArcGIS Feature Layer with custom styling
-        var ndviLayer = L.esri.featureLayer({
-            url: 'https://maps2.bristol.gov.uk/server2/rest/services/ext/Outdoor_heat_exposure/MapServer/2',
-            style: function (feature) {
-                return {
-                    fillColor: getColor(feature.properties.MEAN_NDVI),
-                    fillOpacity: 0.5,
-                    color: '#333', // Border color
-                    weight: 1      // Border width
-                };
-            }
-        }).addTo(map); // .addTo(map) makes it visible by default
-
-        // Add a popup to show the NDVI value
-        ndviLayer.bindPopup(function (layer) {
-            return L.Util.template(
-                '<b>LSOA Name:</b> {LSOA11NM}<br><b>Mean NDVI:</b> {MEAN_NDVI}',
-                layer.feature.properties
-            );
-        });
-        
-        // Add a legend to the map
-        var legend = L.control({position: 'bottomright'});
-
-        legend.onAdd = function (map) {
-            var div = L.DomUtil.create('div', 'info legend');
-            div.innerHTML =
-                '<h4>NDVI</h4>' +
-                '<i style="background: ' + getColor(ndviMax) + '"></i> High<br>' +
-                '<i style="background: ' + getColor(ndviMin) + '"></i> Low';
-            return div;
-        };
-
-        legend.addTo(map);
-
-    </script>
 
 </body>
 </html>
