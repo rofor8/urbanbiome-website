@@ -1,0 +1,42 @@
+---
+interface Props {
+    id: string;
+    title: string;
+    isEven: boolean;
+}
+
+const { id, title, isEven } = Astro.props;
+---
+<section id={id} class:list={[{'even-section': isEven, 'odd-section': !isEven}]}>
+    <div class="container text-center">
+        <div class="section-header">
+            <h2>{title}</h2>
+        </div>
+        <slot />
+    </div>
+</section>
+
+<style>
+    /* These styles handle the even/odd background, as section:nth-of-type(even/odd)
+       doesn't work correctly when sections are dynamically inserted. */
+    section.odd-section {
+        background-color: var(--light-bg);
+    }
+    section.even-section {
+        background-color: var(--background-color);
+    }
+    section {
+        padding: 80px 0;
+        border-bottom: 1px solid var(--border-color);
+    }
+    @media (max-width: 768px) {
+        section {
+            padding: 60px 0;
+        }
+    }
+    @media (max-width: 480px) {
+        section {
+            padding: 40px 0;
+        }
+    }
+</style>

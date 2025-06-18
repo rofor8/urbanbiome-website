@@ -1,4 +1,0 @@
-name: urbanbiome-website
-build:
-  command: ""  # No build command needed for static HTML
-  output_directory: .  # Serve files from root directory
