@@ -1,16 +1,54 @@
 ---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import SectionWrapper from '../components/SectionWrapper.astro';
 
+// Get all entries from the 'sections' collection
+const sections = await getCollection('sections');
+
+// Sort sections by the 'order' field in their frontmatter
+sections.sort((a, b) => a.data.order - b.data.order);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="UrbanBiome - Reimagining Cities, Naturally.">
+    <Hero />
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">UrbanBiome</a>
+            <ul class="nav-links">
+                {sections.map((section) => (
+                    // Only show navigation link if navTitle is defined, otherwise use title
+                    section.data.navTitle || section.data.title ? (
+                        <li class:list={[{'nav-button': section.slug === 'support'}]}>
+                            <a href={`#${section.slug}`}>
+                                {section.data.navTitle || section.data.title}
+                            </a>
+                        </li>
+                    ) : null
+                ))}
+            </ul>
+        </div>
+    </nav>
+
+    {sections.map((section, index) => {
+        // Content for the section, including any inline HTML from Markdown
+        const { Content } = section;
+        // Determine if the section is even for background styling
+        const isEven = index % 2 === 0;
+
+        return (
+            <SectionWrapper id={section.slug} title={section.data.title} isEven={isEven}>
+                <Content />
+            </SectionWrapper>
+        );
+    })}
+
+    <footer class="footer">
+        <div class="container">
+            <p>UrbanBiome</p>
+            <p>© 2025 UrbanBiome. All rights reserved.</p>
+        </div>
+    </footer>
+</BaseLayout>
