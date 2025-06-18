@@ -10,5 +10,12 @@
   },
   "dependencies": {
     "astro": "^5.9.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.2"
+  },
+  "volta": {
+    "node": "20.x",
+    "npm": "9.x"
   }
 }
