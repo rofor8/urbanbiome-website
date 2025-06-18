@@ -32,9 +32,9 @@ sections.sort((a, b) => a.data.order - b.data.order);
         </div>
     </nav>
 
-    {sections.map((section, index) => {
-        // Content for the section, including any inline HTML from Markdown
-        const { Content } = section;
+    {sections.map(async (section, index) => { // Added 'async' to the map callback
+        // Correctly get the Content component by awaiting section.render()
+        const { Content } = await section.render();
         // Determine if the section is even for background styling
         const isEven = index % 2 === 0;
 
