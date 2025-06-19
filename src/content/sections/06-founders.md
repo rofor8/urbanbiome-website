@@ -1,7 +1,6 @@
 ---
 title: "Meet Our Founders"
 order: 6
-navTitle: "Founders"
 ---
 UrbanBiome is driven by a passionate team dedicated to creating sustainable and resilient urban ecosystems. Meet the minds behind our mission.
 
@@ -13,5 +12,5 @@ Reuben Forster is a Designer and Technologist committed to leveraging technology
 *Senior Consultant | Sustainability | Resilience*
 Manon is a climate resilience consultant, sustainability specialist & engineer. Her focus is to advocate for the integration of resilience and climate adaptation measures at early design stage.
 
-![Founder Portrait](https://raw.githubusercontent.com/user-attachments/assets/b8398b11-a8d8-4444-9333-e99e29a8a3a3/reuben.png)
-![Founder Portrait](https://raw.githubusercontent.com/user-attachments/assets/5c33857d-411a-4643-85e6-c3093952f143/mannon.png)
+![Founder Portrait](/images/reuben.png)
+![Founder Portrait](/images/mannon.png)
