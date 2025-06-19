@@ -1,13 +1,13 @@
 ---
-// Corrected the import to use the actual filename: BaseLayout.astro
+// 1. Import the necessary functions and components
+import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import MapIframe from '@/components/MapIframe.astro';
 
-// 1. Import all markdown files
-const allSections = await Astro.glob('../sections/*.md');
+// 2. Fetch all entries from the "sections" collection
+const allSections = await getCollection('sections');
 
-// 2. Sort the sections based on the 'order' property in the frontmatter
-allSections.sort((a, b) => (a.frontmatter.order || 99) - (b.frontmatter.order || 99));
+// 3. Sort the entries by the 'order' property in their frontmatter
+allSections.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
 
 // Helper function to create a URL-friendly slug from a title
 const slugify = (text: string) => text.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
@@ -24,9 +24,9 @@ const slugify = (text: string) => text.toLowerCase().replace(/\s+/g, '-').replac
             <ul class="nav-links">
                 <!-- Loop through the SORTED sections to create nav links -->
                 {allSections.map(section => {
-                    const navText = section.frontmatter.navTitle || section.frontmatter.title;
+                    const navText = section.data.navTitle || section.data.title;
                     return (
-                        <li><a href={`#${slugify(section.frontmatter.title)}`}>{navText}</a></li>
+                        <li><a href={`#${slugify(section.data.title)}`}>{navText}</a></li>
                     )
                 })}
             </ul>
@@ -35,17 +35,18 @@ const slugify = (text: string) => text.toLowerCase().replace(/\s+/g, '-').replac
 
     <main>
         <!-- Loop through the sections again to create the content blocks -->
-        {allSections.map(section => {
-            const { Content } = section;
-            const sectionId = slugify(section.frontmatter.title);
+        {allSections.map(async (section) => {
+            // Get the rendered <Content /> component for each section
+            const { Content } = await section.render();
+            const sectionId = slugify(section.data.title);
             return (
                 <section id={sectionId}>
                     <div class="container">
                         <div class="section-header">
-                            <h2>{section.frontmatter.title}</h2>
+                            <h2>{section.data.title}</h2>
                         </div>
                         <div class="content-wrapper">
-                             <!-- The <Content /> component correctly renders Markdown -->
+                             <!-- This renders the Markdown content correctly -->
                             <Content />
                         </div>
                     </div>
