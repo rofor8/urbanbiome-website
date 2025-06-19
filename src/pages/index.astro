@@ -1,5 +1,7 @@
 ---
-import Layout from '../layouts/Layout.astro';
+// Changed the import path to be more robust
+import Layout from '@/layouts/Layout.astro';
+import MapIframe from '@/components/MapIframe.astro';
 
 // 1. Import all markdown files
 const allSections = await Astro.glob('../sections/*.md');
@@ -43,10 +45,7 @@ const slugify = (text: string) => text.toLowerCase().replace(/\s+/g, '-').replac
                             <h2>{section.frontmatter.title}</h2>
                         </div>
                         <div class="content-wrapper">
-                             <!-- 
-                                This is the fix! The <Content /> component correctly
-                                renders Markdown, including images and other components.
-                             -->
+                             <!-- The <Content /> component correctly renders Markdown -->
                             <Content />
                         </div>
                     </div>
