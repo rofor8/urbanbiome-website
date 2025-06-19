@@ -10,4 +10,4 @@ For inquiries, collaborations, or to request access to the UrbanBiome Tool, plea
 
 Or send us a message directly using the link below:
 
-[Contact Form](https://formspree.io/f/xldnljgb){.btn}
+[Contact Form](https://formspree.io/f/xldnljgb)
