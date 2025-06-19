@@ -1,6 +1,7 @@
 ---
 title: "Our Services"
 order: 9
+navTitle: "Services"
 centered: true
 ---
 
