@@ -16,6 +16,22 @@ import '../styles/global.css';
 </head>
 <body>
     <slot />
+
+    {/* THIS SCRIPT MAKES ALL EXTERNAL LINKS OPEN IN A NEW TAB */}
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', () => {
+        const links = document.querySelectorAll('a');
+        const currentHost = window.location.hostname;
+
+        links.forEach(link => {
+          // Check if the link has an href and its hostname is different from the current site's hostname
+          if (link.href && link.hostname !== "" && link.hostname !== currentHost) {
+            link.setAttribute('target', '_blank');
+            link.setAttribute('rel', 'noopener noreferrer');
+          }
+        });
+      });
+    </script>
 </body>
 </html>
 

@@ -2,13 +2,9 @@
 title: "Our Projects"
 order: 9
 navTitle: "Projects"
+centered: true
 ---
-Explore some of our example initiatives to make cities greener and more resilient.
 
-![Project Image](https://placehold.co/400x250/9BB899/FFFFFF?text=Greenway+Revitalization)
-### Greenway Revitalization
-Transforming an underutilized urban corridor into a vibrant greenway with native plants and community gardens.
+Our project portfolio has a new home! We've created a dedicated site to showcase our work in more detail, with case studies, photo galleries, and project updates.
 
-![Project Image](https://placehold.co/400x250/C1D8C1/FFFFFF?text=Rooftop+Farm)
-### Rooftop Permaculture Farm
-Establishing a productive rooftop farm using permaculture principles to supply local produce.
+[Explore our projects at projects.urbanbiome.co.uk](https://projects.urbanbiome.co.uk)
