@@ -1,7 +1,9 @@
 ---
 title: "Our Services"
 order: 9
+centered: true
 ---
+
 #### Nature-Based Solutions
 Implementing green infrastructure like rain gardens and green roofs.
 

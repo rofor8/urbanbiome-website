@@ -39,13 +39,16 @@ const slugify = (text: string) => text.toLowerCase().replace(/\s+/g, '-').replac
             // Get the rendered <Content /> component for each section
             const { Content } = await section.render();
             const sectionId = slugify(section.data.title);
+            // This line checks if 'centered: true' is in the frontmatter
+            const contentClass = section.data.centered ? 'content-wrapper centered' : 'content-wrapper';
             return (
                 <section id={sectionId}>
                     <div class="container">
                         <div class="section-header">
                             <h2>{section.data.title}</h2>
                         </div>
-                        <div class="content-wrapper">
+                        {/* The 'centered' class is now added dynamically */}
+                        <div class={contentClass}>
                              <!-- This renders the Markdown content correctly -->
                             <Content />
                         </div>
