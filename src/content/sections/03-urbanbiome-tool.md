@@ -1,5 +1,5 @@
 ---
-title: "The UrbanBiome Tool"
+title: "Tool"
 order: 3
 navTitle: "Tool"
 ---
