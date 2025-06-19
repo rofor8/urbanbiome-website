@@ -1,7 +1,7 @@
 ---
 title: "Get In Touch"
 order: 12
-navTitle: "Contact"
+navTitle: "Contacts"
 ---
 For inquiries, collaborations, or to request access to the UrbanBiome Tool, please reach out.
 
