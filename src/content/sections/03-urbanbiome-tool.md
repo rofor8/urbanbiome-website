@@ -1,6 +1,7 @@
 ---
 title: "The UrbanBiome Tool"
 order: 3
+navTitle: "Tool"
 ---
 import MapIframe from '../../components/MapIframe.astro';
 

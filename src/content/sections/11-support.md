@@ -1,6 +1,7 @@
 ---
 title: "Support Our Mission"
 order: 11
+navTitle: "Support"
 ---
 Our work is driven by a passion for creating greener, more resilient cities for everyone. If you share our vision, please consider supporting our mission.
 
