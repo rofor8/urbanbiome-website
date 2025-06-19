@@ -2,11 +2,13 @@
 title: "News & Updates"
 order: 11
 navTitle: "News"
+centered: true
 ---
-### UrbanBiome Awarded Grant for City Park Regeneration
-*October 26, 2023*
-We're thrilled to announce funding to revitalize City Park, focusing on native species and community involvement.
 
-### New Study on Urban Heat Island Effect Reduction
-*September 15, 2023*
-Our latest research highlights the significant impact of urban greening on mitigating heat island effects.
+For all our latest news, announcements, and research updates, please visit our new dedicated news hub.
+
+[Read Our News](https://news.urbanbiome.co.uk)
+
+You can also subscribe to our RSS feed to get updates delivered directly to you.
+
+[Subscribe via RSS](https://news.urbanbiome.co.uk/rss.xml)
