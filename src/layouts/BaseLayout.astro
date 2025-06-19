@@ -234,6 +234,13 @@ import '../styles/global.css';
         margin-bottom: 5px;
         font-size: 1.6em;
     }
+    .founder-card h3 a {
+        color: inherit; /* The link color will be the same as the h3 text */
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5em;
+    }
     .founder-card .title {
         color: var(--primary-accent);
         font-weight: bold;
@@ -292,5 +299,16 @@ import '../styles/global.css';
     }
     .contact-form-container .btn:hover {
         background-color: var(--secondary-accent);
+    }
+
+    /* LINKEDIN ICON STYLES */
+    .linkedin-icon {
+        width: 1em;
+        height: 1em;
+        fill: var(--text-color);
+        transition: fill 0.3s ease;
+    }
+    .founder-card h3 a:hover .linkedin-icon {
+        fill: var(--primary-accent);
     }
 </style>
