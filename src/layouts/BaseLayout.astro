@@ -25,7 +25,11 @@ import '../styles/global.css';
     .content-wrapper {
         max-width: 900px;
         margin: 0 auto;
-        text-align: center; /* This line centers all text in the content sections */
+        /* text-align: center; --- REMOVED this line to allow for more flexible layouts */
+    }
+
+    .content-wrapper.centered {
+        text-align: center;
     }
 
     /* * CSS FOR IMAGES
@@ -40,23 +44,83 @@ import '../styles/global.css';
         box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Adds a subtle shadow */
     }
 
-    /* * Specific styling for the founder portraits to make them circular.
+    /* * NEW, IMPROVED LAYOUT FOR FOUNDERS
     */
-    .founder-grid {
+    .founders-container {
         display: flex;
         justify-content: center;
         gap: 40px;
         flex-wrap: wrap;
-        margin-top: 30px;
     }
 
-    .founder-portrait {
-        width: 150px;  /* Set a fixed width */
-        height: 150px; /* Set a fixed height */
-        object-fit: cover; /* Ensures the image fills the space without stretching */
-        border-radius: 50%; /* This makes the image a perfect circle */
+    .founder-card {
+        background-color: var(--light-bg);
+        border: 1px solid var(--border-color);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        border-radius: 8px;
+        padding: 30px;
+        text-align: center;
+        flex: 1;
+        min-width: 300px;
+        max-width: 450px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .founder-card .founder-portrait {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
         border: 4px solid var(--primary-accent);
-        margin: 0; /* Override the default margin for these specific images */
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+
+    .founder-card h3 {
+        margin-bottom: 5px;
+        font-size: 1.6em;
+    }
+
+    .founder-card .title {
+        color: var(--primary-accent);
+        font-weight: bold;
+        margin-bottom: 15px;
+        font-style: italic;
+    }
+    
+    .founder-card p {
+        text-align: left; /* Keep the main paragraph text left-aligned for readability */
     }
 </style>
+```
 
+### 2. Updated `06-founders.md`
+
+Now, update your `06-founders.md` file with the following HTML structure. This will wrap each founder in a "card" so the new CSS can be applied correctly.
+
+
+```markdown
+---
+title: "Meet Our Founders"
+order: 6
+---
+<div class="founders-container">
+  <div class="founder-card">
+    <img src="/images/reuben.png" alt="Portrait of Reuben Forster" class="founder-portrait" />
+    <h3>Reuben Forster</h3>
+    <p class="title">GIS Analyst / Ecological Design</p>
+    <p>
+      Reuben Forster is a Designer and Technologist committed to leveraging technology for societal betterment. He specializes in computational problem-solving, marrying natural phenomena with technological innovation.
+    </p>
+  </div>
+  <div class="founder-card">
+    <img src="/images/mannon.png" alt="Portrait of Manon Dangelser" class="founder-portrait" />
+    <h3>Manon Dangelser</h3>
+    <p class="title">Senior Consultant | Sustainability | Resilience</p>
+    <p>
+      Manon is a climate resilience consultant, sustainability specialist & engineer. Her focus is to advocate for the integration of resilience and climate adaptation measures at early design stage.
+    </p>
+  </div>
+</div>
