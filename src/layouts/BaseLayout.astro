@@ -25,11 +25,7 @@ import '../styles/global.css';
     .content-wrapper {
         max-width: 900px;
         margin: 0 auto;
-        /* text-align: center; --- REMOVED this line to allow for more flexible layouts */
-    }
-
-    .content-wrapper.centered {
-        text-align: center;
+        text-align: center; /* THIS IS THE FIX: All content is now centered by default */
     }
 
     /* * CSS FOR IMAGES
@@ -44,7 +40,7 @@ import '../styles/global.css';
         box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Adds a subtle shadow */
     }
 
-    /* * NEW, IMPROVED LAYOUT FOR FOUNDERS
+    /* * Specific styling for the founder portraits to make them circular.
     */
     .founders-container {
         display: flex;
@@ -67,7 +63,7 @@ import '../styles/global.css';
         flex-direction: column;
         align-items: center;
     }
-
+    
     .founder-card .founder-portrait {
         width: 150px;
         height: 150px;
@@ -90,8 +86,9 @@ import '../styles/global.css';
         font-style: italic;
     }
     
+    /* This rule overrides the general center-alignment for readability */
     .founder-card p {
-        text-align: left; /* Keep the main paragraph text left-aligned for readability */
+        text-align: left;
     }
 </style>
 
