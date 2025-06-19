@@ -1,6 +1,6 @@
 ---
-// Changed the import path to be more robust
-import Layout from '@/layouts/Layout.astro';
+// Corrected the import to use the actual filename: BaseLayout.astro
+import BaseLayout from '@/layouts/BaseLayout.astro';
 import MapIframe from '@/components/MapIframe.astro';
 
 // 1. Import all markdown files
@@ -13,7 +13,7 @@ allSections.sort((a, b) => (a.frontmatter.order || 99) - (b.frontmatter.order ||
 const slugify = (text: string) => text.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 ---
 
-<Layout title="UrbanBiome - Reimagining Cities, Naturally.">
+<BaseLayout title="UrbanBiome - Reimagining Cities, Naturally.">
 	<header class="hero">
         <h1>Breathing Life Into Urban Spaces.</h1>
     </header>
@@ -60,4 +60,4 @@ const slugify = (text: string) => text.toLowerCase().replace(/\s+/g, '-').replac
             <p>© 2025 UrbanBiome. All rights reserved.</p>
         </div>
     </footer>
-</Layout>
+</BaseLayout>
