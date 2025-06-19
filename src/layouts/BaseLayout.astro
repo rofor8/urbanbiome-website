@@ -20,28 +20,164 @@ import '../styles/global.css';
 </html>
 
 <style is:global>
-    /* ... (all your existing global CSS) ... */
+    /* This is your separate global.css file, but included here for completeness */
+    :root {
+        --primary-accent: #5e8d7f;
+        --secondary-accent: #7aab9a;
+        --heading-color: #5d5d4c;
+        --text-color: #4a4a4a;
+        --background-color: #f5f5f0;
+        --background-alt: #e9e9e0;
+        --light-bg: #ffffff;
+        --border-color: #dcdccc;
+        --link-color: var(--primary-accent);
+        --link-hover-color: var(--secondary-accent);
+    }
+    body {
+        font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: var(--background-color);
+        scroll-behavior: smooth;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        color: var(--heading-color);
+        margin-top: 0;
+        margin-bottom: 0.5em;
+        line-height: 1.2;
+    }
+    a {
+        color: var(--link-color);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    a:hover {
+        color: var(--link-hover-color);
+        text-decoration: underline;
+    }
+    p {
+        margin-bottom: 1em;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    .hero {
+        background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/images/nature-image.png') no-repeat center center/cover;
+        color: #fff;
+        text-align: center;
+        padding: 100px 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 60vh;
+    }
+    .hero h1 {
+        font-size: 4em;
+        margin-bottom: 10px;
+        color: #fff; 
+    }
+    .navbar {
+        background-color: var(--light-bg);
+        color: var(--text-color);
+        padding: 15px 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        border-bottom: 1px solid var(--border-color);
+    }
+    .navbar .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .navbar .logo {
+        font-size: 1.8em;
+        font-weight: bold;
+        color: var(--heading-color);
+    }
+    .nav-links {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .nav-links li {
+        margin-left: 20px;
+    }
+    .nav-links a {
+        color: var(--text-color);
+        font-weight: 500;
+        padding: 5px 0;
+        transition: color 0.3s ease;
+    }
+    .nav-links a:hover {
+        color: var(--primary-accent);
+        text-decoration: none;
+    }
+    main section {
+        padding: 80px 20px;
+        border-bottom: 1px solid var(--border-color);
+    }
+    main section:nth-of-type(odd) {
+        background-color: var(--background-color);
+    }
+    main section:nth-of-type(even) {
+        background-color: var(--light-bg);
+    }
+    .section-header {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+    .section-header h2 {
+        font-size: 2.5em;
+        margin-bottom: 15px;
+        position: relative;
+        display: inline-block;
+    }
+    .section-header h2::after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 3px;
+        background-color: var(--primary-accent);
+        margin: 10px auto 0;
+    }
+    .footer {
+        background-color: var(--background-alt);
+        color: var(--text-color);
+        text-align: center;
+        padding: 40px 20px;
+        font-size: 0.9em;
+    }
+    .footer p { margin: 0; }
 
+
+    /* LAYOUT-SPECIFIC STYLES */
     .content-wrapper {
         max-width: 900px;
         margin: 0 auto;
-        text-align: center; /* THIS IS THE FIX: All content is now centered by default */
+        text-align: center; /* All content is now centered by default */
     }
 
-    /* * CSS FOR IMAGES
-     * This targets all images inside your content sections.
-    */
+    /* CSS FOR IMAGES */
     .content-wrapper img {
-        max-width: 100%; /* Ensures images never overflow their container */
-        height: auto;    /* Maintains the image's aspect ratio */
-        display: block;  /* Removes extra space below the image */
-        margin: 20px auto; /* Adds space and centers the image */
-        border-radius: 8px; /* Adds rounded corners */
-        box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Adds a subtle shadow */
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 20px auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     }
 
-    /* * Specific styling for the founder portraits to make them circular.
-    */
+    /* FOUNDERS SECTION STYLES */
     .founders-container {
         display: flex;
         justify-content: center;
@@ -86,10 +222,62 @@ import '../styles/global.css';
         font-style: italic;
     }
     
-    /* This rule overrides the general center-alignment for readability */
     .founder-card p {
         text-align: left;
     }
+
+    /* CONTACT FORM STYLES */
+    .contact-form-container {
+        max-width: 600px;
+        margin: 40px auto 0;
+        text-align: left;
+        background: var(--light-bg);
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+    
+    .contact-form-container form {
+        display: grid;
+        gap: 20px;
+    }
+
+    .contact-form-container label {
+        display: flex;
+        flex-direction: column;
+        font-weight: bold;
+        color: var(--heading-color);
+    }
+
+    .contact-form-container input,
+    .contact-form-container textarea {
+        width: 100%;
+        padding: 12px;
+        margin-top: 5px;
+        border: 1px solid var(--border-color);
+        border-radius: 5px;
+        font-size: 1em;
+        background-color: var(--background-color);
+        box-sizing: border-box;
+    }
+
+    .contact-form-container textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+
+    .contact-form-container .btn {
+        width: auto;
+        justify-self: flex-end;
+        cursor: pointer;
+        background-color: var(--primary-accent);
+        color: var(--light-bg);
+        padding: 12px 25px;
+        border-radius: 5px;
+        font-weight: bold;
+        border: none;
+    }
+    .contact-form-container .btn:hover {
+        background-color: var(--secondary-accent);
+    }
 </style>
-
-
