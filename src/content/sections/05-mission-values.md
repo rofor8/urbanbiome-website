@@ -1,5 +1,7 @@
 ---
 title: "Our Mission & Values"
+order: 5
+navTitle: "Mission"
 ---
 We strive to improve the environment in cities by integrating elements of nature, applying permaculture thinking, and leveraging data to create sustainable, resilient urban ecosystems.
 

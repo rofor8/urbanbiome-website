@@ -1,5 +1,7 @@
 ---
 title: "Our Services"
+order: 9
+navTitle: "Services"
 ---
 * **Nature-Based Solutions:** Implementing green infrastructure like rain gardens and green roofs.
 * **Permaculture Design:** Creating sustainable systems modeled on natural ecosystems.

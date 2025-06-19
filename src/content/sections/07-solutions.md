@@ -1,5 +1,7 @@
 ---
 title: "Our Solutions"
+order: 7
+navTitle: "Solutions"
 ---
 ### Greenery & Nature-based Solutions (NbS)
 Nature-based Solutions (NbS) leverage the power of nature to address urban challenges like climate change, biodiversity loss, and human well-being.

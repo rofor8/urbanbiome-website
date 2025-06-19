@@ -1,5 +1,7 @@
 ---
 title: "Meet Our Founders"
+order: 6
+navTitle: "Founders"
 ---
 UrbanBiome is driven by a passionate team dedicated to creating sustainable and resilient urban ecosystems. Meet the minds behind our mission.
 

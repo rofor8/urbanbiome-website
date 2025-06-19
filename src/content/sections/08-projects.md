@@ -1,5 +1,7 @@
 ---
 title: "Our Projects"
+order: 8
+navTitle: "Projects"
 ---
 Explore some of our example initiatives to make cities greener and more resilient.
 

@@ -1,7 +1,9 @@
 ---
 title: "The UrbanBiome Tool"
+order: 3
+navTitle: "Tool"
 ---
-Visualize, analyze, and plan for a greener city with our innovative platform. 
+Visualize, analyze, and plan for a greener city with our innovative platform.
 
 ![Tool Screenshot](https://raw.githubusercontent.com/user-attachments/assets/de9b70b3-1f25-46fe-8822-4a004812a321/tool.png)
 

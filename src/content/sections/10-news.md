@@ -1,5 +1,7 @@
 ---
 title: "News & Updates"
+order: 10
+navTitle: "News"
 ---
 ### UrbanBiome Awarded Grant for City Park Regeneration
 *October 26, 2023*
