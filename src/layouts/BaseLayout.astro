@@ -22,7 +22,13 @@ import '../styles/global.css';
 <style is:global>
     /* ... (all your existing global CSS) ... */
 
-    /* * NEW CSS FOR IMAGES
+    .content-wrapper {
+        max-width: 900px;
+        margin: 0 auto;
+        text-align: center; /* This line centers all text in the content sections */
+    }
+
+    /* * CSS FOR IMAGES
      * This targets all images inside your content sections.
     */
     .content-wrapper img {
@@ -53,3 +59,4 @@ import '../styles/global.css';
         margin: 0; /* Override the default margin for these specific images */
     }
 </style>
+
