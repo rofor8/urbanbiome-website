@@ -1,7 +1,7 @@
 ---
-title: "Tool"
+title: "UrbanBiome App"
 order: 3
-navTitle: "Tool"
+navTitle: "ToAppol"
 ---
 
 Visualize, analyze, and plan for a greener city with our innovative platform. 
