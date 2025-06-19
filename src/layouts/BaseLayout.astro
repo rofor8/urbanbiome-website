@@ -4,7 +4,7 @@ interface Props {
 }
 
 const { title } = Astro.props;
-import '../styles/global.css'; // Correct way to import CSS in Astro
+import '../styles/global.css';
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -18,3 +18,38 @@ import '../styles/global.css'; // Correct way to import CSS in Astro
     <slot />
 </body>
 </html>
+
+<style is:global>
+    /* ... (all your existing global CSS) ... */
+
+    /* * NEW CSS FOR IMAGES
+     * This targets all images inside your content sections.
+    */
+    .content-wrapper img {
+        max-width: 100%; /* Ensures images never overflow their container */
+        height: auto;    /* Maintains the image's aspect ratio */
+        display: block;  /* Removes extra space below the image */
+        margin: 20px auto; /* Adds space and centers the image */
+        border-radius: 8px; /* Adds rounded corners */
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Adds a subtle shadow */
+    }
+
+    /* * Specific styling for the founder portraits to make them circular.
+    */
+    .founder-grid {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+        margin-top: 30px;
+    }
+
+    .founder-portrait {
+        width: 150px;  /* Set a fixed width */
+        height: 150px; /* Set a fixed height */
+        object-fit: cover; /* Ensures the image fills the space without stretching */
+        border-radius: 50%; /* This makes the image a perfect circle */
+        border: 4px solid var(--primary-accent);
+        margin: 0; /* Override the default margin for these specific images */
+    }
+</style>

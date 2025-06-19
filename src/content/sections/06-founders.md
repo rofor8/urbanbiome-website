@@ -12,5 +12,7 @@ Reuben Forster is a Designer and Technologist committed to leveraging technology
 *Senior Consultant | Sustainability | Resilience*
 Manon is a climate resilience consultant, sustainability specialist & engineer. Her focus is to advocate for the integration of resilience and climate adaptation measures at early design stage.
 
-![Founder Portrait](/images/reuben.png)
-![Founder Portrait](/images/mannon.png)
+<div class="founder-grid">
+  <img src="/images/reuben.png" alt="Portrait of Reuben Forster" class="founder-portrait" />
+  <img src="/images/mannon.png" alt="Portrait of Manon Dangelser" class="founder-portrait" />
+</div>
