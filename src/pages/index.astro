@@ -1,49 +1,59 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
-import SectionWrapper from '../components/SectionWrapper.astro';
+import Layout from '../layouts/Layout.astro';
 
-// Get all entries from the 'sections' collection
-const sections = await getCollection('sections');
+// 1. Import all markdown files
+const allSections = await Astro.glob('../sections/*.md');
 
-// Sort sections by the 'order' field in their frontmatter
-sections.sort((a, b) => a.data.order - b.data.order);
+// 2. Sort the sections based on the 'order' property in the frontmatter
+allSections.sort((a, b) => (a.frontmatter.order || 99) - (b.frontmatter.order || 99));
+
+// Helper function to create a URL-friendly slug from a title
+const slugify = (text: string) => text.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 ---
 
-<BaseLayout title="UrbanBiome - Reimagining Cities, Naturally.">
-    <Hero />
+<Layout title="UrbanBiome - Reimagining Cities, Naturally.">
+	<header class="hero">
+        <h1>Breathing Life Into Urban Spaces.</h1>
+    </header>
 
     <nav class="navbar">
         <div class="container">
             <a href="#" class="logo">UrbanBiome</a>
             <ul class="nav-links">
-                {sections.map((section) => (
-                    // Only show navigation link if navTitle is defined, otherwise use title
-                    section.data.navTitle || section.data.title ? (
-                        <li class:list={[{'nav-button': section.slug === 'support'}]}>
-                            <a href={`#${section.slug}`}>
-                                {section.data.navTitle || section.data.title}
-                            </a>
-                        </li>
-                    ) : null
-                ))}
+                <!-- Loop through the SORTED sections to create nav links -->
+                {allSections.map(section => {
+                    const navText = section.frontmatter.navTitle || section.frontmatter.title;
+                    return (
+                        <li><a href={`#${slugify(section.frontmatter.title)}`}>{navText}</a></li>
+                    )
+                })}
             </ul>
         </div>
     </nav>
 
-    {sections.map(async (section, index) => { // Added 'async' to the map callback
-        // Correctly get the Content component by awaiting section.render()
-        const { Content } = await section.render();
-        // Determine if the section is even for background styling
-        const isEven = index % 2 === 0;
-
-        return (
-            <SectionWrapper id={section.slug} title={section.data.title} isEven={isEven}>
-                <Content />
-            </SectionWrapper>
-        );
-    })}
+    <main>
+        <!-- Loop through the sections again to create the content blocks -->
+        {allSections.map(section => {
+            const { Content } = section;
+            const sectionId = slugify(section.frontmatter.title);
+            return (
+                <section id={sectionId}>
+                    <div class="container">
+                        <div class="section-header">
+                            <h2>{section.frontmatter.title}</h2>
+                        </div>
+                        <div class="content-wrapper">
+                             <!-- 
+                                This is the fix! The <Content /> component correctly
+                                renders Markdown, including images and other components.
+                             -->
+                            <Content />
+                        </div>
+                    </div>
+                </section>
+            )
+        })}
+    </main>
 
     <footer class="footer">
         <div class="container">
@@ -51,4 +61,4 @@ sections.sort((a, b) => a.data.order - b.data.order);
             <p>© 2025 UrbanBiome. All rights reserved.</p>
         </div>
     </footer>
-</BaseLayout>
+</Layout>
