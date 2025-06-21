@@ -1,13 +1,17 @@
 ---
 title: "UrbanBiome Events: Get Involved"
-order: 10
+order: 10 # Or adjust as needed
 navTitle: "Events"
 centered: true
 ---
 
-## Coming Soon: Your Local Green Events Hub!
+## Discover Local Green Events Now!
 
-We're thrilled to announce we're cultivating a brand new space: **events.urbanbiome.co.uk**! This will be your go-to platform for discovering and participating in:
+We're excited to announce that our new **UrbanBiome Events Hub** is live and ready for you to explore!
+
+[**Visit events.urbanbiome.co.uk**](https://events.urbanbiome.co.uk)
+
+This interactive platform is your go-to place for finding and participating in a wide range of activities focused on re-naturing our city, including:
 
 *   **Gardening Workshops & Skillshares**
 *   **Community Planting Days**
@@ -16,7 +20,7 @@ We're thrilled to announce we're cultivating a brand new space: **events.urbanbi
 *   **Sustainability Meetups & Networking Events**
 *   **And much more!**
 
-Our vision for `events.urbanbiome.co.uk` is to create a vibrant hub, much like "Headfirst" but specifically focused on re-naturing our cities. It will be a place to find out what's on, connect with like-minded individuals and groups, and find opportunities to actively contribute to a greener, healthier urban environment.
+Our vision for `events.urbanbiome.co.uk` is to be a vibrant hub connecting passionate individuals with local actions. Find out what's on, connect with like-minded groups, and discover opportunities to actively contribute to a greener, healthier urban environment.
 
 **Why a Dedicated Events Site?**
 
@@ -25,10 +29,8 @@ Our vision for `events.urbanbiome.co.uk` is to create a vibrant hub, much like "
 *   **Support Local Initiatives:** Provide a platform for groups to promote their greening efforts.
 *   **From Learning to Doing:** Bridge the gap from our guides and tools to real-world application.
 
-**Stay Tuned!**
+**Explore the Events Hub today and find your next opportunity to help our urban biome flourish!**
 
-We're busy planting the seeds for this exciting new platform and will be launching **events.urbanbiome.co.uk** in the near future. Keep an eye on our [News & Updates](https://news.urbanbiome.co.uk) for the official announcement.
-
-We can't wait to help you find your next opportunity to help our urban biome flourish!
+[**Find an Event Now**](https://events.urbanbiome.co.uk)
 
 ---
