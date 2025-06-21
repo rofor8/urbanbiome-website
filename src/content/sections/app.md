@@ -6,7 +6,7 @@ navTitle: "App"
 
 Visualize, analyze, and plan for a greener city with our innovative platform. 
 
-![Tool Screenshot](/images/tool.png)
+![App Screenshot](/images/tool.png)
 
-[Login to try our toolset](https://app.urbanbiome.co.uk)
+[Login to try our app](https://app.urbanbiome.co.uk)
 
