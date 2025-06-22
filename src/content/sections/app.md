@@ -1,7 +1,7 @@
 ---
 title: "UrbanBiome App"
 order: 3
-navTitle: "App"
+navTitle: "Apps"
 ---
 
 Visualize, analyze, and plan for a greener city with our innovative platform. 
