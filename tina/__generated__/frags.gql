@@ -1,0 +1,8 @@
+fragment SectionsParts on Sections {
+  __typename
+  title
+  order
+  navTitle
+  centered
+  body
+}
