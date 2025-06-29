@@ -1,7 +1,7 @@
 ---
-title: "Our Groundwork Guides"
-order: 7 
-navTitle: "Groundwork"
+title: "DIY Guides"
+order: 3
+navTitle: "DIY"
 centered: true
 ---
 

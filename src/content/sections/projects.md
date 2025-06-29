@@ -1,6 +1,6 @@
 ---
 title: "Our Projects"
-order: 9
+order: 4
 navTitle: "Projects"
 centered: true
 ---
