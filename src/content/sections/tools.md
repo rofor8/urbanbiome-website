@@ -6,9 +6,9 @@ navTitle: "App"
 
 Visualize, analyze, plan, and contribute to a greener city with our all-in-one platform. Our app combines powerful data analysis with community mapping to help us build a better urban biome together.
 
-![App Screenshot](/images/tool.png)
+![Tool Screenshot](/images/tool.png)
 
-[Login to try our app](https://app.urbanbiome.co.uk)
+[Try our tools](https://sightings.urbanbiome.co.uk)
 
 ### Key Features
 
