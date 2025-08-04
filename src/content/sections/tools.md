@@ -18,4 +18,3 @@ Help us map our city's biome! Add your own sightings of interesting sites direct
 **Identify Greening Opportunities with NDVI**
 The app includes live Sentinel-2 satellite data, processed to visualise the Normalised Difference Vegetation Index (NDVI). This powerful tool helps us identify areas that lack green space and target interventions where they are most needed.
 
-![NVDI Data for Bristol](/images/bristol-nvdi.png)
