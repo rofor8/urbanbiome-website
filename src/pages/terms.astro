@@ -5,19 +5,19 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 <BaseLayout title="Terms of Service - UrbanBiome">
   <main class="legal-page">
     <div class="container">
-      <header class="legal-header">
+      <header class="section-header">
         <h1>Terms of Service</h1>
         <p>Last updated: January 2024</p>
       </header>
 
       <div class="legal-content">
-        <section>
+        <section class="legal-section">
           <h2>1. Acceptance of Terms</h2>
           <p>By accessing and using Bristol Geospatial Explorer ("the Service"), you accept and agree to be bound by the terms and provision of this agreement.</p>
           <p>If you do not agree to abide by the above, please do not use this service.</p>
         </section>
 
-        <section>
+        <section class="legal-section">
           <h2>2. Service Description</h2>
           <p>Bristol Geospatial Explorer provides professional geospatial analysis tools including:</p>
           <ul>
@@ -29,14 +29,14 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
           </ul>
         </section>
 
-        <section>
+        <section class="legal-section">
           <h2>3. Subscription and Payment</h2>
           <p>The Service is provided on a subscription basis at £200 per month. Payment is processed securely through Paddle.</p>
           <p>Subscriptions automatically renew monthly unless cancelled. You may cancel your subscription at any time through your account settings or by contacting support.</p>
           <p>All fees are non-refundable except as expressly stated in our Refund Policy.</p>
         </section>
 
-        <section>
+        <section class="legal-section">
           <h2>4. Acceptable Use</h2>
           <p>You agree to use the Service only for lawful purposes and in accordance with these Terms. You agree not to:</p>
           <ul>
@@ -48,60 +48,80 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
           </ul>
         </section>
 
-        <section>
+        <section class="legal-section">
           <h2>5. Data and Privacy</h2>
           <p>We take your privacy seriously. Our collection and use of personal information is governed by our Privacy Policy, which is incorporated into these Terms by reference.</p>
           <p>You retain ownership of any data you upload to the Service. We process your data solely to provide the Service and as described in our Privacy Policy.</p>
           <p>We implement enterprise-grade security measures including SOC2 compliance and end-to-end encryption.</p>
         </section>
 
-        <section>
+        <section class="legal-section">
           <h2>6. Intellectual Property</h2>
           <p>The Service and its original content, features, and functionality are owned by UrbanBiome Ltd and are protected by international copyright, trademark, patent, trade secret, and other intellectual property laws.</p>
           <p>You may not modify, adapt, hack, reverse engineer, or otherwise attempt to gain unauthorized access to the Service or its related systems.</p>
         </section>
 
-        <section>
+        <section class="legal-section">
           <h2>7. Limitation of Liability</h2>
           <p>To the maximum extent permitted by law, UrbanBiome Ltd shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of your use of the Service.</p>
           <p>Our total liability for any claims arising from these Terms or your use of the Service shall not exceed the amount you paid for the Service in the 12 months preceding the claim.</p>
         </section>
 
-        <section>
+        <section class="legal-section">
           <h2>8. Service Availability</h2>
           <p>We strive to maintain 99.9% uptime but cannot guarantee uninterrupted service. We may temporarily suspend the Service for maintenance, updates, or other operational reasons.</p>
           <p>We reserve the right to modify or discontinue the Service at any time with reasonable notice.</p>
         </section>
 
-        <section>
+        <section class="legal-section">
           <h2>9. Termination</h2>
           <p>You may terminate your account at any time by cancelling your subscription. We may terminate your access to the Service for violation of these Terms.</p>
           <p>Upon termination, your right to use the Service will cease immediately, and any data stored in your account may be deleted.</p>
         </section>
 
-        <section>
+        <section class="legal-section">
           <h2>10. Changes to Terms</h2>
           <p>We reserve the right to modify these Terms at any time. Material changes will be communicated via email and through the Service.</p>
           <p>Continued use of the Service after changes constitutes acceptance of the modified Terms.</p>
         </section>
 
-        <section>
+        <section class="legal-section">
           <h2>11. Contact Information</h2>
           <p>If you have any questions about these Terms, please contact us at:</p>
-          <p><strong>Email:</strong> support@urbanbiome.co.uk</p>
-          <p><strong>Address:</strong> UrbanBiome Ltd, Bristol, United Kingdom</p>
+          <div class="contact-box">
+            <p><strong>Email:</strong> support@urbanbiome.co.uk</p>
+            <p><strong>Address:</strong> UrbanBiome Ltd, Bristol, United Kingdom</p>
+          </div>
         </section>
       </div>
     </div>
   </main>
 
-  <footer class="legal-footer">
+  <footer class="footer">
     <div class="container">
-      <div class="legal-links">
-        <a href="/">Back to Home</a>
-        <a href="/pricing">Pricing</a>
-        <a href="/privacy">Privacy Policy</a>
-        <a href="/refund">Refund Policy</a>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>UrbanBiome Ltd</h4>
+          <p>Professional geospatial analytics software platform</p>
+          <p>support@urbanbiome.co.uk</p>
+        </div>
+        <div class="footer-section">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="/pricing">Pricing</a></li>
+            <li><a href="https://explorer.urbanbiome.co.uk">Platform Access</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/refund">Refund Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 UrbanBiome Ltd. All rights reserved.</p>
       </div>
     </div>
   </footer>
@@ -109,103 +129,72 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
 <style>
   .legal-page {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%);
-    color: white;
-    padding: 40px 20px;
+    padding: 40px 0;
   }
 
-  .container {
+  .legal-content {
     max-width: 800px;
     margin: 0 auto;
   }
 
-  .legal-header {
-    text-align: center;
-    margin-bottom: 50px;
-  }
-
-  .legal-header h1 {
-    font-size: 3rem;
-    font-weight: bold;
-    color: rgba(100, 200, 100, 1);
-    margin-bottom: 20px;
-  }
-
-  .legal-header p {
-    font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.7);
-  }
-
-  .legal-content {
-    background: rgba(25, 25, 25, 0.98);
-    border: 1px solid rgba(100, 200, 100, 0.3);
-    border-radius: 15px;
+  .legal-section {
+    background-color: var(--light-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
     padding: 40px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+
+  .legal-section h2 {
+    color: var(--primary-accent);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--primary-accent);
+  }
+
+  .legal-section p {
+    margin-bottom: 15px;
+    color: var(--text-color);
     line-height: 1.6;
   }
 
-  .legal-content section {
-    margin-bottom: 40px;
-  }
-
-  .legal-content h2 {
-    color: rgba(100, 200, 100, 1);
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-  }
-
-  .legal-content p {
-    margin-bottom: 15px;
-    color: rgba(255, 255, 255, 0.9);
-  }
-
-  .legal-content ul {
+  .legal-section ul {
     padding-left: 20px;
     margin-bottom: 15px;
   }
 
-  .legal-content li {
+  .legal-section li {
     margin-bottom: 8px;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--text-color);
+    line-height: 1.5;
   }
 
-  .legal-footer {
-    text-align: center;
-    margin-top: 40px;
-    padding-top: 30px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  .contact-box {
+    background-color: var(--background-color);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    margin: 20px 0;
   }
 
-  .legal-links {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
+  .contact-box p {
+    margin-bottom: 10px;
+    color: var(--text-color);
   }
 
-  .legal-links a {
-    color: rgba(100, 200, 100, 1);
-    text-decoration: none;
-    transition: opacity 0.3s ease;
-  }
-
-  .legal-links a:hover {
-    opacity: 0.8;
+  .contact-box p:last-child {
+    margin-bottom: 0;
   }
 
   @media (max-width: 768px) {
-    .legal-header h1 {
-      font-size: 2.5rem;
-    }
-    
-    .legal-content {
+    .legal-section {
       padding: 30px 20px;
+      margin-bottom: 20px;
     }
     
-    .legal-links {
-      flex-direction: column;
-      gap: 15px;
+    .legal-section h2 {
+      font-size: 1.5em;
     }
   }
 </style>
