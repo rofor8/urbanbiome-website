@@ -13,22 +13,37 @@ allSections.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
 const slugify = (text: string) => text.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 ---
 
-<BaseLayout title="UrbanBiome - Reimagining Cities, Naturally.">
+<BaseLayout title="UrbanBiome - Geospatial Analytics Software Platform">
 	<header class="hero">
-        <h1>Breathing Life Into Urban Spaces.</h1>
+        <h1>Professional Geospatial Analytics Software</h1>
+        <p class="hero-subtitle">Advanced SaaS platform for urban planning and environmental monitoring</p>
+        <div class="hero-cta">
+            <a href="/pricing" class="cta-button primary">View Pricing</a>
+            <a href="https://explorer.urbanbiome.co.uk" class="cta-button secondary">Try Platform</a>
+        </div>
     </header>
 
     <nav class="navbar">
         <div class="container">
-            <a href="#" class="logo">UrbanBiome</a>
+            <a href="/" class="logo">UrbanBiome</a>
             <ul class="nav-links">
-                <!-- Loop through the SORTED sections to create nav links -->
+                <!-- Content sections navigation -->
                 {allSections.map(section => {
                     const navText = section.data.navTitle || section.data.title;
                     return (
                         <li><a href={`#${slugify(section.data.title)}`}>{navText}</a></li>
                     )
                 })}
+                <!-- Legal pages navigation -->
+                <li><a href="/pricing">Pricing</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Legal</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/terms">Terms of Service</a></li>
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/refund">Refund Policy</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </nav>
@@ -58,10 +73,68 @@ const slugify = (text: string) => text.toLowerCase().replace(/\s+/g, '-').replac
         })}
     </main>
 
+    <!-- Software/SaaS Emphasis Section -->
+    <section class="software-emphasis">
+        <div class="container">
+            <h2>Professional Geospatial Software Platform</h2>
+            <p>UrbanBiome provides advanced software-as-a-service (SaaS) solutions for geospatial analysis, urban planning, and environmental monitoring. Our cloud-based platform delivers sophisticated analytical tools through secure web interfaces.</p>
+            
+            <div class="features-grid">
+                <div class="feature">
+                    <h3>🛰️ Satellite Data Processing</h3>
+                    <p>Advanced software algorithms for real-time satellite imagery analysis and temporal data visualization</p>
+                </div>
+                <div class="feature">
+                    <h3>📊 Analytics Dashboard</h3>
+                    <p>Web-based analytical tools with WASM-powered spatial aggregation and professional reporting</p>
+                </div>
+                <div class="feature">
+                    <h3>🔌 API Platform</h3>
+                    <p>RESTful APIs and SDK for custom integrations with enterprise planning systems</p>
+                </div>
+                <div class="feature">
+                    <h3>☁️ Cloud Infrastructure</h3>
+                    <p>Scalable SaaS platform with enterprise-grade security, SOC2 compliance, and global accessibility</p>
+                </div>
+            </div>
+            
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <p><strong>Company:</strong> UrbanBiome Ltd</p>
+                <p><strong>Email:</strong> support@urbanbiome.co.uk</p>
+                <p><strong>Address:</strong> Bristol, United Kingdom</p>
+                <p><strong>Business Type:</strong> B2B SaaS Software Platform</p>
+            </div>
+        </div>
+    </section>
+
     <footer class="footer">
         <div class="container">
-            <p>UrbanBiome</p>
-            <p>© 2025 UrbanBiome. All rights reserved.</p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>UrbanBiome Ltd</h4>
+                    <p>Professional geospatial analytics software platform</p>
+                    <p>support@urbanbiome.co.uk</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="/pricing">Pricing</a></li>
+                        <li><a href="https://explorer.urbanbiome.co.uk">Platform Access</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="/terms">Terms of Service</a></li>
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/refund">Refund Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 UrbanBiome Ltd. All rights reserved. | Software-as-a-Service Platform</p>
+            </div>
         </div>
     </footer>
 </BaseLayout>
