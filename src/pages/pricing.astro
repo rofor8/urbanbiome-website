@@ -1,0 +1,305 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Pricing - UrbanBiome">
+  <main class="legal-page">
+    <div class="container">
+      <header class="legal-header">
+        <h1>Bristol Geospatial Explorer</h1>
+        <p>Professional geospatial analysis tools for urban planning, environmental monitoring, and spatial intelligence</p>
+      </header>
+
+      <div class="pricing-card">
+        <div class="badge">Professional</div>
+        
+        <h2>Full Access</h2>
+        
+        <div class="price">
+          <span class="amount">£200</span>
+          <span class="period">per month</span>
+        </div>
+
+        <div class="features">
+          <h3>What's included:</h3>
+          <ul>
+            <li>🛰️ Real-time satellite imagery analysis</li>
+            <li>📊 Advanced temporal data visualization</li>
+            <li>🔍 WASM-protected spatial aggregation tools</li>
+            <li>📈 Professional reporting and exports</li>
+            <li>🔒 Enterprise-grade security and compliance</li>
+            <li>💬 Priority technical support</li>
+            <li>🚀 API access for custom integrations</li>
+            <li>📱 Multi-device synchronization</li>
+          </ul>
+        </div>
+
+        <button class="cta-button" onclick="window.location.href='https://explorer.urbanbiome.co.uk'">
+          Start Your Subscription
+        </button>
+
+        <p class="disclaimer">
+          Cancel anytime • Secure payment by Paddle<br />
+          30-day money-back guarantee
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <h2>Why Choose Bristol Geospatial Explorer?</h2>
+        
+        <div class="feature-cards">
+          <div class="feature-card">
+            <div class="feature-icon">🎯</div>
+            <h3>Precision Analysis</h3>
+            <p>Advanced algorithms for accurate spatial data processing and analysis</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Real-time Processing</h3>
+            <p>WASM-powered engine for instant data visualization and computation</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">🔐</div>
+            <h3>Enterprise Security</h3>
+            <p>SOC2 compliant with end-to-end encryption and audit trails</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">🌍</div>
+            <h3>Global Coverage</h3>
+            <p>Access to worldwide satellite imagery and geospatial datasets</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="legal-footer">
+    <div class="container">
+      <p>© 2024 UrbanBiome Ltd. All rights reserved.</p>
+      <div class="legal-links">
+        <a href="/terms">Terms of Service</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/refund">Refund Policy</a>
+      </div>
+    </div>
+  </footer>
+</BaseLayout>
+
+<style>
+  .legal-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%);
+    color: white;
+    padding: 40px 20px;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .legal-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .legal-header h1 {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: rgba(100, 200, 100, 1);
+    margin-bottom: 20px;
+  }
+
+  .legal-header p {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .pricing-card {
+    background: rgba(25, 25, 25, 0.98);
+    border: 1px solid rgba(100, 200, 100, 0.3);
+    border-radius: 20px;
+    padding: 50px;
+    max-width: 500px;
+    margin: 0 auto 80px;
+    text-align: center;
+    position: relative;
+  }
+
+  .badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(100, 200, 100, 1);
+    color: black;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+
+  .pricing-card h2 {
+    font-size: 2rem;
+    color: rgba(100, 200, 100, 1);
+    margin-bottom: 10px;
+  }
+
+  .price {
+    margin-bottom: 40px;
+  }
+
+  .amount {
+    font-size: 4rem;
+    font-weight: bold;
+    color: white;
+    display: block;
+  }
+
+  .period {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .features {
+    text-align: left;
+    margin-bottom: 40px;
+  }
+
+  .features h3 {
+    color: rgba(100, 200, 100, 1);
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+  }
+
+  .features ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .features li {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+  }
+
+  .features li:last-child {
+    border-bottom: none;
+  }
+
+  .cta-button {
+    background: rgba(100, 200, 100, 1);
+    color: black;
+    border: none;
+    padding: 18px 40px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2rem;
+    width: 100%;
+    transition: all 0.3s ease;
+  }
+
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(100, 200, 100, 0.3);
+  }
+
+  .disclaimer {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 20px;
+    line-height: 1.4;
+  }
+
+  .features-grid {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .features-grid h2 {
+    font-size: 2.5rem;
+    color: rgba(100, 200, 100, 1);
+    margin-bottom: 40px;
+  }
+
+  .feature-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+  }
+
+  .feature-card {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid rgba(100, 200, 100, 0.2);
+    text-align: center;
+  }
+
+  .feature-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+  }
+
+  .feature-card h3 {
+    color: rgba(100, 200, 100, 1);
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+  }
+
+  .feature-card p {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.5;
+  }
+
+  .legal-footer {
+    text-align: center;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .legal-footer p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+  }
+
+  .legal-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .legal-links a {
+    color: rgba(100, 200, 100, 1);
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .legal-links a:hover {
+    opacity: 0.8;
+  }
+
+  @media (max-width: 768px) {
+    .legal-header h1 {
+      font-size: 2.5rem;
+    }
+    
+    .pricing-card {
+      padding: 30px 20px;
+      margin: 0 20px 60px;
+    }
+    
+    .feature-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
