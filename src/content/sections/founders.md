@@ -1,7 +1,7 @@
 ---
-title: "Meet Our Founders"
+title: "Meet Our Team"
 order: 6
-navTitle: "Founders"
+navTitle: "Team"
 ---
 <div class="founders-container">
   <div class="founder-card">
