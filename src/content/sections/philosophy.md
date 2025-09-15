@@ -3,15 +3,11 @@ title: "Our Mission & Philosophy"
 order: 1
 navTitle: "Our Mission"
 ---
-Global warming is under way and extreme weather events are becoming more frequent and intense across the world. 
-In 2019 the UK declared national climate emergency. Since then a number of actions flourished across the country with a focus on decarbonisation. But actions to adapt and regenerate our urban environment are too slow to be implemented.  
+### 🌱 Our Mission
+We bring nature back into the city. By combining data, design, and community power, we transform overlooked urban spaces into living, resilient ecosystems. Through small, precise interventions, we regenerate the city fabric and make it a supportive habitat for both people and biodiversity.
 
-Humans have a deep, instinctual need to connect with the natural world. Modern city life, for all its advantages, can often sever this connection, leaving us in environments that feel functional but not nourishing. 
-Our philosophy is simple: we need to reconnect human beings with nature through applying the principles of urban acupuncture and urban greening.  
-
-Our mission is to weave these timeless, natural elements back into the city fabric, transforming the urban landscape into a supportive habitat. We aim to improve our cities by integrating nature, applying permaculture thinking, and leveraging data to create sustainable, resilient urban ecosystems.
-
-
+### 🌿 Our Philosophy
+Cities are living bodies. When they ache, we can heal them — not with massive, disruptive projects, but with subtle, vital needlepoints of green. This is the art of 'urban acupuncture': reconnecting humans and nature through micro-interventions that ripple outward. Every planter, pocket garden, and restored patch of soil is a step towards cities that are not just functional, but nourishing, biodiverse, and alive.
 
 ### Our objectives
 
