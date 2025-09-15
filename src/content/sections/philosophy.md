@@ -4,21 +4,21 @@ order: 1
 navTitle: "Our Mission"
 ---
 ### 🌱 Our Mission
-We bring nature back into the city. By combining data, design, and community power, we transform overlooked urban spaces into living, resilient ecosystems. Through small, precise interventions, we regenerate the city fabric and make it a supportive habitat for both people and biodiversity.
+We bring nature back into the city. By combining data, design, and community power, we transform overlooked urban spaces into living, resilient ecosystems. Through small, precise interventions, we regenerate the city fabric, strengthen resilience to climate change, and create healthier, more liveable environments for people and biodiversity alike.
 
 ### 🌿 Our Philosophy
-Cities are living bodies. When they ache, we can heal them — not with massive, disruptive projects, but with subtle, vital needlepoints of green. This is the art of 'urban acupuncture': reconnecting humans and nature through micro-interventions that ripple outward. Every planter, pocket garden, and restored patch of soil is a step towards cities that are not just functional, but nourishing, biodiverse, and alive.
+Cities are living bodies. When they ache, we can heal them — not with massive, disruptive projects, but with subtle, vital needlepoints of green. This is the art of urban acupuncture: reconnecting humans and nature through micro-interventions that ripple outward. Every planter, pocket garden, and restored patch of soil helps transform cities from cold, hard infrastructure into more liveable places, driving regeneration for both people and biodiversity.
 
-### Our objectives
-
-#### Urban Regeneration
-Fostering biodiversity and restoring natural processes in urban settings.
-
-#### Community Engagement
-Collaborating with local communities to create shared green spaces.
-
-#### Sustainable Design
-Implementing long-lasting, low-impact and low cost solutions that will support local habitats and biodiversity, enhance social cohesion and empower individuals to act. 
+### 🎯 Our Objectives
 
 #### Data-Driven Impact
-Utilizing Open GIS data to identify and prioritize areas for ecological improvement.
+Map the city’s pain points with open GIS data to target where nature can heal most.
+
+#### Sustainable Design
+Create low-cost, low-impact solutions that last and empower people to act.
+
+#### Community Engagement
+Bring people together to co-create shared green spaces.
+
+#### Urban Regeneration
+Restore biodiversity and natural processes at the heart of the city.
