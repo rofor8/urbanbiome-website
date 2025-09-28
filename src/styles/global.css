@@ -57,6 +57,12 @@ p {
     padding: 0 20px;
 }
 
+/* Ensure all images are responsive */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 /* Header / Hero Section */
 .hero {
     background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/images/nature-image.png') no-repeat center center/cover;
@@ -659,6 +665,7 @@ section:nth-of-type(even) { /* Apply background to even sections */
     h3 { font-size: 1.5em; }
     .hero {
         padding: 80px 20px;
+        min-height: 50vh; /* Reduce height on mobile */
     }
     .container {
         padding: 0 15px;
@@ -921,33 +928,15 @@ section:nth-of-type(even) { /* Apply background to even sections */
     }
     
     .navbar .nav-links {
-        display: flex; /* Show nav on mobile too for legal pages */
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background-color: var(--light-bg);
-        border: 1px solid var(--border-color);
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        display: none; /* Keep navigation hidden on mobile to prevent screen overflow */
     }
-    
-    .navbar .nav-links li {
-        margin: 0;
-        border-bottom: 1px solid var(--border-color);
-    }
-    
-    .navbar .nav-links a {
-        display: block;
-        padding: 15px 20px;
+
+    .navbar .container {
+        justify-content: center; /* Center logo when nav is hidden */
     }
     
     .dropdown-menu {
-        position: static;
-        display: block;
-        box-shadow: none;
-        border: none;
-        background-color: var(--background-color);
+        display: none; /* Hide dropdown menus on mobile to prevent overflow */
     }
     
     .software-emphasis h2 {
