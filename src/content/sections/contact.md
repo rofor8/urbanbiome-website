@@ -6,7 +6,7 @@ navTitle: "Contacts"
 For inquiries, collaborations, or to request access to the UrbanBiome Tool, please reach out.
 
 #### Email
-[info@urbanbiome.info](mailto:info@urbanbiome.co.uk)
+[info@urbanbiome.co.uk](mailto:info@urbanbiome.co.uk)
 
 #### Website
 [urbanbiome.co.uk](http://urbanbiome.co.uk)
