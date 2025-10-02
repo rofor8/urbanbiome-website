@@ -1,11 +1,11 @@
 export async function onRequest(context) {
   const { request, env } = context;
   const url = new URL(request.url);
-  
+
   // Handle callback from GitHub
   if (url.searchParams.has('code')) {
     const code = url.searchParams.get('code');
-    
+
     // Exchange code for access token
     const tokenResponse = await fetch('https://github.com/login/oauth/access_token', {
       method: 'POST',
@@ -19,10 +19,10 @@ export async function onRequest(context) {
         code: code,
       }),
     });
-    
+
     const tokenData = await tokenResponse.json();
 
-    // Send token back to the CMS
+    // Send token back to the CMS - using the exact format Decap expects
     return new Response(`
       <!DOCTYPE html>
       <html>
@@ -30,14 +30,29 @@ export async function onRequest(context) {
         <title>Authorization Complete</title>
       </head>
       <body>
+        <p>Authorization successful! This window should close automatically...</p>
         <script>
           (function() {
-            const data = ${JSON.stringify(tokenData)};
-            window.opener.postMessage(
-              'authorization:github:success:' + JSON.stringify(data),
-              window.location.origin
-            );
-            window.close();
+            try {
+              const data = ${JSON.stringify(tokenData)};
+              console.log('Token data:', data);
+
+              // Send message to parent window
+              if (window.opener) {
+                window.opener.postMessage(
+                  'authorization:github:success:' + JSON.stringify(data),
+                  '*'
+                );
+                setTimeout(function() {
+                  window.close();
+                }, 1000);
+              } else {
+                document.body.innerHTML = '<p>Error: No parent window found. You can close this window.</p>';
+              }
+            } catch (err) {
+              console.error('Error:', err);
+              document.body.innerHTML = '<p>Error: ' + err.message + '</p>';
+            }
           })();
         </script>
       </body>
