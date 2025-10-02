@@ -68,14 +68,29 @@ For production deployment:
 3. Go to **Settings** → **Environment variables**
 4. Add the same variables from your `.env` file
 
-### 5. Grant Clerk Access to Staff
+### 5. Grant Admin Access to Staff
+
+**Important:** Only users with the `admin` role can access the admin panel.
+
+To grant admin access:
 
 1. Go to [Clerk Dashboard](https://dashboard.clerk.com)
 2. Go to **Users**
-3. Invite staff members via email
-4. They'll receive an invitation to create an account
+3. Invite staff member via email (or find existing user)
+4. Click on the user
+5. Scroll to **Public metadata**
+6. Click **Edit**
+7. Add this JSON:
+   ```json
+   {
+     "role": "admin"
+   }
+   ```
+8. Click **Save**
 
-**Note:** All authenticated users can access the admin panel. If you need role-based access control, you can configure that in Clerk.
+The user will now be able to access `/admin` after signing in.
+
+**Note:** Users without the admin role will see an "Access Denied" message.
 
 ## Using the Admin Panel
 

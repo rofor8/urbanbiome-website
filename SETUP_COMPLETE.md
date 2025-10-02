@@ -58,13 +58,23 @@ git push
    - `localhost:4321` (development)
    - Any Cloudflare Pages preview URLs
 
-### 5. Invite Staff Members
+### 5. Grant Admin Access to Staff
+
+**Important:** Only users with `role: "admin"` in public metadata can access the admin panel.
 
 In Clerk Dashboard:
 1. Go to **Users**
-2. Click **Invite User**
-3. Enter their email
-4. They'll receive an invitation to sign up
+2. Click on a user (or invite new user)
+3. Scroll to **Public metadata**
+4. Click **Edit** and add:
+   ```json
+   {
+     "role": "admin"
+   }
+   ```
+5. Click **Save**
+
+Users without the admin role will see "Access Denied".
 
 ## How It Works
 
