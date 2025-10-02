@@ -1,13 +1,15 @@
-import { ClerkProvider, SignedIn, SignedOut, SignInButton, UserButton, useUser } from '@clerk/clerk-react';
+import { ClerkProvider, SignedIn, SignedOut, SignInButton, UserButton, useAuth } from '@clerk/clerk-react';
 import { TinaCMS, TinaProvider } from 'tinacms';
-import { useMemo } from 'react';
+import { useMemo, useEffect, useState } from 'react';
 
 interface AdminAppProps {
   publishableKey: string;
 }
 
 function AdminContent() {
-  const { user, isLoaded } = useUser();
+  const { getToken } = useAuth();
+  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
+  const [isChecking, setIsChecking] = useState(true);
 
   const cms = useMemo(() => {
     return new TinaCMS({
@@ -18,18 +20,42 @@ function AdminContent() {
     });
   }, []);
 
-  // Check if user has admin role in public metadata
-  const isAdmin = user?.publicMetadata?.role === 'admin';
+  // Check admin status via server-side API
+  useEffect(() => {
+    async function checkAdminStatus() {
+      try {
+        const token = await getToken();
+        if (!token) {
+          setIsAdmin(false);
+          setIsChecking(false);
+          return;
+        }
 
-  // Debug logging (remove after testing)
-  console.log('User metadata check:', {
-    userId: user?.id,
-    publicMetadata: user?.publicMetadata,
-    isAdmin
-  });
+        const response = await fetch('/api/check-admin', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
 
-  // Show loading state while user data loads
-  if (!isLoaded) {
+        if (response.ok) {
+          const data = await response.json();
+          setIsAdmin(data.isAdmin);
+        } else {
+          setIsAdmin(false);
+        }
+      } catch (error) {
+        console.error('Error checking admin status:', error);
+        setIsAdmin(false);
+      } finally {
+        setIsChecking(false);
+      }
+    }
+
+    checkAdminStatus();
+  }, [getToken]);
+
+  // Show loading state while checking admin status
+  if (isChecking) {
     return (
       <div style={{
         display: 'flex',
@@ -39,13 +65,13 @@ function AdminContent() {
         fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
         background: '#f5f5f5'
       }}>
-        <div style={{ color: '#666' }}>Loading...</div>
+        <div style={{ color: '#666' }}>Checking permissions...</div>
       </div>
     );
   }
 
   // Show access denied if user doesn't have admin role
-  if (!isAdmin) {
+  if (isAdmin === false) {
     return (
       <div style={{
         display: 'flex',
