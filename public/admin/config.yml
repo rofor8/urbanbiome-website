@@ -14,6 +14,8 @@ collections:
     folder: "src/content/sections"
     create: true
     slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
     fields:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Display Order", name: "order", widget: "number", value_type: "int"}
