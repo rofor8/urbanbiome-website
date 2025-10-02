@@ -1,37 +1,37 @@
 backend:
   name: github
-  repo: rofor8/urbanbiome-website # Replace with your actual repo path
-  branch: main # Or your default branch (e.g., master, main)
-  # Optional: if your site is deployed on Netlify and you want to use Netlify Identity
-  # site_domain: your-site-domain.netlify.app 
-  # base_url: https://your-site-domain.netlify.app
-  # auth_endpoint: .netlify/identity
+  repo: rofor8/urbanbiome-website
+  branch: main
 
-media_folder: "public/images/uploads" # Where uploaded images will be stored in your repo
-public_folder: "/images/uploads"     # The public URL path for accessing the media folder
-
-# Optional: For better image previews in the CMS and correct paths in Markdown
-# media_library:
-#   name: uploadcare
-#   config:
-#     publicKey: YOUR_UPLOADCARE_PUBLIC_KEY # If you choose to use Uploadcare
+media_folder: "public/images"
+public_folder: "/images"
 
 collections:
-  - name: "sections" # This will be the name in the CMS UI
-    label: "Site Sections" # Label for the UI
-    label_singular: "Site Section"
-    folder: "src/content/sections" # Path to the folder where your .md files are
-    create: true # Allow creation of new files (new sections)
-    slug: "{{slug}}" # Filename will be based on the 'title' field, slugified
-    extension: "md" # Or "mdx" if you use that
-    format: "frontmatter" # Indicates that content starts with YAML frontmatter
-    fields: # Define fields for your frontmatter
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Order", name: "order", widget: "number", value_type: "int", required: false }
-      - { label: "Navigation Title", name: "navTitle", widget: "string", required: false, hint: "Shorter title for navigation links, if different from main title." }
-      - { label: "Centered Layout", name: "centered", widget: "boolean", required: false, default: false, hint: "Check if this section's content should be centered." }
-      - { label: "Body", name: "body", widget: "markdown", hint: "Main content of the section." }
-      # Add any other common frontmatter fields you use.
-      # For images within the Markdown body, the markdown widget has an image upload button.
-      # If you have a specific "hero image" or "featured image" in frontmatter for sections:
-      # - { label: "Featured Image", name: "featured_image", widget: "image", required: false, media_folder: "public/images/featured", public_folder: "/images/featured" }
+  - name: "sections"
+    label: "Page Sections"
+    folder: "src/content/sections"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Display Order", name: "order", widget: "number", value_type: "int"}
+      - {label: "Navigation Title (Optional)", name: "navTitle", widget: "string", required: false}
+      - {label: "Content", name: "body", widget: "markdown"}
+
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - label: "Site Configuration"
+        name: "site"
+        file: "src/content/settings/site.json"
+        fields:
+          - {label: "Site Title", name: "siteTitle", widget: "string"}
+          - label: "Color Scheme"
+            name: "colors"
+            widget: "object"
+            fields:
+              - {label: "Primary Color", name: "primary", widget: "string", hint: "Hex color code (e.g., #2c5f2d)"}
+              - {label: "Secondary Color", name: "secondary", widget: "string", hint: "Hex color code"}
+              - {label: "Accent Color", name: "accent", widget: "string", hint: "Hex color code"}
+              - {label: "Background Color", name: "background", widget: "string", hint: "Hex color code"}
+              - {label: "Text Color", name: "text", widget: "string", hint: "Hex color code"}
