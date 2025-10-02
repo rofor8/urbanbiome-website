@@ -21,9 +21,8 @@ export async function onRequest(context) {
     });
     
     const tokenData = await tokenResponse.json();
-    
+
     // Send token back to the CMS
-    const tokenJson = JSON.stringify(tokenData).replace(/"/g, '&quot;');
     return new Response(`
       <!DOCTYPE html>
       <html>
@@ -33,8 +32,9 @@ export async function onRequest(context) {
       <body>
         <script>
           (function() {
+            const data = ${JSON.stringify(tokenData)};
             window.opener.postMessage(
-              'authorization:github:success:' + ${JSON.stringify(tokenJson)},
+              'authorization:github:success:' + JSON.stringify(data),
               window.location.origin
             );
             window.close();
