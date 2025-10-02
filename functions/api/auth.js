@@ -44,29 +44,26 @@ export async function onRequest(context) {
               };
 
               const message = 'authorization:github:success:' + JSON.stringify(postMsgContent);
-              console.log('Sending message:', message);
-              console.log('window.opener exists:', !!window.opener);
 
-              // Send message to parent window (opener for popup, parent for iframe)
-              const target = window.opener || window.parent;
-              if (target && target !== window) {
-                console.log('Sending to target origin: *');
-                target.postMessage(message, '*');
-
-                // Also try posting to specific origin
-                try {
-                  target.postMessage(message, window.location.origin);
-                  console.log('Also sent to:', window.location.origin);
-                } catch (e) {
-                  console.log('Could not send to specific origin:', e.message);
-                }
-
+              function receiveMessage(e) {
+                console.log('Received message from opener:', e.data, 'origin:', e.origin);
+                // Send success message back to the origin that contacted us
+                window.opener.postMessage(message, e.origin);
+                console.log('Sent success message to origin:', e.origin);
+                window.removeEventListener("message", receiveMessage, false);
                 setTimeout(function() {
-                  console.log('Closing window...');
                   window.close();
-                }, 2000);
+                }, 1000);
+              }
+
+              if (window.opener) {
+                // Listen for message from opener
+                window.addEventListener("message", receiveMessage, false);
+                // Notify opener we're authorizing
+                console.log('Sending authorizing message');
+                window.opener.postMessage("authorizing:github", "*");
               } else {
-                console.error('No parent window found');
+                console.error('No opener window found');
                 document.body.innerHTML = '<p>Error: No parent window found. You can close this window.</p>';
               }
             } catch (err) {
