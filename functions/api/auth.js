@@ -22,7 +22,7 @@ export async function onRequest(context) {
 
     const tokenData = await tokenResponse.json();
 
-    // Send token back to the CMS - using the exact format Decap expects
+    // Send token back to the CMS - Decap expects { token, provider } format
     return new Response(`
       <!DOCTYPE html>
       <html>
@@ -34,13 +34,19 @@ export async function onRequest(context) {
         <script>
           (function() {
             try {
-              const data = ${JSON.stringify(tokenData)};
-              console.log('Token data:', data);
+              const tokenData = ${JSON.stringify(tokenData)};
+              console.log('Token data:', tokenData);
+
+              // Decap CMS expects this specific format
+              const postMsgContent = {
+                token: tokenData.access_token,
+                provider: 'github'
+              };
 
               // Send message to parent window
               if (window.opener) {
                 window.opener.postMessage(
-                  'authorization:github:success:' + JSON.stringify(data),
+                  'authorization:github:success:' + JSON.stringify(postMsgContent),
                   '*'
                 );
                 setTimeout(function() {
