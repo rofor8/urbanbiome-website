@@ -35,7 +35,7 @@ export async function onRequest(context) {
           (function() {
             try {
               const tokenData = ${JSON.stringify(tokenData)};
-              console.log('Token data:', tokenData);
+              console.log('Full token response:', tokenData);
 
               // Decap CMS expects this specific format
               const postMsgContent = {
@@ -43,16 +43,30 @@ export async function onRequest(context) {
                 provider: 'github'
               };
 
-              // Send message to parent window
-              if (window.opener) {
-                window.opener.postMessage(
-                  'authorization:github:success:' + JSON.stringify(postMsgContent),
-                  '*'
-                );
+              const message = 'authorization:github:success:' + JSON.stringify(postMsgContent);
+              console.log('Sending message:', message);
+              console.log('window.opener exists:', !!window.opener);
+
+              // Send message to parent window (opener for popup, parent for iframe)
+              const target = window.opener || window.parent;
+              if (target && target !== window) {
+                console.log('Sending to target origin: *');
+                target.postMessage(message, '*');
+
+                // Also try posting to specific origin
+                try {
+                  target.postMessage(message, window.location.origin);
+                  console.log('Also sent to:', window.location.origin);
+                } catch (e) {
+                  console.log('Could not send to specific origin:', e.message);
+                }
+
                 setTimeout(function() {
+                  console.log('Closing window...');
                   window.close();
-                }, 1000);
+                }, 2000);
               } else {
+                console.error('No parent window found');
                 document.body.innerHTML = '<p>Error: No parent window found. You can close this window.</p>';
               }
             } catch (err) {
