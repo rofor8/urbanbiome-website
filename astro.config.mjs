@@ -7,18 +7,13 @@ import cloudflare from '@astrojs/cloudflare';
 // https://astro.build/config
 export default defineConfig({
   integrations: [
-    react({
-      include: ['**/keystatic/**/*'],
-    }),
+    react(),
     keystatic()
   ],
   output: 'server',
   adapter: cloudflare({
-    mode: 'directory',
-  }),
-  vite: {
-    ssr: {
-      external: ['react', 'react-dom'],
+    platformProxy: {
+      enabled: true
     },
-  },
+  }),
 });
