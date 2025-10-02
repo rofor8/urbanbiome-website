@@ -2,7 +2,7 @@ backend:
   name: github
   repo: rofor8/urbanbiome-website
   branch: main
-  base_url: https://urbanbiome-website.pages.dev
+  base_url: https://urbanbiome.co.uk
   auth_endpoint: /api/auth
 
 media_folder: "public/images"
