@@ -5,12 +5,6 @@ const contactSettings = await getEntry('settings', 'contact');
 const { email, formspreeId } = contactSettings.data;
 ---
 
-<div class="contact-info">
-  <p class="contact-email">
-    <strong>Email:</strong> <a href={`mailto:${email}`}>{email}</a>
-  </p>
-</div>
-
 <div class="contact-form-container">
   <h4>Send us a message:</h4>
   <form action={`https://formspree.io/f/${formspreeId}`} method="POST">

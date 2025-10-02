@@ -1,8 +1,8 @@
 ---
 title: "Get In Touch"
 order: 13
-navTitle: "Contacts"
+navTitle: "Contact"
 useComponent: "ContactForm"
 ---
 
-For inquiries, collaborations, or to request access to the UrbanBiome Tool, please reach out.
+For inquiries, collaborations, or tool access, reach out at [info@urbanbiome.co.uk](mailto:info@urbanbiome.co.uk) or use the form below.
