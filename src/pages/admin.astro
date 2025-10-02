@@ -1,6 +1,8 @@
 ---
 import AdminApp from '../components/AdminApp.tsx';
 
+export const prerender = true;
+
 const publishableKey = import.meta.env.PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 if (!publishableKey) {
