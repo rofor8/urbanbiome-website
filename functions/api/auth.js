@@ -35,21 +35,14 @@ export async function onRequest(context) {
           (function() {
             try {
               const tokenData = ${JSON.stringify(tokenData)};
-              console.log('Full token response:', tokenData);
-
-              // Decap CMS expects this specific format
               const postMsgContent = {
                 token: tokenData.access_token,
                 provider: 'github'
               };
-
               const message = 'authorization:github:success:' + JSON.stringify(postMsgContent);
 
               function receiveMessage(e) {
-                console.log('Received message from opener:', e.data, 'origin:', e.origin);
-                // Send success message back to the origin that contacted us
                 window.opener.postMessage(message, e.origin);
-                console.log('Sent success message to origin:', e.origin);
                 window.removeEventListener("message", receiveMessage, false);
                 setTimeout(function() {
                   window.close();
@@ -57,17 +50,12 @@ export async function onRequest(context) {
               }
 
               if (window.opener) {
-                // Listen for message from opener
                 window.addEventListener("message", receiveMessage, false);
-                // Notify opener we're authorizing
-                console.log('Sending authorizing message');
                 window.opener.postMessage("authorizing:github", "*");
               } else {
-                console.error('No opener window found');
                 document.body.innerHTML = '<p>Error: No parent window found. You can close this window.</p>';
               }
             } catch (err) {
-              console.error('Error:', err);
               document.body.innerHTML = '<p>Error: ' + err.message + '</p>';
             }
           })();
