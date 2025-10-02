@@ -2,6 +2,8 @@
 // 1. Import the necessary functions and components
 import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import TeamGrid from '@/components/TeamGrid.astro';
+import ContactForm from '@/components/ContactForm.astro';
 
 // 2. Fetch all entries from the "sections" collection
 const allSections = await getCollection('sections');
@@ -11,6 +13,12 @@ allSections.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
 
 // Helper function to create a URL-friendly slug from a title
 const slugify = (text: string) => text.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+
+// Map of component names to actual components
+const componentMap: Record<string, any> = {
+  'TeamGrid': TeamGrid,
+  'ContactForm': ContactForm,
+};
 ---
 
 <BaseLayout title="UrbanBiome - Geospatial Analytics Software Platform">
@@ -56,6 +64,10 @@ const slugify = (text: string) => text.toLowerCase().replace(/\s+/g, '-').replac
             const sectionId = slugify(section.data.title);
             // This line checks if 'centered: true' is in the frontmatter
             const contentClass = section.data.centered ? 'content-wrapper centered' : 'content-wrapper';
+
+            // Check if this section should use a component
+            const Component = section.data.useComponent ? componentMap[section.data.useComponent] : null;
+
             return (
                 <section id={sectionId}>
                     <div class="container">
@@ -64,8 +76,10 @@ const slugify = (text: string) => text.toLowerCase().replace(/\s+/g, '-').replac
                         </div>
                         {/* The 'centered' class is now added dynamically */}
                         <div class={contentClass}>
-                             <!-- This renders the Markdown content correctly -->
+                             <!-- This renders the Markdown content -->
                             <Content />
+                            <!-- If a component is specified, render it after the markdown -->
+                            {Component && <Component />}
                         </div>
                     </div>
                 </section>

@@ -22,6 +22,20 @@ collections:
       - {label: "Navigation Title (Optional)", name: "navTitle", widget: "string", required: false}
       - {label: "Content", name: "body", widget: "markdown"}
 
+  - name: "team"
+    label: "Team Members"
+    folder: "src/content/team"
+    create: true
+    slug: "{{slug}}"
+    extension: "json"
+    fields:
+      - {label: "Name", name: "name", widget: "string"}
+      - {label: "Job Title", name: "jobTitle", widget: "string"}
+      - {label: "Photo", name: "photo", widget: "image", required: false}
+      - {label: "LinkedIn URL", name: "linkedinUrl", widget: "string", required: false, hint: "Full LinkedIn profile URL"}
+      - {label: "Bio", name: "bio", widget: "text"}
+      - {label: "Display Order", name: "order", widget: "number", value_type: "int", default: 1}
+
   - name: "settings"
     label: "Site Settings"
     files:
@@ -39,3 +53,11 @@ collections:
               - {label: "Accent Color", name: "accent", widget: "string", hint: "Hex color code"}
               - {label: "Background Color", name: "background", widget: "string", hint: "Hex color code"}
               - {label: "Text Color", name: "text", widget: "string", hint: "Hex color code"}
+
+      - label: "Contact Information"
+        name: "contact"
+        file: "src/content/settings/contact.json"
+        fields:
+          - {label: "Email", name: "email", widget: "string"}
+          - {label: "Website URL", name: "websiteUrl", widget: "string"}
+          - {label: "Formspree Form ID", name: "formspreeId", widget: "string", hint: "Your Formspree form endpoint (e.g., xldnljgb)"}

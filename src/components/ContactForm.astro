@@ -1,0 +1,29 @@
+---
+import { getEntry } from 'astro:content';
+
+const contactSettings = await getEntry('settings', 'contact');
+const { email, websiteUrl, formspreeId } = contactSettings.data;
+---
+
+<div class="contact-info">
+  <h4>Email</h4>
+  <p><a href={`mailto:${email}`}>{email}</a></p>
+
+  <h4>Website</h4>
+  <p><a href={websiteUrl}>{websiteUrl.replace('https://', '')}</a></p>
+</div>
+
+<div class="contact-form-container">
+  <h4>Or send us a message directly:</h4>
+  <form action={`https://formspree.io/f/${formspreeId}`} method="POST">
+    <label>
+      Your email:
+      <input type="email" name="email" required />
+    </label>
+    <label>
+      Your message:
+      <textarea name="message" required></textarea>
+    </label>
+    <button type="submit" class="btn">Send</button>
+  </form>
+</div>
