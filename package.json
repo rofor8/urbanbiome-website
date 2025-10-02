@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "tinacms dev -c \"astro dev\"",
+    "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
@@ -11,12 +11,11 @@
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.9",
     "@astrojs/react": "^4.4.0",
-    "@clerk/clerk-react": "^5.49.1",
-    "@tinacms/cli": "^1.11.0",
+    "@keystatic/astro": "^5.0.6",
+    "@keystatic/core": "^0.5.48",
     "astro": "^5.9.4",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "tinacms": "^2.9.0"
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
     "@types/node": "^20.14.2"

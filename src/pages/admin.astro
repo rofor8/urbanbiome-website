@@ -1,21 +1,5 @@
 ---
-import AdminApp from '../components/AdminApp.tsx';
-
-const publishableKey = import.meta.env.PUBLIC_CLERK_PUBLISHABLE_KEY;
-
-if (!publishableKey) {
-  throw new Error('Missing PUBLIC_CLERK_PUBLISHABLE_KEY environment variable');
-}
+// Keystatic provides its own admin UI at /keystatic
+// Redirect to the Keystatic admin panel
+return Astro.redirect('/keystatic');
 ---
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Urban Biome</title>
-</head>
-<body style="margin: 0; padding: 0;">
-    <AdminApp client:only="react" publishableKey={publishableKey} />
-</body>
-</html>
