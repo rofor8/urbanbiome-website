@@ -36,7 +36,6 @@ const settings = defineCollection({
     }).optional(),
     // Contact settings
     email: z.string().optional(),
-    websiteUrl: z.string().optional(),
     formspreeId: z.string().optional(),
   }),
 });

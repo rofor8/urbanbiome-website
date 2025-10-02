@@ -59,5 +59,4 @@ collections:
         file: "src/content/settings/contact.json"
         fields:
           - {label: "Email", name: "email", widget: "string"}
-          - {label: "Website URL", name: "websiteUrl", widget: "string"}
           - {label: "Formspree Form ID", name: "formspreeId", widget: "string", hint: "Your Formspree form endpoint (e.g., xldnljgb)"}
