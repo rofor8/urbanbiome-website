@@ -18,8 +18,15 @@ function AdminContent() {
     });
   }, []);
 
-  // Check if user has admin role in private metadata
+  // Check if user has admin role in public metadata
   const isAdmin = user?.publicMetadata?.role === 'admin';
+
+  // Debug logging (remove after testing)
+  console.log('User metadata check:', {
+    userId: user?.id,
+    publicMetadata: user?.publicMetadata,
+    isAdmin
+  });
 
   // Show loading state while user data loads
   if (!isLoaded) {
