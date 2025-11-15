@@ -4,7 +4,7 @@ order: 3
 navTitle: "Explorer"
 ---
 
-Analyze urban environments with powerful satellite data visualization. Process live Sentinel-2 imagery to reveal vegetation patterns using NDVI (Normalized Difference Vegetation Index). Track changes in vegetation over time and identify areas lacking green space for targeted greening interventions.
+Analyze cumulative urban challenges across Bristol with the Explorer tool. This interactive map uses our 'Red Glass' visualization concept, stacking multiple layers of concern—from air quality and urban heat to traffic safety and crime. Deeper shades of red instantly reveal areas where environmental and social challenges overlap, helping to identify priority areas for intervention.
 
 <iframe
 src="https://explorer.urbanbiome.co.uk/"
