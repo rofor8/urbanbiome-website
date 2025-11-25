@@ -14,3 +14,7 @@ allowfullscreen
 >
 Your browser does not support iframes. Please <a href="https://sightings.urbanbiome.co.uk/">visit the Sightings Tool directly</a>.
 </iframe>
+
+<p style="text-align: center; margin-top: 1rem;">
+<a href="https://sightings.urbanbiome.co.uk/" target="_blank" rel="noopener noreferrer" style="display: inline-block; padding: 12px 24px; background-color: var(--primary); color: white; text-decoration: none; border-radius: 6px; font-weight: 600; transition: background-color 0.2s ease;">Open Full Sightings Tool →</a>
+</p>
