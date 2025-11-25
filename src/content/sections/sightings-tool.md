@@ -1,6 +1,6 @@
 ---
 title: "Community Sightings Tool"
-order: 2
+order: 3
 navTitle: "Sightings"
 ---
 

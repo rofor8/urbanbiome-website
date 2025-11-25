@@ -1,6 +1,6 @@
 ---
 title: "Explorer Tool"
-order: 3
+order: 2
 navTitle: "Explorer"
 ---
 
