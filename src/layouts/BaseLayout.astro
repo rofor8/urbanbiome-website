@@ -117,6 +117,13 @@ import '../styles/modern.css';
         h2 { font-size: 1.875rem; }
         h3 { font-size: 1.5rem; }
         p { font-size: 1rem; }
+        .hero {
+            min-height: 40vh;
+            padding: 60px 20px;
+        }
+        .hero h1 {
+            font-size: 2em;
+        }
     }
     .hero {
         background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/images/nature-image.png') no-repeat center center/cover;
@@ -171,6 +178,34 @@ import '../styles/modern.css';
         text-decoration: none;
     }
 
+    /* Hamburger menu button - hidden on desktop */
+    .mobile-menu-toggle {
+        display: none;
+        flex-direction: column;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+        z-index: 1001;
+    }
+    .mobile-menu-toggle span {
+        width: 25px;
+        height: 3px;
+        background-color: var(--text-color);
+        margin: 3px 0;
+        transition: all 0.3s ease;
+        border-radius: 3px;
+    }
+    .mobile-menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(8px, 8px);
+    }
+    .mobile-menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    .mobile-menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
+    }
+
     /* Dropdown navigation styles */
     .dropdown {
         position: relative;
@@ -219,15 +254,30 @@ import '../styles/modern.css';
 
     /* Mobile navigation improvements */
     @media (max-width: 768px) {
+        .mobile-menu-toggle {
+            display: flex;
+        }
         .nav-links {
+            display: none;
             flex-direction: column;
             align-items: flex-start;
             width: 100%;
             margin-top: 10px;
+            background-color: var(--light-bg);
+            padding: 15px 0;
+            border-radius: 5px;
+        }
+        .nav-links.active {
+            display: flex;
         }
         .nav-links li {
             margin: 5px 0;
             margin-left: 0;
+            width: 100%;
+        }
+        .nav-links a {
+            display: block;
+            padding: 10px 15px;
         }
         .dropdown-menu {
             position: static;
@@ -243,8 +293,12 @@ import '../styles/modern.css';
             font-size: 0.9em;
         }
         .navbar .container {
-            flex-direction: column;
-            align-items: flex-start;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .nav-links {
+            order: 3;
         }
     }
     main section {

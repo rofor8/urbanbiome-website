@@ -30,6 +30,11 @@ const componentMap: Record<string, any> = {
     <nav class="navbar">
         <div class="container">
             <a href="/" class="logo">UrbanBiome</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <ul class="nav-links">
                 <!-- Content sections navigation -->
                 {allSections.map(section => {
@@ -38,9 +43,29 @@ const componentMap: Record<string, any> = {
                         <li><a href={`#${slugify(section.data.title)}`}>{navText}</a></li>
                     )
                 })}
-              
+            </ul>
         </div>
     </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            toggle?.addEventListener('click', () => {
+                navLinks?.classList.toggle('active');
+                toggle?.classList.toggle('active');
+            });
+
+            // Close menu when clicking a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks?.classList.remove('active');
+                    toggle?.classList.remove('active');
+                });
+            });
+        });
+    </script>
 
     <main>
         <!-- Loop through the sections again to create the content blocks -->
