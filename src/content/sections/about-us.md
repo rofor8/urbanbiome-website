@@ -1,6 +1,6 @@
 ---
 title: "Meet Our Team"
-order: 6
+order: 1
 navTitle: "About us"
 useComponent: "TeamGrid"
 ---
