@@ -1,6 +1,6 @@
 ---
 title: Get In Touch
-order: 6
+order: 7
 navTitle: Contact
 useComponent: ContactForm
 ---
