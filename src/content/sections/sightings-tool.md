@@ -1,6 +1,6 @@
 ---
 title: "Community Sightings Tool"
-order: 3
+order: 4
 navTitle: "UB Sightings"
 ---
 
