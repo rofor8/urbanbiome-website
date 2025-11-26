@@ -1,6 +1,6 @@
 ---
 title: Support Our Work
-order: 5
+order: 6
 navTitle: Donate
 ---
 
