@@ -1,7 +1,7 @@
 ---
 title: "Explorer Tool"
 order: 2
-navTitle: "Explorer"
+navTitle: "UB Explorer"
 ---
 
 Analyze cumulative urban challenges across Bristol with the Explorer tool. This interactive map uses our 'Red Glass' visualization concept, stacking multiple layers of concern—from air quality and urban heat to traffic safety and crime. Deeper shades of red instantly reveal areas where environmental and social challenges overlap, helping to identify priority areas for intervention.
