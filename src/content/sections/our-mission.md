@@ -1,6 +1,6 @@
 ---
 title: Our Mission
-order: 2
+order: 1
 navTitle: Our Mission
 ---
 
