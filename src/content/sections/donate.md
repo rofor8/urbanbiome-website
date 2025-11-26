@@ -1,7 +1,7 @@
 ---
 title: Support Our Work
 order: 11
-navTitle: Support
+navTitle: Donate
 ---
 
 Help us build accessible environmental intelligence tools for communities. Your support enables us to develop open tools, conduct research, and make geospatial analytics available to organizations working toward sustainable, equitable urban futures.
