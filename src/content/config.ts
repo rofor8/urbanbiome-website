@@ -40,4 +40,15 @@ const settings = defineCollection({
   }),
 });
 
-export const collections = { sections, team, settings };
+const partners = defineCollection({
+  type: 'data',
+  schema: z.object({
+    name: z.string(),
+    description: z.string(),
+    logo: z.string(),
+    url: z.string(),
+    order: z.number(),
+  }),
+});
+
+export const collections = { sections, team, settings, partners };
